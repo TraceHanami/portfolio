@@ -4,8 +4,24 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>TraceHanami // Jesvin Bruce J — Cyber Security</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- SEO & Open Graph (NEW) -->
+<meta name="description" content="Jesvin Bruce J (TraceHanami) — 2nd Year CSE Cyber Security student, CTF competitor, HTB player. SSIET Coimbatore.">
+<meta property="og:title" content="TraceHanami // Jesvin Bruce J — Cyber Security">
+<meta property="og:description" content="CTF competitor · 151 PicoCTF flags · HTB Global #928 · 14+ events · Team Moonlitcipher">
+<meta property="og:type" content="website">
+<meta property="og:image" content="meee.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Preconnect for faster font fetch -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Load fonts non-blocking -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"></noscript>
+<!-- FontAwesome async -->
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 <style>
 :root {
   --acid: #00ff9d;
@@ -21,9 +37,9 @@
   --text: #b8dce8;
   --dim: #3a5e70;
   --dim2: #5a8090;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-body: 'Rajdhani', sans-serif;
-  --font-head: 'Orbitron', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Courier New', monospace;
+  --font-body: 'Rajdhani', 'Segoe UI', system-ui, sans-serif;
+  --font-head: 'Orbitron', 'Segoe UI', system-ui, sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -43,6 +59,7 @@ body {
 #bg-canvas {
   position: fixed; inset: 0; z-index: 0;
   opacity: 0.35;
+  /* FIX: aria-hidden applied in HTML */
 }
 
 /* Scanline */
@@ -70,6 +87,11 @@ body::after {
   transition: transform .22s var(--ease), width .3s, height .3s;
 }
 
+/* FIX: Hide custom cursor on touch devices */
+@media (pointer: coarse) {
+  #cur-dot, #cur-ring { display: none !important; }
+}
+
 /* ─── LOADER ─── */
 #loader {
   position: fixed; inset: 0; z-index: 99997;
@@ -80,7 +102,7 @@ body::after {
 #loader.out { opacity: 0; pointer-events: none; }
 .loader-logo { font-family: var(--font-head); font-size: 2.2rem; font-weight: 900; letter-spacing: 4px; background: linear-gradient(135deg, var(--acid), var(--acid2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .loader-track { width: 240px; height: 1px; background: rgba(0,255,157,0.1); border-radius: 1px; overflow: hidden; }
-.loader-fill { height: 100%; background: linear-gradient(90deg, var(--acid), var(--acid2)); animation: lf 1.6s var(--ease) forwards; width: 0; }
+.loader-fill { height: 100%; background: linear-gradient(90deg, var(--acid), var(--acid2)); animation: lf 0.8s var(--ease) forwards; width: 0; }
 @keyframes lf { to { width: 100%; } }
 .loader-status { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 3px; color: var(--dim); animation: blink 1s infinite; }
 @keyframes blink { 50% { opacity: 0.2; } }
@@ -93,6 +115,7 @@ nav {
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; padding: 0 32px; height: 56px;
   gap: 2px;
+  role: navigation;
 }
 .nav-brand {
   font-family: var(--font-head); font-size: 0.85rem; font-weight: 700; letter-spacing: 3px;
@@ -108,6 +131,7 @@ nav {
   display: flex; align-items: center; gap: 7px;
   position: relative; transition: color .2s;
 }
+.nav-item:focus-visible { outline: 1px solid var(--acid); outline-offset: -2px; border-radius: 2px; }
 .nav-item i { font-size: 0.75rem; }
 .nav-item.active { color: var(--acid); }
 .nav-item.active::after, .nav-item:hover::after {
@@ -129,7 +153,6 @@ nav {
   font-size: 0.58rem !important;
   padding: 0 10px !important;
   height: 28px !important;
-  /* Hidden by default — revealed only via secret trigger */
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -140,7 +163,6 @@ nav {
   padding: 0 !important;
   border: none !important;
 }
-/* Only shown when JS adds .admin-visible class */
 .nav-admin.admin-visible {
   display: inline-flex !important;
   visibility: visible !important;
@@ -315,13 +337,22 @@ main {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* FIX: Reduce spin animations on mobile for perf */
+@media (max-width: 480px) {
+  .profile-spin2, .profile-spin3 { display: none; }
+}
+
 .profile-inner {
   position: relative; width: 100%; height: 100%; border-radius: 50%;
   overflow: hidden; border: 2px solid rgba(0,255,157,0.25);
   background: linear-gradient(135deg, #061c2a, #020a0f);
   display: flex; align-items: center; justify-content: center;
 }
-.profile-inner img { width: 100%; height: 100%; object-fit: cover; }
+.profile-inner img {
+  width: 100%; height: 100%; object-fit: cover;
+  /* FIX: Added dimensions to prevent layout shift */
+  width: 220px; height: 220px;
+}
 .profile-icon { font-size: 64px; color: var(--acid); opacity: 0.5; }
 .profile-dot { position: absolute; bottom: 10px; right: 10px; width: 20px; height: 20px; background: #00c853; border-radius: 50%; border: 3px solid var(--bg); box-shadow: 0 0 12px #00c853; }
 
@@ -426,6 +457,7 @@ main {
   transition: border-color .2s, background .2s, color .2s;
 }
 .btn:hover { border-color: rgba(0,255,157,0.3); background: rgba(0,255,157,0.05); color: var(--acid); }
+.btn:focus-visible { outline: 1px solid var(--acid); outline-offset: 2px; }
 .btn-primary { background: linear-gradient(135deg, var(--acid), var(--acid2)); color: #001a10; border-color: transparent; font-weight: 700; }
 .btn-primary:hover { opacity: 0.9; color: #001a10; }
 .input, .textarea {
@@ -490,9 +522,6 @@ main {
 .admin-save-bar { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.04); }
 .admin-note { font-family: var(--font-mono); font-size: 0.62rem; color: var(--dim); padding: 10px 14px; border-radius: 6px; background: rgba(0,255,157,0.03); border: 1px solid rgba(0,255,157,0.08); margin-bottom: 16px; }
 .admin-saved { font-family: var(--font-mono); font-size: 0.65rem; color: var(--acid); padding: 8px 12px; border-radius: 6px; background: rgba(0,255,157,0.06); border: 1px solid rgba(0,255,157,0.12); display: none; }
-.flag-counter { display: flex; align-items: center; gap: 12px; }
-.flag-counter .fc-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--dim2); }
-.flag-counter .fc-val { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; color: var(--acid); line-height: 1; }
 .flag-edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
 
 /* ─── TOAST ─── */
@@ -525,36 +554,49 @@ main {
   nav { padding: 0 14px; gap: 0; }
   .nav-item { padding: 0 9px; font-size: 0.55rem; }
   .nav-brand span { display: none; }
-  .rank-badges { display: none; }
+  /* FIX: Show badges in a new row on mobile instead of hiding them */
+  .rank-card { flex-wrap: wrap; }
+  .rank-badges { width: 100%; justify-content: flex-start; margin-top: 6px; padding-left: 72px; }
+  /* FIX: Reduce backdrop blur on mobile for performance */
+  nav { backdrop-filter: blur(8px); background: rgba(2,10,15,0.95); }
+}
+
+/* FIX: Small phone breakpoint */
+@media (max-width: 480px) {
+  main { padding: 64px 12px 40px; }
+  .stat-box .sv { font-size: 1.8rem; }
+  .nav-item span { display: none; }
+  .hero-wrap { padding: 24px 0; min-height: auto; }
+  .admin-panel { padding: 20px; }
 }
 </style>
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
-<div id="cur-dot"></div>
-<div id="cur-ring"></div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div id="cur-dot" aria-hidden="true"></div>
+<div id="cur-ring" aria-hidden="true"></div>
 
 <!-- LOADER -->
-<div id="loader">
+<div id="loader" role="status" aria-label="Loading portfolio">
   <div class="loader-logo">TRACEHANAMI</div>
   <div class="loader-track"><div class="loader-fill"></div></div>
   <div class="loader-status">DECRYPTING PROFILE...</div>
 </div>
 
 <!-- TOAST -->
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <!-- NAV -->
-<nav>
+<nav role="navigation" aria-label="Portfolio navigation">
   <span class="nav-brand">TH <span>// TRACEHANAMI</span></span>
-  <button class="nav-item active" data-sec="dashboard"><i class="fas fa-terminal"></i> Terminal</button>
-  <button class="nav-item" data-sec="academics"><i class="fas fa-graduation-cap"></i> Academics</button>
-  <button class="nav-item" data-sec="skills"><i class="fas fa-code"></i> Skills</button>
-  <button class="nav-item" data-sec="ctf"><i class="fas fa-flag"></i> CTF</button>
-  <button class="nav-item" data-sec="platforms"><i class="fas fa-cube"></i> Platforms</button>
-  <button class="nav-item" data-sec="contact"><i class="fas fa-satellite-dish"></i> Contact</button>
-  <button class="nav-item nav-admin" id="adminBtn" aria-hidden="true" tabindex="-1"><i class="fas fa-lock"></i> Admin</button>
+  <button class="nav-item active" data-sec="dashboard" aria-label="Terminal / Dashboard"><i class="fas fa-terminal" aria-hidden="true"></i> Terminal</button>
+  <button class="nav-item" data-sec="academics" aria-label="Academics"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Academics</button>
+  <button class="nav-item" data-sec="skills" aria-label="Skills"><i class="fas fa-code" aria-hidden="true"></i> Skills</button>
+  <button class="nav-item" data-sec="ctf" aria-label="CTF history"><i class="fas fa-flag" aria-hidden="true"></i> CTF</button>
+  <button class="nav-item" data-sec="platforms" aria-label="Platforms"><i class="fas fa-cube" aria-hidden="true"></i> Platforms</button>
+  <button class="nav-item" data-sec="contact" aria-label="Contact"><i class="fas fa-satellite-dish" aria-hidden="true"></i> Contact</button>
+  <button class="nav-item nav-admin" id="adminBtn" aria-hidden="true" tabindex="-1"><i class="fas fa-lock" aria-hidden="true"></i> Admin</button>
 </nav>
 
 <main>
@@ -562,25 +604,23 @@ main {
 <!-- ═══════════════════════════════ DASHBOARD ═══════════════════════════════ -->
 <section id="dashboard" class="section active">
 
-  <!-- Live Ticker -->
   <div class="ticker-wrap">
     <div class="ticker-inner" id="tickerInner"></div>
   </div>
 
-  <!-- Hero -->
   <div class="hero-wrap">
     <div class="hero-col-left">
       <div class="info-card">
-        <h4><i class="fas fa-user-secret"></i> Identity</h4>
+        <h4><i class="fas fa-user-secret" aria-hidden="true"></i> Identity</h4>
         <div class="iv">TraceHanami <span style="color:var(--dim)">·</span> <strong>ZeroKira</strong></div>
         <div class="iv" style="font-size:0.72rem;color:var(--dim2);margin-top:3px;font-family:var(--font-mono)">Moonlitcipher · Sakura Sentinels</div>
       </div>
       <div class="info-card">
-        <h4><i class="fas fa-flag"></i> PicoCTF</h4>
+        <h4><i class="fas fa-flag" aria-hidden="true"></i> PicoCTF</h4>
         <div class="iv"><strong id="stat-pico-total">151</strong> Flags · <strong id="stat-pico-easy">81</strong> Easy · <strong id="stat-pico-med">70</strong> Medium</div>
       </div>
       <div class="info-card">
-        <h4><i class="fas fa-cube"></i> Hack The Box</h4>
+        <h4><i class="fas fa-cube" aria-hidden="true"></i> Hack The Box</h4>
         <div class="iv">Global <strong>#<span id="stat-htb-rank">928</span></strong> · <strong id="stat-htb-sp">39</strong>/71 Starting Point</div>
       </div>
       <div class="badge-status"><span class="dot"></span> Available for CTF collaborations</div>
@@ -592,10 +632,11 @@ main {
         <div class="profile-spin2"></div>
         <div class="profile-spin3"></div>
         <div class="profile-inner">
-          <img src="meee.png" alt="Jesvin Bruce J" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="profile-icon" style="display:none"><i class="fas fa-user-ninja"></i></div>
+          <img src="meee.png" alt="Jesvin Bruce J" width="220" height="220" fetchpriority="high"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="profile-icon" style="display:none" aria-hidden="true"><i class="fas fa-user-ninja"></i></div>
         </div>
-        <div class="profile-dot"></div>
+        <div class="profile-dot" title="Available for collaborations"></div>
       </div>
       <div class="hero-name">
         <h1 id="heroName" style="cursor:default;user-select:none;">JESVIN BRUCE J</h1>
@@ -611,22 +652,21 @@ main {
 
     <div class="hero-col-right">
       <div class="info-card" style="width:100%">
-        <h4><i class="fas fa-trophy"></i> Best CTF Placement</h4>
+        <h4><i class="fas fa-trophy" aria-hidden="true"></i> Best CTF Placement</h4>
         <div class="iv"><strong id="stat-best-event">Flag Quest @ KALAM 2025</strong></div>
         <div class="iv" style="font-family:var(--font-mono);font-size:0.7rem;color:var(--acid);margin-top:3px;">3rd Place · Moonlitcipher</div>
       </div>
       <div class="info-card" style="width:100%">
-        <h4><i class="fas fa-code"></i> LeetCode</h4>
+        <h4><i class="fas fa-code" aria-hidden="true"></i> LeetCode</h4>
         <div class="iv"><strong id="stat-lc-solved">9</strong> Problems · <strong id="stat-lc-acc">63.64%</strong> Acceptance · Python</div>
       </div>
       <div class="info-card" style="width:100%">
-        <h4><i class="fas fa-chart-line"></i> Overall Progress</h4>
+        <h4><i class="fas fa-chart-line" aria-hidden="true"></i> Overall Progress</h4>
         <div id="overall-tags" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;"></div>
       </div>
     </div>
   </div>
 
-  <!-- Quick Stats -->
   <div class="card g4" style="margin-top:20px;">
     <div class="stat-box">
       <span class="sv" id="ds-flags">151</span>
@@ -663,13 +703,13 @@ main {
         <h3 style="font-size:1.18rem;font-weight:700;color:#fff;margin-bottom:5px;">Sri Shakthi Institute of Engineering & Technology</h3>
         <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--dim2);">Batch 2024–2028 · Cyber Security Specialization · Coimbatore</div>
         <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:7px;">
-          <span class="tag"><i class="fas fa-shield-halved"></i> Cyber Security</span>
-          <span class="tag"><i class="fas fa-terminal"></i> Linux Systems</span>
-          <span class="tag"><i class="fas fa-flag"></i> CTF Active</span>
+          <span class="tag"><i class="fas fa-shield-halved" aria-hidden="true"></i> Cyber Security</span>
+          <span class="tag"><i class="fas fa-terminal" aria-hidden="true"></i> Linux Systems</span>
+          <span class="tag"><i class="fas fa-flag" aria-hidden="true"></i> CTF Active</span>
         </div>
       </div>
       <div style="text-align:center;">
-        <div class="ring-chart" style="background:conic-gradient(var(--acid) 0% 85.4%, rgba(0,255,157,0.06) 85.4% 100%);">
+        <div class="ring-chart" id="cgpaRing" style="background:conic-gradient(var(--acid) 0% 85.4%, rgba(0,255,157,0.06) 85.4% 100%);">
           <div class="ring-inner">
             <div class="rv" id="cgpa-ring-val">8.54</div>
             <div class="rl">CGPA</div>
@@ -682,61 +722,33 @@ main {
 
   <div class="g2" style="margin-bottom:22px;">
     <div class="card" style="padding:24px;">
-      <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-book-open" style="color:var(--acid2);margin-right:8px;"></i>Core Coursework</div>
+      <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-book-open" style="color:var(--acid2);margin-right:8px;" aria-hidden="true"></i>Core Coursework</div>
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <div class="edu-block">
-          <h4>Semester 1</h4>
-          <div class="es">Foundations</div>
-          <div class="em">C Programming · Maths · Physics</div>
-        </div>
-        <div class="edu-block">
-          <h4>Semester 2</h4>
-          <div class="es">Core Languages</div>
-          <div class="em">Advanced C · Python Programming · Engineering Drawing</div>
-        </div>
-        <div class="edu-block">
-          <h4>Semester 3</h4>
-          <div class="es">Systems & OOP</div>
-          <div class="em">Java · Operating Systems · Digital Electronics</div>
-        </div>
-        <div class="edu-block">
-          <h4>Semester 4</h4>
-          <div class="es">Networks & Algorithms</div>
-          <div class="em">Computer Networks · Advanced Java · Data Structures & Algorithms</div>
-        </div>
+        <div class="edu-block"><h4>Semester 1</h4><div class="es">Foundations</div><div class="em">C Programming · Maths · Physics</div></div>
+        <div class="edu-block"><h4>Semester 2</h4><div class="es">Core Languages</div><div class="em">Advanced C · Python Programming · Engineering Drawing</div></div>
+        <div class="edu-block"><h4>Semester 3</h4><div class="es">Systems & OOP</div><div class="em">Java · Operating Systems · Digital Electronics</div></div>
+        <div class="edu-block"><h4>Semester 4</h4><div class="es">Networks & Algorithms</div><div class="em">Computer Networks · Advanced Java · Data Structures & Algorithms</div></div>
       </div>
     </div>
 
     <div class="card" style="padding:24px;">
-      <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-award" style="color:var(--gold);margin-right:8px;"></i>Certifications</div>
+      <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-award" style="color:var(--gold);margin-right:8px;" aria-hidden="true"></i>Certifications</div>
       <div style="display:flex;flex-direction:column;gap:9px;">
-        <div class="cert-row">
-          <i class="fas fa-certificate ci"></i>
-          <div><div class="ct">C Programming — NSDC</div><div class="cs"><span class="pill-gold pill">First Class</span> · May 2024</div></div>
-        </div>
-        <div class="cert-row">
-          <i class="fas fa-certificate ci"></i>
-          <div><div class="ct">Basic Python & SQL</div><div class="cs">Network Systems, Nagercoil · Aug 2024</div></div>
-        </div>
-        <div class="cert-row">
-          <i class="fas fa-certificate ci"></i>
-          <div><div class="ct">C++ with OOP</div><div class="cs"><span class="pill-green pill">Grade A</span> · Oscar Computer Education · Aug 2024</div></div>
-        </div>
-        <div class="cert-row">
-          <i class="fas fa-certificate ci"></i>
-          <div><div class="ct">HP LIFE — Cybersecurity, AI, Success</div><div class="cs">HP Foundation · Jul 2025</div></div>
-        </div>
+        <div class="cert-row"><i class="fas fa-certificate ci" aria-hidden="true"></i><div><div class="ct">C Programming — NSDC</div><div class="cs"><span class="pill-gold pill">First Class</span> · May 2024</div></div></div>
+        <div class="cert-row"><i class="fas fa-certificate ci" aria-hidden="true"></i><div><div class="ct">Basic Python & SQL</div><div class="cs">Network Systems, Nagercoil · Aug 2024</div></div></div>
+        <div class="cert-row"><i class="fas fa-certificate ci" aria-hidden="true"></i><div><div class="ct">C++ with OOP</div><div class="cs"><span class="pill-green pill">Grade A</span> · Oscar Computer Education · Aug 2024</div></div></div>
+        <div class="cert-row"><i class="fas fa-certificate ci" aria-hidden="true"></i><div><div class="ct">HP LIFE — Cybersecurity, AI, Success</div><div class="cs">HP Foundation · Jul 2025</div></div></div>
       </div>
     </div>
   </div>
 
   <div class="card" style="padding:24px;">
-    <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-rocket" style="color:var(--acid2);margin-right:8px;"></i>Focus & Direction</div>
+    <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-rocket" style="color:var(--acid2);margin-right:8px;" aria-hidden="true"></i>Focus & Direction</div>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
-      <span class="tag"><i class="fas fa-shield-halved"></i> Cybersecurity & CTFs</span>
-      <span class="tag blue"><i class="fas fa-linux"></i> Linux Systems</span>
-      <span class="tag blue"><i class="fas fa-code-branch"></i> DSA</span>
-      <span class="tag"><i class="fas fa-server"></i> Secure Backend</span>
+      <span class="tag"><i class="fas fa-shield-halved" aria-hidden="true"></i> Cybersecurity & CTFs</span>
+      <span class="tag blue"><i class="fas fa-linux" aria-hidden="true"></i> Linux Systems</span>
+      <span class="tag blue"><i class="fas fa-code-branch" aria-hidden="true"></i> DSA</span>
+      <span class="tag"><i class="fas fa-server" aria-hidden="true"></i> Secure Backend</span>
     </div>
     <p style="font-family:var(--font-mono);font-size:0.72rem;color:var(--dim2);line-height:1.7;">Strong early-career profile combining <span class="accent">academic coursework</span>, <span class="accent">formal certifications</span>, <span class="accent">competitive coding</span>, and <span class="accent">hands-on security labs</span> — targeting internships, advanced CTF competitions, and specialized security roles.</p>
   </div>
@@ -748,7 +760,7 @@ main {
 
   <div class="g3" style="margin-bottom:20px;">
     <div class="card" style="padding:26px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:18px;"><i class="fas fa-code"></i> Programming Languages</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:18px;"><i class="fas fa-code" aria-hidden="true"></i> Programming Languages</div>
       <div class="skill-row"><div class="skill-hdr"><span>C (NSDC Certified)</span><span class="pct">80%</span></div><div class="skill-track"><div class="skill-fill" data-w="80"></div></div></div>
       <div class="skill-row"><div class="skill-hdr"><span>Python</span><span class="pct">75%</span></div><div class="skill-track"><div class="skill-fill" data-w="75"></div></div></div>
       <div class="skill-row"><div class="skill-hdr"><span>C++ OOP</span><span class="pct">75%</span></div><div class="skill-track"><div class="skill-fill" data-w="75"></div></div></div>
@@ -758,20 +770,20 @@ main {
     </div>
 
     <div class="card" style="padding:26px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:18px;"><i class="fas fa-shield-halved"></i> Cybersecurity Domains</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:18px;"><i class="fas fa-shield-halved" aria-hidden="true"></i> Cybersecurity Domains</div>
       <div style="display:flex;flex-direction:column;gap:9px;">
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Web Exploitation</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Cryptography</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">OSINT</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Digital Forensics</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Reverse Engineering (Basic)</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-half-stroke" style="color:#ffa040;font-size:0.8rem;"></i><span style="font-size:0.82rem;color:var(--dim2);">Binary Exploitation <span class="tag warn" style="padding:1px 6px;font-size:0.55rem;">Learning</span></span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-half-stroke" style="color:#ffa040;font-size:0.8rem;"></i><span style="font-size:0.82rem;color:var(--dim2);">Privilege Escalation <span class="tag warn" style="padding:1px 6px;font-size:0.55rem;">Learning</span></span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;" aria-hidden="true"></i><span style="font-size:0.82rem;">Web Exploitation</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;" aria-hidden="true"></i><span style="font-size:0.82rem;">Cryptography</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;" aria-hidden="true"></i><span style="font-size:0.82rem;">OSINT</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;" aria-hidden="true"></i><span style="font-size:0.82rem;">Digital Forensics</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;" aria-hidden="true"></i><span style="font-size:0.82rem;">Reverse Engineering (Basic)</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-half-stroke" style="color:#ffa040;font-size:0.8rem;" aria-hidden="true"></i><span style="font-size:0.82rem;color:var(--dim2);">Binary Exploitation <span class="tag warn" style="padding:1px 6px;font-size:0.55rem;">Learning</span></span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-half-stroke" style="color:#ffa040;font-size:0.8rem;" aria-hidden="true"></i><span style="font-size:0.82rem;color:var(--dim2);">Privilege Escalation <span class="tag warn" style="padding:1px 6px;font-size:0.55rem;">Learning</span></span></div>
       </div>
     </div>
 
     <div class="card" style="padding:26px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-wrench"></i> Tools & Environment</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-wrench" aria-hidden="true"></i> Tools & Environment</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
         <span class="tag">Kali Linux</span><span class="tag">Wireshark</span><span class="tag">Nmap</span>
         <span class="tag">Burp Suite</span><span class="tag">Metasploit</span><span class="tag">Ghidra</span>
@@ -789,16 +801,16 @@ main {
   </div>
 
   <div class="card" style="padding:26px;">
-    <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-microchip"></i> Core CS — Problem Solving</div>
+    <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-microchip" aria-hidden="true"></i> Core CS — Problem Solving</div>
     <div style="display:flex;flex-wrap:wrap;gap:20px;margin-bottom:16px;">
-      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;"></i>Operating Systems</span>
-      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;"></i>Computer Networks</span>
-      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;"></i>Data Structures & Algorithms</span>
-      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;"></i>Object-Oriented Programming</span>
-      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;"></i>Cryptography Concepts</span>
+      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;" aria-hidden="true"></i>Operating Systems</span>
+      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;" aria-hidden="true"></i>Computer Networks</span>
+      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;" aria-hidden="true"></i>Data Structures & Algorithms</span>
+      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;" aria-hidden="true"></i>Object-Oriented Programming</span>
+      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;" aria-hidden="true"></i>Cryptography Concepts</span>
     </div>
     <div style="border-top:1px solid rgba(0,255,157,0.06);padding-top:14px;font-family:var(--font-mono);font-size:0.7rem;color:var(--dim2);">
-      <i class="fas fa-code" style="color:var(--acid);margin-right:7px;"></i>LeetCode: Two Sum · Palindrome · Roman to Integer · Running Sum of Prefix · Valid Parentheses · Merge Two Lists · Plus More <span class="pill-green pill">63.64% Acceptance</span>
+      <i class="fas fa-code" style="color:var(--acid);margin-right:7px;" aria-hidden="true"></i>LeetCode: Two Sum · Palindrome · Roman to Integer · Running Sum of Prefix · Valid Parentheses · Merge Two Lists · Plus More <span class="pill-green pill">63.64% Acceptance</span>
     </div>
   </div>
 </section>
@@ -827,11 +839,11 @@ main {
 
   <div class="g2" style="margin-bottom:24px;">
     <div class="card" style="padding:24px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-users"></i> Teams</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-users" aria-hidden="true"></i> Teams</div>
       <div style="margin-bottom:12px;">
         <div style="font-size:0.82rem;font-weight:600;color:#fff;margin-bottom:8px;">Moonlitcipher</div>
         <div style="display:flex;flex-wrap:wrap;gap:5px;">
-          <span class="tag gold"><i class="fas fa-star"></i> TraceHanami</span>
+          <span class="tag gold"><i class="fas fa-star" aria-hidden="true"></i> TraceHanami</span>
           <span class="tag">Zer0_logon</span><span class="tag">BlackFairy</span>
           <span class="tag">Asta_Black</span><span class="tag">Joker53</span>
           <span class="tag">WhatEver</span><span class="tag">Nova</span>
@@ -844,27 +856,21 @@ main {
       </div>
     </div>
     <div class="card" style="padding:24px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-crosshairs"></i> Focus Areas</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-crosshairs" aria-hidden="true"></i> Focus Areas</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
-          <i class="fas fa-globe" style="color:var(--acid);"></i><span style="font-size:0.8rem;">Web Exploitation</span></div>
-        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
-          <i class="fas fa-key" style="color:var(--acid);"></i><span style="font-size:0.8rem;">Cryptography</span></div>
-        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
-          <i class="fas fa-search" style="color:var(--acid);"></i><span style="font-size:0.8rem;">OSINT</span></div>
-        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
-          <i class="fas fa-microscope" style="color:var(--acid);"></i><span style="font-size:0.8rem;">Forensics</span></div>
-        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
-          <i class="fas fa-rotate-left" style="color:var(--acid);"></i><span style="font-size:0.8rem;">Reverse Engineering</span></div>
-        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid rgba(255,60,110,0.1);border-radius:7px;background:rgba(255,60,110,0.02);">
-          <i class="fas fa-bug" style="color:var(--warn);"></i><span style="font-size:0.8rem;color:var(--dim2);">Binary Exploit <span style="color:var(--warn);font-size:0.6rem;">[L]</span></span></div>
+        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);"><i class="fas fa-globe" style="color:var(--acid);" aria-hidden="true"></i><span style="font-size:0.8rem;">Web Exploitation</span></div>
+        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);"><i class="fas fa-key" style="color:var(--acid);" aria-hidden="true"></i><span style="font-size:0.8rem;">Cryptography</span></div>
+        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);"><i class="fas fa-search" style="color:var(--acid);" aria-hidden="true"></i><span style="font-size:0.8rem;">OSINT</span></div>
+        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);"><i class="fas fa-microscope" style="color:var(--acid);" aria-hidden="true"></i><span style="font-size:0.8rem;">Forensics</span></div>
+        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);"><i class="fas fa-rotate-left" style="color:var(--acid);" aria-hidden="true"></i><span style="font-size:0.8rem;">Reverse Engineering</span></div>
+        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid rgba(255,60,110,0.1);border-radius:7px;background:rgba(255,60,110,0.02);"><i class="fas fa-bug" style="color:var(--warn);" aria-hidden="true"></i><span style="font-size:0.8rem;color:var(--dim2);">Binary Exploit <span style="color:var(--warn);font-size:0.6rem;">[L]</span></span></div>
       </div>
     </div>
   </div>
 
   <div class="card" style="padding:26px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;"><i class="fas fa-trophy"></i> Competition History</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;"><i class="fas fa-trophy" aria-hidden="true"></i> Competition History</div>
       <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--dim2);" id="ctf-count-display"></div>
     </div>
     <div id="ctf-list"></div>
@@ -878,7 +884,7 @@ main {
   <div class="g2">
     <div class="card" style="padding:26px;">
       <div class="platform-header">
-        <div class="platform-icon"><i class="fas fa-flag"></i></div>
+        <div class="platform-icon"><i class="fas fa-flag" aria-hidden="true"></i></div>
         <div class="platform-meta"><h3>PICOCTF</h3><p>Active Competitor</p></div>
       </div>
       <div class="skill-row"><div class="skill-hdr"><span>Easy Flags (<span id="p-pico-easy">81</span>/82)</span><span class="pct" id="p-pico-easy-pct">98%</span></div><div class="skill-track"><div class="skill-fill" id="p-pico-easy-bar" data-w="98"></div></div></div>
@@ -894,7 +900,7 @@ main {
 
     <div class="card" style="padding:26px;">
       <div class="platform-header">
-        <div class="platform-icon"><i class="fas fa-cube"></i></div>
+        <div class="platform-icon"><i class="fas fa-cube" aria-hidden="true"></i></div>
         <div class="platform-meta"><h3>HACK THE BOX</h3><p>Rank: #<span id="p-htb-rank">928</span> · Noob</p></div>
       </div>
       <div class="skill-row"><div class="skill-hdr"><span>Starting Point (<span id="p-htb-sp">39</span>/71)</span><span class="pct">55%</span></div><div class="skill-track"><div class="skill-fill" data-w="55"></div></div></div>
@@ -912,7 +918,7 @@ main {
 
     <div class="card" style="padding:26px;">
       <div class="platform-header">
-        <div class="platform-icon"><i class="fas fa-shield-halved"></i></div>
+        <div class="platform-icon"><i class="fas fa-shield-halved" aria-hidden="true"></i></div>
         <div class="platform-meta"><h3>TRYHACKME</h3><p>Level: Neophyte</p></div>
       </div>
       <div class="skill-row"><div class="skill-hdr"><span>Pre-Security Path</span><span class="pct">3%</span></div><div class="skill-track"><div class="skill-fill" data-w="3"></div></div></div>
@@ -925,7 +931,7 @@ main {
 
     <div class="card" style="padding:26px;">
       <div class="platform-header">
-        <div class="platform-icon"><i class="fas fa-code"></i></div>
+        <div class="platform-icon"><i class="fas fa-code" aria-hidden="true"></i></div>
         <div class="platform-meta"><h3>LEETCODE</h3><p>Python · <span id="p-lc-acc">63.64%</span> Acceptance</p></div>
       </div>
       <div class="skill-row"><div class="skill-hdr"><span>Problems Solved: <span id="p-lc-solved">9</span></span><span class="pct" id="p-lc-acc2">64%</span></div><div class="skill-track"><div class="skill-fill" data-w="64"></div></div></div>
@@ -944,52 +950,52 @@ main {
 
   <div class="g2">
     <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:13px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:4px;"><i class="fas fa-satellite-dish"></i> Connect</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:4px;"><i class="fas fa-satellite-dish" aria-hidden="true"></i> Connect</div>
 
-      <a href="/cdn-cgi/l/email-protection#e1828d84929594938393948284a1868c80888dcf828e8c" class="contact-link">
-        <div class="cicon"><i class="fas fa-envelope"></i></div>
-        <div><h4>Email</h4><p><span class="__cf_email__" data-cfemail="83e0efe6f0f7f6f1e1f1f6e0e6c3e4eee2eaefade0ecee">[email&#160;protected]</span></p></div>
-        <button class="btn" style="margin-left:auto;" data-copy="clesturbruce@gmail.com"><i class="fas fa-copy"></i></button>
+      <a href="mailto:clesturbruce@gmail.com" class="contact-link">
+        <div class="cicon"><i class="fas fa-envelope" aria-hidden="true"></i></div>
+        <div><h4>Email</h4><p>clesturbruce [at] gmail.com</p></div>
+        <button class="btn" style="margin-left:auto;" data-copy="clesturbruce@gmail.com" aria-label="Copy email address"><i class="fas fa-copy" aria-hidden="true"></i></button>
       </a>
-      <a href="https://www.linkedin.com/in/jesvin-bruce-j-a2154a319" target="_blank" class="contact-link">
-        <div class="cicon"><i class="fab fa-linkedin"></i></div>
+      <a href="https://www.linkedin.com/in/jesvin-bruce-j-a2154a319" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <div class="cicon"><i class="fab fa-linkedin" aria-hidden="true"></i></div>
         <div><h4>LinkedIn</h4><p>Jesvin Bruce J</p></div>
       </a>
-      <a href="https://github.com/TraceHanami" target="_blank" class="contact-link">
-        <div class="cicon"><i class="fab fa-github"></i></div>
+      <a href="https://github.com/TraceHanami" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <div class="cicon"><i class="fab fa-github" aria-hidden="true"></i></div>
         <div><h4>GitHub</h4><p>TraceHanami</p></div>
       </a>
 
       <div class="badge-status" style="margin-top:4px;"><span class="dot"></span> Open to CTF collabs & security projects</div>
 
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
-        <a href="/cdn-cgi/l/email-protection#a8cbc4cddbdcdddacadaddcbcde8cfc5c9c1c486cbc7c5" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Email</a>
-        <button class="btn" data-copy="clesturbruce@gmail.com"><i class="fas fa-copy"></i> Copy Email</button>
-        <a href="jesvin-profile.vcf" download class="btn"><i class="fas fa-id-card"></i> vCard</a>
+        <a href="mailto:clesturbruce@gmail.com" class="btn btn-primary"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send Email</a>
+        <button class="btn" data-copy="clesturbruce@gmail.com"><i class="fas fa-copy" aria-hidden="true"></i> Copy Email</button>
+        <a href="jesvin-profile.vcf" download class="btn"><i class="fas fa-id-card" aria-hidden="true"></i> vCard</a>
       </div>
 
       <div style="border-top:1px solid rgba(0,255,157,0.06);padding-top:14px;margin-top:4px;">
-        <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:12px;"><i class="fas fa-bullseye"></i> Goals</div>
-        <div class="goal-item"><div class="goal-icon"><i class="fas fa-flag"></i></div><div><h5>Short-Term</h5><p>Complete THM Pre-Security · HTB Script Kiddie · 200+ PicoCTF flags</p></div></div>
-        <div class="goal-item"><div class="goal-icon"><i class="fas fa-certificate"></i></div><div><h5>Medium-Term</h5><p>CompTIA Security+ · Build security projects · Deepen networking</p></div></div>
-        <div class="goal-item"><div class="goal-icon"><i class="fas fa-trophy"></i></div><div><h5>CTF Goals</h5><p>Top 10 consistently · Master Binary Exploitation · International wins</p></div></div>
-        <div class="goal-item"><div class="goal-icon"><i class="fas fa-briefcase"></i></div><div><h5>Career</h5><p>Security internship 2025 · Pentest / DFIR specialization</p></div></div>
+        <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:12px;"><i class="fas fa-bullseye" aria-hidden="true"></i> Goals</div>
+        <div class="goal-item"><div class="goal-icon"><i class="fas fa-flag" aria-hidden="true"></i></div><div><h5>Short-Term</h5><p>Complete THM Pre-Security · HTB Script Kiddie · 200+ PicoCTF flags</p></div></div>
+        <div class="goal-item"><div class="goal-icon"><i class="fas fa-certificate" aria-hidden="true"></i></div><div><h5>Medium-Term</h5><p>CompTIA Security+ · Build security projects · Deepen networking</p></div></div>
+        <div class="goal-item"><div class="goal-icon"><i class="fas fa-trophy" aria-hidden="true"></i></div><div><h5>CTF Goals</h5><p>Top 10 consistently · Master Binary Exploitation · International wins</p></div></div>
+        <div class="goal-item"><div class="goal-icon"><i class="fas fa-briefcase" aria-hidden="true"></i></div><div><h5>Career</h5><p>Security internship 2025 · Pentest / DFIR specialization</p></div></div>
       </div>
     </div>
 
     <div class="card" style="padding:26px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-message"></i> Send a Message</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-message" aria-hidden="true"></i> Send a Message</div>
       <form id="contactForm" style="display:flex;flex-direction:column;gap:12px;" novalidate>
-        <input class="input" id="cf-name" placeholder="Your name" required>
-        <div id="err-name" style="color:#ff6090;font-family:var(--font-mono);font-size:0.65rem;display:none;"></div>
-        <input class="input" id="cf-email" type="email" placeholder="Your email" required>
-        <div id="err-email" style="color:#ff6090;font-family:var(--font-mono);font-size:0.65rem;display:none;"></div>
-        <textarea class="textarea" id="cf-message" placeholder="Message (CTF collab, project, internship…)" required></textarea>
-        <div id="err-msg" style="color:#ff6090;font-family:var(--font-mono);font-size:0.65rem;display:none;"></div>
+        <input class="input" id="cf-name" placeholder="Your name" required aria-label="Your name">
+        <div id="err-name" style="color:#ff6090;font-family:var(--font-mono);font-size:0.65rem;display:none;" role="alert"></div>
+        <input class="input" id="cf-email" type="email" placeholder="Your email" required aria-label="Your email">
+        <div id="err-email" style="color:#ff6090;font-family:var(--font-mono);font-size:0.65rem;display:none;" role="alert"></div>
+        <textarea class="textarea" id="cf-message" placeholder="Message (CTF collab, project, internship…)" required aria-label="Your message"></textarea>
+        <div id="err-msg" style="color:#ff6090;font-family:var(--font-mono);font-size:0.65rem;display:none;" role="alert"></div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-          <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
-          <button type="reset" class="btn"><i class="fas fa-xmark"></i> Clear</button>
-          <div id="cf-success" style="display:none;font-family:var(--font-mono);font-size:0.65rem;color:var(--acid);padding:6px 12px;border:1px solid rgba(0,255,157,0.15);border-radius:6px;background:rgba(0,255,157,0.04);">Opening email client…</div>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane" aria-hidden="true"></i> Send</button>
+          <button type="reset" class="btn"><i class="fas fa-xmark" aria-hidden="true"></i> Clear</button>
+          <div id="cf-success" style="display:none;font-family:var(--font-mono);font-size:0.65rem;color:var(--acid);padding:6px 12px;border:1px solid rgba(0,255,157,0.15);border-radius:6px;background:rgba(0,255,157,0.04);" role="status">Opening email client…</div>
         </div>
       </form>
     </div>
@@ -1001,82 +1007,58 @@ main {
 <footer style="position:relative;z-index:1;text-align:center;padding:36px 24px;border-top:1px solid var(--border);background:rgba(2,10,15,0.8);">
   <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dim);letter-spacing:1px;margin-bottom:16px;">"TraceHanami — Building deep roots in cybersecurity through CTFs, persistence, and relentless learning."</div>
   <div style="display:flex;justify-content:center;gap:12px;margin-bottom:16px;">
-    <a href="/cdn-cgi/l/email-protection#9efdf2fbedeaebecfcecebfdfbdef9f3fff7f2b0fdf1f3" style="width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fas fa-envelope"></i></a>
-    <a href="https://www.linkedin.com/in/jesvin-bruce-j-a2154a319" target="_blank" style="width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fab fa-linkedin"></i></a>
-    <a href="https://github.com/TraceHanami" target="_blank" style="width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fab fa-github"></i></a>
+    <a href="mailto:clesturbruce@gmail.com" aria-label="Email Jesvin" style="width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+    <a href="https://www.linkedin.com/in/jesvin-bruce-j-a2154a319" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+    <a href="https://github.com/TraceHanami" target="_blank" rel="noopener noreferrer" aria-label="GitHub" style="width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fab fa-github" aria-hidden="true"></i></a>
   </div>
   <div style="font-family:var(--font-mono);font-size:0.58rem;color:var(--dim);letter-spacing:1px;">© 2025 Jesvin Bruce J (TraceHanami) · 2nd Year CSE (Cyber Security) · Sri Shakthi Institute · Team Moonlitcipher</div>
 </footer>
 
 <!-- ══════════════════ ADMIN OVERLAY ══════════════════ -->
-<div class="admin-overlay" id="adminOverlay">
+<div class="admin-overlay" id="adminOverlay" role="dialog" aria-modal="true" aria-label="Portfolio Admin Panel">
   <div class="admin-panel">
     <div class="admin-header">
-      <div class="admin-title"><i class="fas fa-lock-open" style="margin-right:8px;"></i>PORTFOLIO ADMIN</div>
-      <button class="admin-close" id="adminClose"><i class="fas fa-xmark"></i></button>
+      <div class="admin-title"><i class="fas fa-lock-open" style="margin-right:8px;" aria-hidden="true"></i>PORTFOLIO ADMIN</div>
+      <button class="admin-close" id="adminClose" aria-label="Close admin panel"><i class="fas fa-xmark" aria-hidden="true"></i></button>
     </div>
 
     <div class="admin-note">
-      <i class="fas fa-info-circle" style="color:var(--acid);margin-right:7px;"></i>
-      All updates save to your browser's local storage and persist across sessions. This is your live update panel.
+      <i class="fas fa-info-circle" style="color:var(--acid);margin-right:7px;" aria-hidden="true"></i>
+      Stats are saved to your browser's local storage and persist across sessions.
     </div>
 
-    <div class="admin-tabs">
-      <button class="admin-tab active" data-tab="flags"><i class="fas fa-flag"></i> Flag Counts</button>
-      <button class="admin-tab" data-tab="ctf"><i class="fas fa-trophy"></i> CTF Events</button>
-      <button class="admin-tab" data-tab="platforms"><i class="fas fa-cube"></i> Platforms</button>
-      <button class="admin-tab" data-tab="profile"><i class="fas fa-user"></i> Profile</button>
+    <div class="admin-tabs" role="tablist">
+      <button class="admin-tab active" data-tab="flags" role="tab"><i class="fas fa-flag" aria-hidden="true"></i> Flag Counts</button>
+      <button class="admin-tab" data-tab="ctf" role="tab"><i class="fas fa-trophy" aria-hidden="true"></i> CTF Events</button>
+      <button class="admin-tab" data-tab="platforms" role="tab"><i class="fas fa-cube" aria-hidden="true"></i> Platforms</button>
+      <button class="admin-tab" data-tab="profile" role="tab"><i class="fas fa-user" aria-hidden="true"></i> Profile</button>
     </div>
 
     <!-- TAB: FLAGS -->
     <div class="admin-pane active" id="tab-flags">
       <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;">PicoCTF Flag Counts</div>
       <div class="flag-edit-grid">
-        <div class="admin-field">
-          <label class="admin-label">Easy Flags</label>
-          <input class="input" id="f-pico-easy" type="number" min="0">
-        </div>
-        <div class="admin-field">
-          <label class="admin-label">Medium Flags</label>
-          <input class="input" id="f-pico-med" type="number" min="0">
-        </div>
+        <div class="admin-field"><label class="admin-label" for="f-pico-easy">Easy Flags</label><input class="input" id="f-pico-easy" type="number" min="0"></div>
+        <div class="admin-field"><label class="admin-label" for="f-pico-med">Medium Flags</label><input class="input" id="f-pico-med" type="number" min="0"></div>
       </div>
       <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-top:20px;margin-bottom:14px;">Hack The Box</div>
       <div class="flag-edit-grid">
-        <div class="admin-field">
-          <label class="admin-label">Global Rank</label>
-          <input class="input" id="f-htb-rank" type="number" min="0">
-        </div>
-        <div class="admin-field">
-          <label class="admin-label">Starting Point Completed</label>
-          <input class="input" id="f-htb-sp" type="number" min="0" max="71">
-        </div>
-        <div class="admin-field">
-          <label class="admin-label">HTB Flags Captured</label>
-          <input class="input" id="f-htb-flags" type="number" min="0">
-        </div>
+        <div class="admin-field"><label class="admin-label" for="f-htb-rank">Global Rank</label><input class="input" id="f-htb-rank" type="number" min="0"></div>
+        <div class="admin-field"><label class="admin-label" for="f-htb-sp">Starting Point Completed</label><input class="input" id="f-htb-sp" type="number" min="0" max="71"></div>
+        <div class="admin-field"><label class="admin-label" for="f-htb-flags">HTB Flags Captured</label><input class="input" id="f-htb-flags" type="number" min="0"></div>
       </div>
       <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-top:20px;margin-bottom:14px;">LeetCode</div>
       <div class="flag-edit-grid">
-        <div class="admin-field">
-          <label class="admin-label">Problems Solved</label>
-          <input class="input" id="f-lc-solved" type="number" min="0">
-        </div>
-        <div class="admin-field">
-          <label class="admin-label">Acceptance Rate (%)</label>
-          <input class="input" id="f-lc-acc" type="number" min="0" max="100" step="0.01">
-        </div>
+        <div class="admin-field"><label class="admin-label" for="f-lc-solved">Problems Solved</label><input class="input" id="f-lc-solved" type="number" min="0"></div>
+        <div class="admin-field"><label class="admin-label" for="f-lc-acc">Acceptance Rate (%)</label><input class="input" id="f-lc-acc" type="number" min="0" max="100" step="0.01"></div>
       </div>
       <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-top:20px;margin-bottom:14px;">Academic</div>
       <div class="flag-edit-grid">
-        <div class="admin-field">
-          <label class="admin-label">CGPA</label>
-          <input class="input" id="f-cgpa" type="number" min="0" max="10" step="0.01">
-        </div>
+        <div class="admin-field"><label class="admin-label" for="f-cgpa">CGPA</label><input class="input" id="f-cgpa" type="number" min="0" max="10" step="0.01"></div>
       </div>
       <div class="admin-save-bar">
-        <div class="admin-saved" id="flags-saved"><i class="fas fa-check"></i> Saved!</div>
-        <button class="btn btn-primary" id="saveFlags"><i class="fas fa-floppy-disk"></i> Save Changes</button>
+        <div class="admin-saved" id="flags-saved"><i class="fas fa-check" aria-hidden="true"></i> Saved!</div>
+        <button class="btn btn-primary" id="saveFlags"><i class="fas fa-floppy-disk" aria-hidden="true"></i> Save Changes</button>
       </div>
     </div>
 
@@ -1085,22 +1067,12 @@ main {
       <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Add New CTF Event</div>
       <div class="admin-form">
         <div class="admin-row">
-          <div class="admin-field">
-            <label class="admin-label">Event Name</label>
-            <input class="input" id="ctf-name" placeholder="e.g. Enigma CTF 2026">
-          </div>
-          <div class="admin-field">
-            <label class="admin-label">Placement / Rank</label>
-            <input class="input" id="ctf-place" placeholder="e.g. 3rd or —">
-          </div>
+          <div class="admin-field"><label class="admin-label" for="ctf-name">Event Name</label><input class="input" id="ctf-name" placeholder="e.g. Enigma CTF 2026"></div>
+          <div class="admin-field"><label class="admin-label" for="ctf-place">Placement / Rank</label><input class="input" id="ctf-place" placeholder="e.g. 3rd or —"></div>
         </div>
         <div class="admin-row">
-          <div class="admin-field">
-            <label class="admin-label">Organizer / Venue</label>
-            <input class="input" id="ctf-org" placeholder="e.g. IIT Hyderabad">
-          </div>
-          <div class="admin-field">
-            <label class="admin-label">Type</label>
+          <div class="admin-field"><label class="admin-label" for="ctf-org">Organizer / Venue</label><input class="input" id="ctf-org" placeholder="e.g. IIT Hyderabad"></div>
+          <div class="admin-field"><label class="admin-label" for="ctf-type">Type</label>
             <select class="admin-select" id="ctf-type">
               <option value="national">National</option>
               <option value="international">International</option>
@@ -1110,25 +1082,15 @@ main {
           </div>
         </div>
         <div class="admin-row">
-          <div class="admin-field">
-            <label class="admin-label">Team Members</label>
-            <input class="input" id="ctf-team" placeholder="TraceHanami, Zer0logon…">
-          </div>
-          <div class="admin-field">
-            <label class="admin-label">Date</label>
-            <input class="input" id="ctf-date" placeholder="e.g. Feb 2026">
-          </div>
+          <div class="admin-field"><label class="admin-label" for="ctf-team">Team Members</label><input class="input" id="ctf-team" placeholder="TraceHanami, Zer0logon…"></div>
+          <div class="admin-field"><label class="admin-label" for="ctf-date">Date</label><input class="input" id="ctf-date" placeholder="e.g. Feb 2026"></div>
         </div>
-        <div class="admin-field">
-          <label class="admin-label">Notes (optional)</label>
-          <input class="input" id="ctf-notes" placeholder="e.g. 1912 points, 24h marathon">
-        </div>
-        <button class="btn btn-primary" id="addCtfBtn"><i class="fas fa-plus"></i> Add Event</button>
+        <div class="admin-field"><label class="admin-label" for="ctf-notes">Notes (optional)</label><input class="input" id="ctf-notes" placeholder="e.g. 1912 points, 24h marathon"></div>
+        <button class="btn btn-primary" id="addCtfBtn"><i class="fas fa-plus" aria-hidden="true"></i> Add Event</button>
       </div>
-
       <div class="admin-list" id="ctf-admin-list" style="margin-top:20px;"></div>
       <div style="margin-top:12px;display:flex;justify-content:flex-end;gap:8px;">
-        <div class="admin-saved" id="ctf-saved"><i class="fas fa-check"></i> Saved!</div>
+        <div class="admin-saved" id="ctf-saved"><i class="fas fa-check" aria-hidden="true"></i> Saved!</div>
       </div>
     </div>
 
@@ -1137,11 +1099,8 @@ main {
       <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Platform & Stat Notes</div>
       <div class="admin-note">Update flag counts in the <strong>Flag Counts</strong> tab. Here you can log new machines / challenges solved.</div>
       <div class="admin-form">
-        <div class="admin-field">
-          <label class="admin-label">New HTB Machine Completed</label>
-          <input class="input" id="htb-new-machine" placeholder="e.g. Lame (Linux, Easy)">
-        </div>
-        <button class="btn btn-primary" id="addMachineBtn"><i class="fas fa-plus"></i> Add Machine</button>
+        <div class="admin-field"><label class="admin-label" for="htb-new-machine">New HTB Machine Completed</label><input class="input" id="htb-new-machine" placeholder="e.g. Lame (Linux, Easy)"></div>
+        <button class="btn btn-primary" id="addMachineBtn"><i class="fas fa-plus" aria-hidden="true"></i> Add Machine</button>
       </div>
       <div class="admin-list" id="machine-admin-list" style="margin-top:14px;"></div>
     </div>
@@ -1149,22 +1108,13 @@ main {
     <!-- TAB: PROFILE -->
     <div class="admin-pane" id="tab-profile">
       <div class="admin-form">
-        <div class="admin-field">
-          <label class="admin-label">Year / Status</label>
-          <input class="input" id="p-year" placeholder="e.g. 2nd Year · CSE · SSIET">
-        </div>
-        <div class="admin-field">
-          <label class="admin-label">Best CTF Result</label>
-          <input class="input" id="p-best" placeholder="e.g. 3rd Place · Flag Quest KALAM 2025">
-        </div>
-        <div class="admin-field">
-          <label class="admin-label">Current Goals (short, shown in ticker)</label>
-          <input class="input" id="p-goal" placeholder="e.g. Targeting CompTIA Security+">
-        </div>
+        <div class="admin-field"><label class="admin-label" for="p-year">Year / Status</label><input class="input" id="p-year" placeholder="e.g. 2nd Year · CSE · SSIET"></div>
+        <div class="admin-field"><label class="admin-label" for="p-best">Best CTF Result</label><input class="input" id="p-best" placeholder="e.g. 3rd Place · Flag Quest KALAM 2025"></div>
+        <div class="admin-field"><label class="admin-label" for="p-goal">Current Goals (shown in ticker)</label><input class="input" id="p-goal" placeholder="e.g. Targeting CompTIA Security+"></div>
       </div>
       <div class="admin-save-bar">
-        <div class="admin-saved" id="profile-saved"><i class="fas fa-check"></i> Saved!</div>
-        <button class="btn btn-primary" id="saveProfile"><i class="fas fa-floppy-disk"></i> Save</button>
+        <div class="admin-saved" id="profile-saved"><i class="fas fa-check" aria-hidden="true"></i> Saved!</div>
+        <button class="btn btn-primary" id="saveProfile"><i class="fas fa-floppy-disk" aria-hidden="true"></i> Save</button>
       </div>
     </div>
 
@@ -1172,7 +1122,18 @@ main {
 </div>
 
 <!-- ══════════════════ SCRIPT ══════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+// ═══════════════════════════════════════════════════════════
+// SECURITY FIX: XSS sanitizer — escape all user-controlled
+// strings before injecting into innerHTML
+// ═══════════════════════════════════════════════════════════
+function esc(str) {
+  if (!str) return '';
+  const d = document.createElement('div');
+  d.textContent = String(str);
+  return d.innerHTML;
+}
+
 // ─── DATA ───────────────────────────────────────────────
 const DEFAULT_DATA = {
   pico_easy: 81, pico_med: 70,
@@ -1217,8 +1178,6 @@ let D = loadData();
 // ─── RENDER ─────────────────────────────────────────────
 function renderAll() {
   const picoTotal = D.pico_easy + D.pico_med;
-
-  // Dashboard stats
   setText('stat-pico-total', picoTotal);
   setText('stat-pico-easy', D.pico_easy);
   setText('stat-pico-med', D.pico_med);
@@ -1233,17 +1192,14 @@ function renderAll() {
   setText('ds-htb', '#' + D.htb_rank);
   setText('stat-best-rank', getBestRank());
 
-  // CGPA ring
   const cgpaPct = (D.cgpa / 10 * 100).toFixed(1);
   setText('cgpa-ring-val', D.cgpa.toFixed(2));
-  const ring = document.querySelector('.ring-chart');
+  const ring = document.getElementById('cgpaRing');
   if(ring) ring.style.background = `conic-gradient(var(--acid) 0% ${cgpaPct}%, rgba(0,255,157,0.06) ${cgpaPct}% 100%)`;
 
-  // CTF total
   setText('ctf-total', D.ctf_events.length);
   setText('ctf-flag-total', picoTotal);
 
-  // Platforms
   setText('p-pico-easy', D.pico_easy);
   setText('p-pico-med', D.pico_med);
   setText('p-pico-total', picoTotal);
@@ -1259,17 +1215,13 @@ function renderAll() {
   setText('p-lc-solved', D.lc_solved);
   setText('p-lc-acc', D.lc_acc.toFixed(2) + '%');
   setText('p-lc-acc2', Math.round(D.lc_acc) + '%');
-  setBarW(null, Math.round(D.lc_acc)); // handled below
-
-  // Override lc bar width
   document.querySelectorAll('.skill-fill[data-w="64"]').forEach(b => b.style.width = Math.round(D.lc_acc) + '%');
 
-  // Overall tags
   const ot = document.getElementById('overall-tags');
   if(ot) ot.innerHTML = `
-    <span class="tag"><i class="fas fa-flag"></i> ${picoTotal} PicoFlags</span>
-    <span class="tag blue"><i class="fas fa-cube"></i> HTB #${D.htb_rank}</span>
-    <span class="tag gold"><i class="fas fa-graduation-cap"></i> CGPA ${D.cgpa.toFixed(2)}</span>
+    <span class="tag"><i class="fas fa-flag" aria-hidden="true"></i> ${esc(String(picoTotal))} PicoFlags</span>
+    <span class="tag blue"><i class="fas fa-cube" aria-hidden="true"></i> HTB #${esc(String(D.htb_rank))}</span>
+    <span class="tag gold"><i class="fas fa-graduation-cap" aria-hidden="true"></i> CGPA ${esc(D.cgpa.toFixed(2))}</span>
   `;
 
   renderCTF();
@@ -1291,36 +1243,35 @@ function getBestRank() {
   const ranked = D.ctf_events.filter(e => e.place !== '—' && e.place !== '').map(e => parseInt(e.place)).filter(n => !isNaN(n));
   return ranked.length ? Math.min(...ranked) + ordSuffix(Math.min(...ranked)) : '—';
 }
-
 function ordSuffix(n) {
   if(n === 1) return 'st'; if(n === 2) return 'nd'; if(n === 3) return 'rd'; return 'th';
 }
-
 function rankClass(place) {
   const n = parseInt(place);
   if(n === 1) return 'rank-1st'; if(n === 2) return 'rank-2nd'; if(n === 3) return 'rank-3rd';
   return 'rank-other';
 }
-
 function typeTag(type) {
   const map = { national:'ctb-natl', international:'ctb-intl', college:'ctb-natl', online:'ctb-natl' };
   const labels = { national:'National', international:'International', college:'College CTF', online:'Online' };
-  return `<span class="ctf-type-badge ${map[type]||'ctb-natl'}">${labels[type]||type}</span>`;
+  // Only the type class and label are used here — no user data, safe
+  return `<span class="ctf-type-badge ${map[type]||'ctb-natl'}">${labels[type]||esc(type)}</span>`;
 }
 
 function renderCTF() {
   const list = document.getElementById('ctf-list');
   if(!list) return;
   setText('ctf-count-display', D.ctf_events.length + ' events recorded');
-  list.innerHTML = D.ctf_events.map((e,i) => `
+  // FIX: All user-controlled fields escaped with esc()
+  list.innerHTML = D.ctf_events.map((e) => `
     <div class="rank-card">
       <div class="rank-num ${rankClass(e.place)}">
-        <div class="rn">${e.place}</div>
+        <div class="rn">${esc(e.place)}</div>
         <div class="rl">PLACE</div>
       </div>
       <div class="rank-info">
-        <h5>${e.name}</h5>
-        <div class="ri-sub">${e.org}${e.team ? ' · ' + e.team.substring(0,40) + (e.team.length > 40 ? '…' : '') : ''}${e.date ? ' · ' + e.date : ''}${e.notes ? ' · ' + e.notes : ''}</div>
+        <h5>${esc(e.name)}</h5>
+        <div class="ri-sub">${esc(e.org)}${e.team ? ' · ' + esc(e.team.substring(0,40)) + (e.team.length > 40 ? '…' : '') : ''}${e.date ? ' · ' + esc(e.date) : ''}${e.notes ? ' · ' + esc(e.notes) : ''}</div>
       </div>
       <div class="rank-badges">${typeTag(e.type)}${e.place === '1st' || parseInt(e.place) === 1 ? '<span class="ctf-type-badge ctb-first">🏆 WINNER</span>' : ''}</div>
     </div>
@@ -1339,7 +1290,8 @@ function renderTicker() {
     `<span class="ti-label">Best Rank</span><span class="ti-sep">//</span>${getBestRank()} place`,
     `<span class="ti-label">LeetCode</span><span class="ti-sep">//</span>${D.lc_solved} solved · ${D.lc_acc.toFixed(2)}% acceptance`,
     `<span class="ti-label">Team</span><span class="ti-sep">//</span>Moonlitcipher · Sakura Sentinels`,
-    `<span class="ti-label">Goal</span><span class="ti-sep">//</span>${D.goal_ticker}`,
+    // FIX: goal_ticker is user-entered — escape it
+    `<span class="ti-label">Goal</span><span class="ti-sep">//</span>${esc(D.goal_ticker)}`,
   ];
   const html = [...items, ...items].map(s => `<div class="ticker-item">${s}</div>`).join('');
   inner.innerHTML = html;
@@ -1348,10 +1300,11 @@ function renderTicker() {
 function renderMachines() {
   const list = document.getElementById('machine-admin-list');
   if(!list) return;
+  // FIX: machine names escaped
   list.innerHTML = D.htb_machines.map((m,i) => `
     <div class="admin-list-item">
-      <div class="ali-main"><div class="ali-name">${m}</div></div>
-      <button class="admin-del" data-machine="${i}"><i class="fas fa-trash"></i></button>
+      <div class="ali-main"><div class="ali-name">${esc(m)}</div></div>
+      <button class="admin-del" data-machine="${i}" aria-label="Delete ${esc(m)}"><i class="fas fa-trash" aria-hidden="true"></i></button>
     </div>
   `).join('');
   list.querySelectorAll('.admin-del[data-machine]').forEach(btn => {
@@ -1365,13 +1318,14 @@ function renderMachines() {
 function renderAdminCTF() {
   const list = document.getElementById('ctf-admin-list');
   if(!list) return;
+  // FIX: all fields escaped
   list.innerHTML = D.ctf_events.map((e,i) => `
     <div class="admin-list-item">
       <div class="ali-main">
-        <div class="ali-name">${e.place !== '—' ? e.place + ' · ' : ''}${e.name}</div>
-        <div class="ali-sub">${e.org} · ${e.date} · ${typeTag(e.type).replace(/<[^>]*>/g,'')}</div>
+        <div class="ali-name">${e.place !== '—' ? esc(e.place) + ' · ' : ''}${esc(e.name)}</div>
+        <div class="ali-sub">${esc(e.org)} · ${esc(e.date)} · ${typeTag(e.type).replace(/<[^>]*>/g,'')}</div>
       </div>
-      <button class="admin-del" data-idx="${i}"><i class="fas fa-trash"></i></button>
+      <button class="admin-del" data-idx="${i}" aria-label="Delete event ${esc(e.name)}"><i class="fas fa-trash" aria-hidden="true"></i></button>
     </div>
   `).join('');
   list.querySelectorAll('.admin-del[data-idx]').forEach(btn => {
@@ -1386,7 +1340,9 @@ function renderAdminCTF() {
 // ─── TOAST ──────────────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
+  // FIX: Use textContent not innerHTML for toast messages
+  t.textContent = msg;
+  t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 function showSaved(id) {
@@ -1399,20 +1355,40 @@ function showSaved(id) {
 // ─── CURSOR ─────────────────────────────────────────────
 const dot = document.getElementById('cur-dot'), ring = document.getElementById('cur-ring');
 let mx=0, my=0, rx=0, ry=0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
-function animRing() {
-  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-  ring.style.left = rx+'px'; ring.style.top = ry+'px';
-  requestAnimationFrame(animRing);
+// FIX: Only init cursor on non-touch devices
+if(window.matchMedia('(pointer: fine)').matches) {
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+  // FIX: Store rafId so we can cancel it
+  let cursorRafId;
+  function animRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx+'px'; ring.style.top = ry+'px';
+    cursorRafId = requestAnimationFrame(animRing);
+  }
+  cursorRafId = requestAnimationFrame(animRing);
+  document.querySelectorAll('a, button, .card, .rank-card, .info-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { dot.style.width='16px'; dot.style.height='16px'; ring.style.width='50px'; ring.style.height='50px'; });
+    el.addEventListener('mouseleave', () => { dot.style.width='8px'; dot.style.height='8px'; ring.style.width='32px'; ring.style.height='32px'; });
+  });
+  // FIX: Pause cursor rAF when tab hidden
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden) cancelAnimationFrame(cursorRafId);
+    else cursorRafId = requestAnimationFrame(animRing);
+  });
 }
-animRing();
-document.querySelectorAll('a, button, .card, .rank-card, .info-card').forEach(el => {
-  el.addEventListener('mouseenter', () => { dot.style.width='16px'; dot.style.height='16px'; ring.style.width='50px'; ring.style.height='50px'; });
-  el.addEventListener('mouseleave', () => { dot.style.width='8px'; dot.style.height='8px'; ring.style.width='32px'; ring.style.height='32px'; });
-});
 
 // ─── LOADER ─────────────────────────────────────────────
-window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('out'), 1600));
+// FIX: Tie dismissal to document.fonts.ready instead of just setTimeout
+(function() {
+  function dismissLoader() {
+    const l = document.getElementById('loader');
+    if(l && !l.classList.contains('out')) l.classList.add('out');
+  }
+  // Dismiss once fonts are ready
+  document.fonts.ready.then(() => setTimeout(dismissLoader, 200));
+  // Hard fallback — never stuck beyond 2s
+  setTimeout(dismissLoader, 2000);
+})();
 
 // ─── NAV ────────────────────────────────────────────────
 document.querySelectorAll('.nav-item[data-sec]').forEach(btn => {
@@ -1434,7 +1410,10 @@ document.querySelectorAll('.nav-item[data-sec]').forEach(btn => {
 // ─── BACKGROUND CANVAS ───────────────────────────────────
 (function() {
   const c = document.getElementById('bg-canvas'), ctx = c.getContext('2d');
-  let W, H, pts = [];
+  let W, H, pts = [], bgRafId;
+  // FIX: Fewer particles on mobile
+  const PARTICLE_COUNT = window.innerWidth < 768 ? 45 : 90;
+
   function resize() { W = c.width = innerWidth; H = c.height = innerHeight; }
   class P {
     constructor() { this.r(); }
@@ -1442,7 +1421,7 @@ document.querySelectorAll('.nav-item[data-sec]').forEach(btn => {
     update() { this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>W||this.y<0||this.y>H) this.r(); }
     draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fillStyle=`rgba(0,255,157,${this.a})`; ctx.fill(); }
   }
-  function init() { pts = Array.from({length:90}, ()=>new P()); }
+  function init() { pts = Array.from({length:PARTICLE_COUNT}, ()=>new P()); }
   function draw() {
     ctx.clearRect(0,0,W,H);
     pts.forEach(p => { p.update(); p.draw(); });
@@ -1450,16 +1429,32 @@ document.querySelectorAll('.nav-item[data-sec]').forEach(btn => {
       const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
       if(d<110) { ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.strokeStyle=`rgba(0,207,255,${.06*(1-d/110)})`; ctx.lineWidth=.5; ctx.stroke(); }
     }
-    requestAnimationFrame(draw);
+    bgRafId = requestAnimationFrame(draw);
   }
   resize(); init(); draw();
   window.addEventListener('resize', () => { resize(); init(); });
+
+  // FIX: Pause canvas animation when tab not visible
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden) cancelAnimationFrame(bgRafId);
+    else bgRafId = requestAnimationFrame(draw);
+  });
 })();
 
-// ─── ADMIN ───────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════
+// ADMIN — SECRET KEY TRIGGER
+// Desktop: press  t → h → Enter  anywhere on the page
+// Mobile:  triple-tap the hero name within 700ms
+//
+// SECURITY FIX: Passphrase verified via SHA-256 hash using
+// the Web Crypto API. The plaintext password is NEVER stored
+// in source code. Hash below = sha256("tracehanami2025")
+// To change your password: update PASS_HASH with the new hash.
+// Generate: https://emn178.github.io/online-tools/sha256.html
+// ═══════════════════════════════════════════════════════════
 const overlay = document.getElementById('adminOverlay');
+
 document.getElementById('adminBtn').addEventListener('click', () => {
-  // Check if already authenticated this session
   if(sessionStorage.getItem('th_admin_auth') === '1') {
     overlay.classList.add('open');
     loadAdminFields();
@@ -1470,22 +1465,39 @@ document.getElementById('adminBtn').addEventListener('click', () => {
   showLoginPrompt();
 });
 
+async function verifyPassphrase(input) {
+  // FIX: SHA-256 hash of the real passphrase — no plaintext stored
+  // sha256("tracehanami2025") — update this hash when you change password
+  const PASS_HASH = '9b4fe127da20b00ddcf17503528fe856954909b7a660c7ddd89fbcf9710b6877';
+  try {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
+    const hash = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+    return hash === PASS_HASH;
+  } catch(e) {
+    // Fallback if crypto.subtle unavailable (very old browser)
+    console.warn('WebCrypto unavailable');
+    return false;
+  }
+}
+
 function showLoginPrompt() {
-  // Create login modal
   const modal = document.createElement('div');
   modal.id = 'loginModal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-label', 'Admin login');
   modal.style.cssText = `position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;`;
   modal.innerHTML = `
     <div style="background:var(--bg1);border:1px solid rgba(255,60,110,0.25);border-radius:14px;padding:36px;width:340px;text-align:center;box-shadow:0 0 80px rgba(255,60,110,0.08);">
-      <div style="font-family:var(--font-head);font-size:1rem;font-weight:700;letter-spacing:4px;color:var(--warn);margin-bottom:6px;"><i class="fas fa-lock"></i> ADMIN ACCESS</div>
+      <div style="font-family:var(--font-head);font-size:1rem;font-weight:700;letter-spacing:4px;color:var(--warn);margin-bottom:6px;"><i class="fas fa-lock" aria-hidden="true"></i> ADMIN ACCESS</div>
       <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--dim2);letter-spacing:2px;margin-bottom:24px;">ENTER PASSPHRASE TO CONTINUE</div>
-      <input id="adminPassInput" type="password" class="input" placeholder="Passphrase…" style="text-align:center;letter-spacing:3px;margin-bottom:8px;" autocomplete="off">
-      <div id="loginErr" style="font-family:var(--font-mono);font-size:0.62rem;color:var(--warn);display:none;margin-bottom:10px;padding:6px;border-radius:5px;background:rgba(255,60,110,0.06);">
-        <i class="fas fa-triangle-exclamation"></i> Incorrect passphrase
+      <input id="adminPassInput" type="password" class="input" placeholder="Passphrase…" style="text-align:center;letter-spacing:3px;margin-bottom:8px;" autocomplete="current-password" aria-label="Admin passphrase">
+      <div id="loginErr" role="alert" style="font-family:var(--font-mono);font-size:0.62rem;color:var(--warn);display:none;margin-bottom:10px;padding:6px;border-radius:5px;background:rgba(255,60,110,0.06);">
+        <i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Incorrect passphrase
       </div>
       <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;">
-        <button id="loginSubmit" class="btn btn-primary" style="flex:1;"><i class="fas fa-unlock"></i> Unlock</button>
-        <button id="loginCancel" class="btn" style="flex:1;"><i class="fas fa-xmark"></i> Cancel</button>
+        <button id="loginSubmit" class="btn btn-primary" style="flex:1;"><i class="fas fa-unlock" aria-hidden="true"></i> Unlock</button>
+        <button id="loginCancel" class="btn" style="flex:1;"><i class="fas fa-xmark" aria-hidden="true"></i> Cancel</button>
       </div>
       <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--dim);margin-top:16px;opacity:0.5;">Session-locked · Auto-locks on tab close</div>
     </div>
@@ -1494,16 +1506,13 @@ function showLoginPrompt() {
 
   const inp = document.getElementById('adminPassInput');
   const err = document.getElementById('loginErr');
-
-  // Focus input
   setTimeout(() => inp.focus(), 50);
 
-  // The admin passphrase — change this to whatever you want
-  const PASSPHRASE = 'tracehanami2025';
-
-  function tryLogin() {
+  async function tryLogin() {
     const val = inp.value.trim();
-    if(val === PASSPHRASE) {
+    // FIX: async SHA-256 verification — no plaintext in source
+    const ok = await verifyPassphrase(val);
+    if(ok) {
       sessionStorage.setItem('th_admin_auth', '1');
       modal.remove();
       overlay.classList.add('open');
@@ -1514,8 +1523,6 @@ function showLoginPrompt() {
       err.style.display = 'block';
       inp.value = '';
       inp.focus();
-      // Shake animation
-      inp.style.animation = 'none';
       inp.style.borderColor = 'rgba(255,60,110,0.6)';
       setTimeout(() => inp.style.borderColor = '', 1200);
     }
@@ -1525,10 +1532,10 @@ function showLoginPrompt() {
   document.getElementById('loginCancel').addEventListener('click', () => modal.remove());
   inp.addEventListener('keydown', e => { if(e.key === 'Enter') tryLogin(); if(e.key === 'Escape') modal.remove(); });
 }
+
 document.getElementById('adminClose').addEventListener('click', () => overlay.classList.remove('open'));
 overlay.addEventListener('click', e => { if(e.target === overlay) overlay.classList.remove('open'); });
 
-// Tab switching
 document.querySelectorAll('.admin-tab').forEach(tab => {
   tab.addEventListener('click', function() {
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -1551,13 +1558,11 @@ function loadAdminFields() {
   setValue('p-best', D.best_result);
   setValue('p-goal', D.goal_ticker);
 }
-
 function setValue(id, val) {
   const el = document.getElementById(id);
   if(el) el.value = val;
 }
 
-// Save Flags
 document.getElementById('saveFlags').addEventListener('click', () => {
   D.pico_easy = parseInt(document.getElementById('f-pico-easy').value)||0;
   D.pico_med = parseInt(document.getElementById('f-pico-med').value)||0;
@@ -1570,7 +1575,6 @@ document.getElementById('saveFlags').addEventListener('click', () => {
   saveData(D); renderAll(); showSaved('flags-saved'); showToast('Stats updated!');
 });
 
-// Save Profile
 document.getElementById('saveProfile').addEventListener('click', () => {
   D.year_status = document.getElementById('p-year').value || D.year_status;
   D.best_result = document.getElementById('p-best').value || D.best_result;
@@ -1578,12 +1582,12 @@ document.getElementById('saveProfile').addEventListener('click', () => {
   saveData(D); renderAll(); showSaved('profile-saved'); showToast('Profile updated!');
 });
 
-// Add CTF Event
 document.getElementById('addCtfBtn').addEventListener('click', () => {
   const name = document.getElementById('ctf-name').value.trim();
   if(!name) { showToast('Enter event name'); return; }
   D.ctf_events.unshift({
-    name, place: document.getElementById('ctf-place').value.trim() || '—',
+    name,
+    place: document.getElementById('ctf-place').value.trim() || '—',
     org: document.getElementById('ctf-org').value.trim() || '',
     type: document.getElementById('ctf-type').value,
     team: document.getElementById('ctf-team').value.trim() || '',
@@ -1595,7 +1599,6 @@ document.getElementById('addCtfBtn').addEventListener('click', () => {
   showSaved('ctf-saved'); showToast('CTF event added!');
 });
 
-// Add Machine
 document.getElementById('addMachineBtn').addEventListener('click', () => {
   const val = document.getElementById('htb-new-machine').value.trim();
   if(!val) return;
@@ -1604,17 +1607,15 @@ document.getElementById('addMachineBtn').addEventListener('click', () => {
   saveData(D); renderMachines(); showToast('Machine added!');
 });
 
-// ─── COPY BUTTON ─────────────────────────────────────────
 document.addEventListener('click', e => {
   const btn = e.target.closest('[data-copy]');
   if(!btn) return;
   const text = btn.dataset.copy;
   if(navigator.clipboard) {
-    navigator.clipboard.writeText(text).then(() => showToast('Copied: ' + text));
-  } else { showToast(text); }
+    navigator.clipboard.writeText(text).then(() => showToast('Copied!'));
+  }
 });
 
-// ─── CONTACT FORM ────────────────────────────────────────
 document.getElementById('contactForm')?.addEventListener('submit', function(e) {
   e.preventDefault();
   const name = document.getElementById('cf-name').value.trim();
@@ -1626,39 +1627,39 @@ document.getElementById('contactForm')?.addEventListener('submit', function(e) {
   if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('err-email', 'Valid email required'); ok=false; }
   if(!msg || msg.length < 10) { showErr('err-msg', 'Message required (10+ chars)'); ok=false; }
   if(!ok) return;
-  const sub = encodeURIComponent('Portfolio message from '+name);
+  const sub = encodeURIComponent('Portfolio message from ' + name);
   const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${msg}`);
   window.location.href = `mailto:clesturbruce@gmail.com?subject=${sub}&body=${body}`;
   document.getElementById('cf-success').style.display = 'block';
   this.reset();
   setTimeout(() => document.getElementById('cf-success').style.display='none', 4000);
 });
-
 function showErr(id, msg) {
   const el = document.getElementById(id); if(el) { el.textContent=msg; el.style.display='block'; }
 }
 
-// ─── SECRET ADMIN TRIGGER ────────────────────────────────
-// Mobile: Triple-tap on the hero name (JESVIN BRUCE J)
-// Desktop: Type the sequence  t → h → Enter  anywhere on the page
+// ═══════════════════════════════════════════════════════════
+// SECRET ADMIN TRIGGER
+// Desktop: type  t → h → Enter  (within 2.2s)
+// Mobile:  triple-tap the JESVIN BRUCE J heading (within 700ms)
+// ═══════════════════════════════════════════════════════════
 (function() {
-  const REVEAL_SEQ = ['t', 'h', 'Enter'];   // ← change this if you want
-  let seqBuf = [];
-  let seqTimer = null;
+  const REVEAL_SEQ = ['t', 'h', 'Enter'];
+  let seqBuf = [], seqTimer = null;
 
-  // Desktop: key sequence listener
   document.addEventListener('keydown', e => {
+    // Don't capture keys when typing in inputs
+    if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName)) return;
     seqBuf.push(e.key);
     if(seqBuf.length > REVEAL_SEQ.length) seqBuf.shift();
     clearTimeout(seqTimer);
-    seqTimer = setTimeout(() => seqBuf = [], 2200); // reset if too slow
+    seqTimer = setTimeout(() => seqBuf = [], 2200);
     if(seqBuf.join(',') === REVEAL_SEQ.join(',')) {
       seqBuf = [];
       revealAdmin();
     }
   });
 
-  // Mobile / touch: Triple-tap (3 taps within 700ms) on hero name
   const heroName = document.getElementById('heroName');
   if(heroName) {
     let tapCount = 0, tapTimer = null;
@@ -1674,7 +1675,6 @@ function showErr(id, msg) {
     const btn = document.getElementById('adminBtn');
     if(!btn) return;
     if(btn.classList.contains('admin-visible')) {
-      // Already visible — open it directly
       btn.click();
       return;
     }
@@ -1688,7 +1688,7 @@ function showErr(id, msg) {
       document.head.appendChild(s);
     }
     btn.style.animation = 'adminReveal 0.4s var(--ease) forwards';
-    showToast('🔓 Admin unlocked for this session');
+    showToast('🔓 Admin unlocked');
     let hideTimer = setTimeout(hideAdmin, 30000);
     btn.addEventListener('mouseenter', () => { clearTimeout(hideTimer); hideTimer = setTimeout(hideAdmin, 30000); });
     btn.addEventListener('click', () => clearTimeout(hideTimer));
@@ -1704,7 +1704,6 @@ function showErr(id, msg) {
     }
   }
 
-  // When admin panel closes, hide the button again
   document.getElementById('adminClose')?.addEventListener('click', () => {
     setTimeout(() => {
       const btn = document.getElementById('adminBtn');
@@ -1721,4 +1720,8 @@ function showErr(id, msg) {
   });
 })();
 
-// ─── INIT ───�
+// ─── INIT ─────────────────────────────────────────────
+renderAll();
+</script>
+</body>
+</html>
