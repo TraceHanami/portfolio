@@ -1,11 +1,22 @@
 BEGIN:VCARD
 VERSION:3.0
-N:Bruce;Jesvin;;;
+N:Bruce J;Jesvin;;;
 FN:Jesvin Bruce J
-ORG:TraceHanami (Moonlitcipher)
-TITLE:Cyber Security Student
-EMAIL;TYPE=INTERNET;TYPE=HOME:clesturbruce@gmail.com
-TEL;TYPE=CELL:+91-9486130323
-URL:https://www.linkedin.com/in/jesvin-bruce-j
-NOTE:2nd Year CSE • Sri Shakthi Institute • Available for CTF collaborations
+NICKNAME:TraceHanami;ZeroKira
+ORG:Sri Shakthi Institute of Engineering & Technology;CSE — Cyber Security
+TITLE:Cyber Security Student & CTF Competitor
+EMAIL;TYPE=INTERNET,PREF:clesturbruce@gmail.com
+TEL;TYPE=CELL,PREF:+91-9486130323
+URL;TYPE=LinkedIn:https://www.linkedin.com/in/jesvin-bruce-j-a2154a319
+URL;TYPE=GitHub:https://github.com/TraceHanami
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/jesvin-bruce-j-a2154a319
+X-SOCIALPROFILE;TYPE=github:https://github.com/TraceHanami
+X-CTF-ALIAS:TraceHanami / ZeroKira
+X-CTF-TEAM:Moonlitcipher · Sakura Sentinels
+X-CTF-BEST:3rd Place — Flag Quest @ KALAM 2025
+X-PLATFORM-HTB:Hack The Box — Global Rank #928
+X-PLATFORM-PICO:PicoCTF — 151 Flags Captured
+NOTE:2nd Year B.E. Computer Science & Engineering (Cyber Security Specialization) · Sri Shakthi Institute of Engineering & Technology · Coimbatore · Batch 2024–2028 · CTF Competitor (12+ events) · Teams: Moonlitcipher & Sakura Sentinels · Available for CTF collaborations and security projects
+CATEGORIES:Cybersecurity,CTF,Student,Ethical Hacking,Moonlitcipher
+REV:2025-02-28T00:00:00Z
 END:VCARD
