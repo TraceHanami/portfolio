@@ -1441,17 +1441,6 @@ document.querySelectorAll('.nav-item[data-sec]').forEach(btn => {
   });
 })();
 
-// ═══════════════════════════════════════════════════════════
-// ADMIN — SECRET KEY TRIGGER
-// Desktop: press  t → h → Enter  anywhere on the page
-// Mobile:  triple-tap the hero name within 700ms
-//
-// SECURITY FIX: Passphrase verified via SHA-256 hash using
-// the Web Crypto API. The plaintext password is NEVER stored
-// in source code. Hash below = sha256("tracehanami2025")
-// To change your password: update PASS_HASH with the new hash.
-// Generate: https://emn178.github.io/online-tools/sha256.html
-// ═══════════════════════════════════════════════════════════
 const overlay = document.getElementById('adminOverlay');
 
 document.getElementById('adminBtn').addEventListener('click', () => {
@@ -1466,8 +1455,7 @@ document.getElementById('adminBtn').addEventListener('click', () => {
 });
 
 async function verifyPassphrase(input) {
-  // FIX: SHA-256 hash of the real passphrase — no plaintext stored
-  // sha256("tracehanami2025") — update this hash when you change password
+
   const PASS_HASH = '9b4fe127da20b00ddcf17503528fe856954909b7a660c7ddd89fbcf9710b6877';
   try {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
