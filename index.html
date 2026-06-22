@@ -1456,7 +1456,7 @@ document.getElementById('adminBtn').addEventListener('click', () => {
 
 async function verifyPassphrase(input) {
 
-  const PASS_HASH = '9b4fe127da20b00ddcf17503528fe856954909b7a660c7ddd89fbcf9710b6877';
+  const PASS_HASH = 'bf22b2489307c6313135ae058443cf1c19e4119ce3b7fe89684fbab161a2a2c5';
   try {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
     const hash = [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
