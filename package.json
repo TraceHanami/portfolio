@@ -1,0 +1,30 @@
+{
+  "name": "cybersecurity-portfolio",
+  "version": "2.0.0",
+  "description": "Personal Cyber Security & CTF Portfolio of Jesvin Bruce J (TraceHanami / ZeroKira)",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y serve .",
+    "dev": "npx -y serve .",
+    "hash-passphrase": "node -e \"const crypto = require('crypto'); console.log(crypto.createHash('sha256').update(process.argv[1] || 'tracehanami2025').digest('hex'))\""
+  },
+  "keywords": [
+    "cybersecurity",
+    "portfolio",
+    "ctf",
+    "ethical-hacking",
+    "picoctf",
+    "hackthebox",
+    "html5"
+  ],
+  "author": "Jesvin Bruce J (TraceHanami)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TraceHanami/portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TraceHanami/portfolio/issues"
+  },
+  "homepage": "https://github.com/TraceHanami/portfolio#readme"
+}

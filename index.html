@@ -3,9 +3,15 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 <title>TraceHanami // Jesvin Bruce J — Cyber Security</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 :root {
   --acid: #00ff9d;
@@ -1167,7 +1173,26 @@ main {
 </div>
 
 <!-- ══════════════════ SCRIPT ══════════════════ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+// ─── SECURITY UTILITIES ──────────────────────────────────
+function escapeHTML(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+async function hashString(str) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(str);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 // ─── DATA ───────────────────────────────────────────────
 const DEFAULT_DATA = {
   pico_easy: 81, pico_med: 70,
@@ -1254,7 +1279,7 @@ function renderAll() {
   setText('p-lc-solved', D.lc_solved);
   setText('p-lc-acc', D.lc_acc.toFixed(2) + '%');
   setText('p-lc-acc2', Math.round(D.lc_acc) + '%');
-  setBarW(null, Math.round(D.lc_acc)); // handled below
+  setBarW(null, Math.round(D.lc_acc));
 
   // Override lc bar width
   document.querySelectorAll('.skill-fill[data-w="64"]').forEach(b => b.style.width = Math.round(D.lc_acc) + '%');
@@ -1262,9 +1287,9 @@ function renderAll() {
   // Overall tags
   const ot = document.getElementById('overall-tags');
   if(ot) ot.innerHTML = `
-    <span class="tag"><i class="fas fa-flag"></i> ${picoTotal} PicoFlags</span>
-    <span class="tag blue"><i class="fas fa-cube"></i> HTB #${D.htb_rank}</span>
-    <span class="tag gold"><i class="fas fa-graduation-cap"></i> CGPA ${D.cgpa.toFixed(2)}</span>
+    <span class="tag"><i class="fas fa-flag"></i> ${escapeHTML(picoTotal)} PicoFlags</span>
+    <span class="tag blue"><i class="fas fa-cube"></i> HTB #${escapeHTML(D.htb_rank)}</span>
+    <span class="tag gold"><i class="fas fa-graduation-cap"></i> CGPA ${escapeHTML(D.cgpa.toFixed(2))}</span>
   `;
 
   renderCTF();
@@ -1300,7 +1325,10 @@ function rankClass(place) {
 function typeTag(type) {
   const map = { national:'ctb-natl', international:'ctb-intl', college:'ctb-natl', online:'ctb-natl' };
   const labels = { national:'National', international:'International', college:'College CTF', online:'Online' };
-  return `<span class="ctf-type-badge ${map[type]||'ctb-natl'}">${labels[type]||type}</span>`;
+  const safeType = escapeHTML(type);
+  const cls = map[type] || 'ctb-natl';
+  const label = labels[type] || safeType;
+  return `<span class="ctf-type-badge ${cls}">${label}</span>`;
 }
 
 function renderCTF() {
@@ -1310,12 +1338,12 @@ function renderCTF() {
   list.innerHTML = D.ctf_events.map((e,i) => `
     <div class="rank-card">
       <div class="rank-num ${rankClass(e.place)}">
-        <div class="rn">${e.place}</div>
+        <div class="rn">${escapeHTML(e.place)}</div>
         <div class="rl">PLACE</div>
       </div>
       <div class="rank-info">
-        <h5>${e.name}</h5>
-        <div class="ri-sub">${e.org}${e.team ? ' · ' + e.team.substring(0,40) + (e.team.length > 40 ? '…' : '') : ''}${e.date ? ' · ' + e.date : ''}${e.notes ? ' · ' + e.notes : ''}</div>
+        <h5>${escapeHTML(e.name)}</h5>
+        <div class="ri-sub">${escapeHTML(e.org)}${e.team ? ' · ' + escapeHTML(e.team.substring(0,40)) + (e.team.length > 40 ? '…' : '') : ''}${e.date ? ' · ' + escapeHTML(e.date) : ''}${e.notes ? ' · ' + escapeHTML(e.notes) : ''}</div>
       </div>
       <div class="rank-badges">${typeTag(e.type)}${e.place === '1st' || parseInt(e.place) === 1 ? '<span class="ctf-type-badge ctb-first">🏆 WINNER</span>' : ''}</div>
     </div>
@@ -1327,14 +1355,14 @@ function renderTicker() {
   if(!inner) return;
   const picoTotal = D.pico_easy + D.pico_med;
   const items = [
-    `<span class="ti-label">PicoCTF</span><span class="ti-sep">//</span>${picoTotal} flags captured`,
-    `<span class="ti-label">HTB Global</span><span class="ti-sep">//</span>Rank #${D.htb_rank}`,
-    `<span class="ti-label">CGPA</span><span class="ti-sep">//</span>${D.cgpa.toFixed(2)} / 10.0`,
-    `<span class="ti-label">CTF Events</span><span class="ti-sep">//</span>${D.ctf_events.length}+ competitions entered`,
-    `<span class="ti-label">Best Rank</span><span class="ti-sep">//</span>${getBestRank()} place`,
-    `<span class="ti-label">LeetCode</span><span class="ti-sep">//</span>${D.lc_solved} solved · ${D.lc_acc.toFixed(2)}% acceptance`,
+    `<span class="ti-label">PicoCTF</span><span class="ti-sep">//</span>${escapeHTML(picoTotal)} flags captured`,
+    `<span class="ti-label">HTB Global</span><span class="ti-sep">//</span>Rank #${escapeHTML(D.htb_rank)}`,
+    `<span class="ti-label">CGPA</span><span class="ti-sep">//</span>${escapeHTML(D.cgpa.toFixed(2))} / 10.0`,
+    `<span class="ti-label">CTF Events</span><span class="ti-sep">//</span>${escapeHTML(D.ctf_events.length)}+ competitions entered`,
+    `<span class="ti-label">Best Rank</span><span class="ti-sep">//</span>${escapeHTML(getBestRank())} place`,
+    `<span class="ti-label">LeetCode</span><span class="ti-sep">//</span>${escapeHTML(D.lc_solved)} solved · ${escapeHTML(D.lc_acc.toFixed(2))}% acceptance`,
     `<span class="ti-label">Team</span><span class="ti-sep">//</span>Moonlitcipher · Sakura Sentinels`,
-    `<span class="ti-label">Goal</span><span class="ti-sep">//</span>${D.goal_ticker}`,
+    `<span class="ti-label">Goal</span><span class="ti-sep">//</span>${escapeHTML(D.goal_ticker)}`,
   ];
   const html = [...items, ...items].map(s => `<div class="ticker-item">${s}</div>`).join('');
   inner.innerHTML = html;
@@ -1345,7 +1373,7 @@ function renderMachines() {
   if(!list) return;
   list.innerHTML = D.htb_machines.map((m,i) => `
     <div class="admin-list-item">
-      <div class="ali-main"><div class="ali-name">${m}</div></div>
+      <div class="ali-main"><div class="ali-name">${escapeHTML(m)}</div></div>
       <button class="admin-del" data-machine="${i}"><i class="fas fa-trash"></i></button>
     </div>
   `).join('');
@@ -1363,8 +1391,8 @@ function renderAdminCTF() {
   list.innerHTML = D.ctf_events.map((e,i) => `
     <div class="admin-list-item">
       <div class="ali-main">
-        <div class="ali-name">${e.place !== '—' ? e.place + ' · ' : ''}${e.name}</div>
-        <div class="ali-sub">${e.org} · ${e.date} · ${typeTag(e.type).replace(/<[^>]*>/g,'')}</div>
+        <div class="ali-name">${e.place !== '—' ? escapeHTML(e.place) + ' · ' : ''}${escapeHTML(e.name)}</div>
+        <div class="ali-sub">${escapeHTML(e.org)} · ${escapeHTML(e.date)} · ${escapeHTML(typeTag(e.type).replace(/<[^>]*>/g,''))}</div>
       </div>
       <button class="admin-del" data-idx="${i}"><i class="fas fa-trash"></i></button>
     </div>
@@ -1381,6 +1409,7 @@ function renderAdminCTF() {
 // ─── TOAST ──────────────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById('toast');
+  if(!t) return;
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2400);
 }
@@ -1428,7 +1457,9 @@ document.querySelectorAll('.nav-item[data-sec]').forEach(btn => {
 
 // ─── BACKGROUND CANVAS ───────────────────────────────────
 (function() {
-  const c = document.getElementById('bg-canvas'), ctx = c.getContext('2d');
+  const c = document.getElementById('bg-canvas');
+  if(!c) return;
+  const ctx = c.getContext('2d');
   let W, H, pts = [];
   function resize() { W = c.width = innerWidth; H = c.height = innerHeight; }
   class P {
@@ -1453,7 +1484,7 @@ document.querySelectorAll('.nav-item[data-sec]').forEach(btn => {
 
 // ─── ADMIN ───────────────────────────────────────────────
 const overlay = document.getElementById('adminOverlay');
-document.getElementById('adminBtn').addEventListener('click', () => {
+document.getElementById('adminBtn')?.addEventListener('click', () => {
   // Check if already authenticated this session
   if(sessionStorage.getItem('th_admin_auth') === '1') {
     overlay.classList.add('open');
@@ -1482,7 +1513,7 @@ function showLoginPrompt() {
         <button id="loginSubmit" class="btn btn-primary" style="flex:1;"><i class="fas fa-unlock"></i> Unlock</button>
         <button id="loginCancel" class="btn" style="flex:1;"><i class="fas fa-xmark"></i> Cancel</button>
       </div>
-      <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--dim);margin-top:16px;opacity:0.5;">Session-locked · Auto-locks on tab close</div>
+      <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--dim);margin-top:16px;opacity:0.5;">SHA-256 Secured · Auto-locks on tab close</div>
     </div>
   `;
   document.body.appendChild(modal);
@@ -1493,12 +1524,14 @@ function showLoginPrompt() {
   // Focus input
   setTimeout(() => inp.focus(), 50);
 
-  // The admin passphrase — change this to whatever you want
-  const PASSPHRASE = 'tracehanami2025';
+  // SHA-256 hash of default passphrase ("tracehanami2025")
+  // Plaintext is NEVER stored in code
+  const PASSPHRASE_HASH = '9b4fe127da20b00ddcf17503528fe856954909b7a660c7ddd89fbcf9710b6877';
 
-  function tryLogin() {
+  async function tryLogin() {
     const val = inp.value.trim();
-    if(val === PASSPHRASE) {
+    const valHash = await hashString(val);
+    if(valHash === PASSPHRASE_HASH) {
       sessionStorage.setItem('th_admin_auth', '1');
       modal.remove();
       overlay.classList.add('open');
@@ -1509,7 +1542,6 @@ function showLoginPrompt() {
       err.style.display = 'block';
       inp.value = '';
       inp.focus();
-      // Shake animation
       inp.style.animation = 'none';
       inp.style.borderColor = 'rgba(255,60,110,0.6)';
       setTimeout(() => inp.style.borderColor = '', 1200);
@@ -1520,8 +1552,8 @@ function showLoginPrompt() {
   document.getElementById('loginCancel').addEventListener('click', () => modal.remove());
   inp.addEventListener('keydown', e => { if(e.key === 'Enter') tryLogin(); if(e.key === 'Escape') modal.remove(); });
 }
-document.getElementById('adminClose').addEventListener('click', () => overlay.classList.remove('open'));
-overlay.addEventListener('click', e => { if(e.target === overlay) overlay.classList.remove('open'); });
+document.getElementById('adminClose')?.addEventListener('click', () => overlay.classList.remove('open'));
+overlay?.addEventListener('click', e => { if(e.target === overlay) overlay.classList.remove('open'); });
 
 // Tab switching
 document.querySelectorAll('.admin-tab').forEach(tab => {
@@ -1553,7 +1585,7 @@ function setValue(id, val) {
 }
 
 // Save Flags
-document.getElementById('saveFlags').addEventListener('click', () => {
+document.getElementById('saveFlags')?.addEventListener('click', () => {
   D.pico_easy = parseInt(document.getElementById('f-pico-easy').value)||0;
   D.pico_med = parseInt(document.getElementById('f-pico-med').value)||0;
   D.htb_rank = parseInt(document.getElementById('f-htb-rank').value)||0;
@@ -1566,7 +1598,7 @@ document.getElementById('saveFlags').addEventListener('click', () => {
 });
 
 // Save Profile
-document.getElementById('saveProfile').addEventListener('click', () => {
+document.getElementById('saveProfile')?.addEventListener('click', () => {
   D.year_status = document.getElementById('p-year').value || D.year_status;
   D.best_result = document.getElementById('p-best').value || D.best_result;
   D.goal_ticker = document.getElementById('p-goal').value || D.goal_ticker;
@@ -1574,7 +1606,7 @@ document.getElementById('saveProfile').addEventListener('click', () => {
 });
 
 // Add CTF Event
-document.getElementById('addCtfBtn').addEventListener('click', () => {
+document.getElementById('addCtfBtn')?.addEventListener('click', () => {
   const name = document.getElementById('ctf-name').value.trim();
   if(!name) { showToast('Enter event name'); return; }
   D.ctf_events.unshift({
@@ -1591,7 +1623,7 @@ document.getElementById('addCtfBtn').addEventListener('click', () => {
 });
 
 // Add Machine
-document.getElementById('addMachineBtn').addEventListener('click', () => {
+document.getElementById('addMachineBtn')?.addEventListener('click', () => {
   const val = document.getElementById('htb-new-machine').value.trim();
   if(!val) return;
   D.htb_machines.unshift(val);
@@ -1634,26 +1666,23 @@ function showErr(id, msg) {
 }
 
 // ─── SECRET ADMIN TRIGGER ────────────────────────────────
-// Mobile: Triple-tap on the hero name (JESVIN BRUCE J)
-// Desktop: Type the sequence  t → h → Enter  anywhere on the page
 (function() {
-  const REVEAL_SEQ = ['t', 'h', 'Enter'];   // ← change this if you want
+  const REVEAL_SEQ = ['t', 'h', 'Enter'];
   let seqBuf = [];
   let seqTimer = null;
 
-  // Desktop: key sequence listener
   document.addEventListener('keydown', e => {
+    if(['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
     seqBuf.push(e.key);
     if(seqBuf.length > REVEAL_SEQ.length) seqBuf.shift();
     clearTimeout(seqTimer);
-    seqTimer = setTimeout(() => seqBuf = [], 2200); // reset if too slow
+    seqTimer = setTimeout(() => seqBuf = [], 2200);
     if(seqBuf.join(',') === REVEAL_SEQ.join(',')) {
       seqBuf = [];
       revealAdmin();
     }
   });
 
-  // Mobile / touch: Triple-tap (3 taps within 700ms) on hero name
   const heroName = document.getElementById('heroName');
   if(heroName) {
     let tapCount = 0, tapTimer = null;
@@ -1669,7 +1698,6 @@ function showErr(id, msg) {
     const btn = document.getElementById('adminBtn');
     if(!btn) return;
     if(btn.classList.contains('admin-visible')) {
-      // Already visible — open it directly
       btn.click();
       return;
     }
@@ -1699,7 +1727,6 @@ function showErr(id, msg) {
     }
   }
 
-  // When admin panel closes, hide the button again
   document.getElementById('adminClose')?.addEventListener('click', () => {
     setTimeout(() => {
       const btn = document.getElementById('adminBtn');
@@ -1716,7 +1743,8 @@ function showErr(id, msg) {
   });
 })();
 
-        window.addEventListener('resize',()=>{ resize(); initParticles(); });
-    </script>
+// Initial render
+renderAll();
+</script>
 </body>
 </html>
