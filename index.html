@@ -371,6 +371,10 @@ main {
 .ctb-intl { background: rgba(0,207,255,0.08); border: 1px solid rgba(0,207,255,0.2); color: var(--acid2); }
 .ctb-natl { background: rgba(0,255,157,0.06); border: 1px solid rgba(0,255,157,0.15); color: var(--acid); }
 .ctb-first { background: rgba(255,210,76,0.08); border: 1px solid rgba(255,210,76,0.2); color: var(--gold); }
+.ctb-podium { background: rgba(255,210,76,0.08); border: 1px solid rgba(255,210,76,0.2); color: var(--gold); }
+.filter-btn { font-family: var(--font-mono); font-size: 0.62rem; padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border); background: rgba(0,255,157,0.02); color: var(--dim2); cursor: pointer; transition: all .2s ease; white-space: nowrap; }
+.filter-btn:hover { border-color: rgba(0,255,157,0.3); color: var(--text); }
+.filter-btn.active { background: rgba(0,255,157,0.1); border-color: var(--acid); color: var(--acid); font-weight: 600; }
 
 /* ─── CERT ITEMS ─── */
 .cert-row {
@@ -521,6 +525,107 @@ main {
 .edu-block .es { font-family: var(--font-mono); font-size: 0.65rem; color: var(--acid); letter-spacing: 1px; margin: 3px 0; }
 .edu-block .em { font-family: var(--font-mono); font-size: 0.62rem; color: var(--dim2); }
 
+/* ─── CYBER TERMINAL CONSOLE ─── */
+.terminal-window {
+  background: #020b10;
+  border: 1px solid rgba(0, 255, 157, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0,255,157,0.04);
+  font-family: var(--font-mono);
+  margin-top: 24px;
+}
+.terminal-topbar {
+  background: rgba(4, 18, 25, 0.95);
+  border-bottom: 1px solid rgba(0, 255, 157, 0.12);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.terminal-dots { display: flex; gap: 6px; align-items: center; }
+.terminal-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.terminal-dot.red { background: #ff5f56; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #27c93f; }
+.terminal-title { font-size: 0.65rem; color: var(--dim2); letter-spacing: 1px; }
+.terminal-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.terminal-chip {
+  padding: 3px 8px;
+  font-size: 0.58rem;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 157, 0.15);
+  background: rgba(0, 255, 157, 0.04);
+  color: var(--acid);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.terminal-chip:hover {
+  background: rgba(0, 255, 157, 0.15);
+  border-color: var(--acid);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.terminal-body {
+  padding: 16px 20px;
+  min-height: 240px;
+  max-height: 420px;
+  overflow-y: auto;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: var(--text);
+  background: radial-gradient(circle at top right, rgba(0,255,157,0.02), transparent 70%);
+}
+.terminal-banner {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: clamp(0.35rem, 0.9vw, 0.56rem);
+  line-height: 1.25;
+  white-space: pre;
+  overflow-x: auto;
+  color: var(--acid);
+  margin: 0 0 12px 0;
+  padding: 0;
+  letter-spacing: 0;
+}
+.terminal-line { margin-bottom: 4px; font-family: var(--font-mono); }
+.terminal-line.cmd { color: var(--acid); font-weight: 600; margin-top: 10px; white-space: pre-wrap; }
+.terminal-line.res { color: var(--text); white-space: pre-wrap; word-break: break-word; font-family: var(--font-mono); }
+.terminal-line.err { color: #ff6090; white-space: pre-wrap; }
+.terminal-line.info { color: var(--acid2); white-space: pre-wrap; }
+.terminal-line.warn { color: var(--gold); white-space: pre; font-family: monospace; overflow-x: auto; }
+.terminal-prompt-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 255, 157, 0.06);
+}
+.terminal-prompt { color: var(--acid); font-weight: 700; white-space: nowrap; font-size: 0.72rem; }
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+.terminal-run-btn {
+  background: rgba(0,255,157,0.1);
+  border: 1px solid rgba(0,255,157,0.25);
+  color: var(--acid);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.62rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: all 0.2s;
+}
+.terminal-run-btn:hover { background: var(--acid); color: #020a0f; }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 860px) {
   .hero-wrap { grid-template-columns: 1fr; text-align: center; }
@@ -557,6 +662,7 @@ main {
   <button class="nav-item active" data-sec="dashboard"><i class="fas fa-terminal"></i> Terminal</button>
   <button class="nav-item" data-sec="academics"><i class="fas fa-graduation-cap"></i> Academics</button>
   <button class="nav-item" data-sec="skills"><i class="fas fa-code"></i> Skills</button>
+  <button class="nav-item" data-sec="projects"><i class="fas fa-folder-open"></i> Projects</button>
   <button class="nav-item" data-sec="ctf"><i class="fas fa-flag"></i> CTF</button>
   <button class="nav-item" data-sec="platforms"><i class="fas fa-cube"></i> Platforms</button>
   <button class="nav-item" data-sec="contact"><i class="fas fa-satellite-dish"></i> Contact</button>
@@ -579,15 +685,17 @@ main {
       <div class="info-card">
         <h4><i class="fas fa-user-secret"></i> Identity</h4>
         <div class="iv">TraceHanami <span style="color:var(--dim)">·</span> <strong>ZeroKira</strong></div>
-        <div class="iv" style="font-size:0.72rem;color:var(--dim2);margin-top:3px;font-family:var(--font-mono)">Moonlitcipher · Sakura Sentinels</div>
-      </div>
-      <div class="info-card">
-        <h4><i class="fas fa-flag"></i> PicoCTF</h4>
-        <div class="iv"><strong id="stat-pico-total">151</strong> Flags · <strong id="stat-pico-easy">81</strong> Easy · <strong id="stat-pico-med">70</strong> Medium</div>
+        <div class="iv" style="font-size:0.72rem;color:var(--dim2);margin-top:3px;font-family:var(--font-mono)">MoonlitCipher · x3n_F0rc3 · Psych-Glitch · Sakura Sentinels · s0ul s0c13ty</div>
       </div>
       <div class="info-card">
         <h4><i class="fas fa-cube"></i> Hack The Box</h4>
-        <div class="iv">Global <strong>#<span id="stat-htb-rank">928</span></strong> · <strong id="stat-htb-sp">39</strong>/71 Starting Point</div>
+        <div class="iv">Level <strong id="stat-htb-level">25</strong> · <strong>25</strong> Challenges · <strong>4</strong> Machines · <strong>5</strong> Sherlocks</div>
+        <div class="iv" style="font-size:0.68rem;color:var(--acid2);margin-top:2px;font-family:var(--font-mono)">13 Badges · Cyber Apocalypse CTF · Season 11 (2)</div>
+      </div>
+      <div class="info-card">
+        <h4><i class="fas fa-graduation-cap"></i> CyLab Academy</h4>
+        <div class="iv"><strong id="stat-mylab-total">214</strong> Completed Labs · <strong>98</strong> Easy · <strong>111</strong> Med · <strong>5</strong> Hard</div>
+        <div class="iv" style="font-size:0.68rem;color:var(--acid);margin-top:2px;font-family:var(--font-mono)">All Cybersecurity Journeys (Except AI)</div>
       </div>
       <div class="badge-status"><span class="dot"></span> Available for CTF collaborations</div>
     </div>
@@ -608,8 +716,8 @@ main {
         <div class="alias">TraceHanami // ZeroKira</div>
         <div class="school mono" style="color:var(--dim2);">2nd Year · CSE (Cyber Security) · SSIET</div>
         <div style="margin-top:10px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-          <span class="pill pill-green">CGPA <strong id="stat-cgpa">8.54</strong></span>
-          <span class="pill pill-gold"><strong id="stat-ctf-count">12+</strong> CTFs</span>
+          <span class="pill pill-green">CGPA <strong id="stat-cgpa">8.12</strong></span>
+          <span class="pill pill-gold"><strong id="stat-ctf-count">50</strong> CTFs</span>
           <span class="pill pill-blue">Best: <strong id="stat-best-rank">3rd</strong></span>
         </div>
       </div>
@@ -619,15 +727,17 @@ main {
       <div class="info-card" style="width:100%">
         <h4><i class="fas fa-trophy"></i> Best CTF Placement</h4>
         <div class="iv"><strong id="stat-best-event">Flag Quest @ KALAM 2025</strong></div>
-        <div class="iv" style="font-family:var(--font-mono);font-size:0.7rem;color:var(--acid);margin-top:3px;">3rd Place · Moonlitcipher</div>
+        <div class="iv" style="font-family:var(--font-mono);font-size:0.7rem;color:var(--acid);margin-top:3px;">3rd Place · MoonlitCipher</div>
       </div>
       <div class="info-card" style="width:100%">
-        <h4><i class="fas fa-code"></i> LeetCode</h4>
-        <div class="iv"><strong id="stat-lc-solved">9</strong> Problems · <strong id="stat-lc-acc">63.64%</strong> Acceptance · Python</div>
+        <h4><i class="fas fa-code"></i> LeetCode & Projects</h4>
+        <div class="iv"><strong id="stat-lc-solved">90</strong> Problems Solved · Python DSA</div>
+        <div class="iv" style="font-size:0.68rem;color:var(--gold);margin-top:2px;font-family:var(--font-mono)">21 GitHub Repositories Created</div>
       </div>
       <div class="info-card" style="width:100%">
-        <h4><i class="fas fa-chart-line"></i> Overall Progress</h4>
-        <div id="overall-tags" style="display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;"></div>
+        <h4><i class="fas fa-shield-halved"></i> TryHackMe</h4>
+        <div class="iv"><strong>Top 20%</strong> (@tracehanami · 16 Rooms)</div>
+        <div class="iv" style="font-size:0.68rem;color:var(--warn);margin-top:2px;font-family:var(--font-mono)">Top 50% (@TraceHanami · 11 Rooms · Pathfinder)</div>
       </div>
     </div>
   </div>
@@ -640,19 +750,50 @@ main {
       <div class="sd">PicoCTF Platform</div>
     </div>
     <div class="stat-box">
-      <span class="sv" id="ds-ctfs">12+</span>
+      <span class="sv" id="ds-ctfs">50</span>
       <div class="sl">CTF EVENTS</div>
       <div class="sd">National + International</div>
     </div>
     <div class="stat-box">
-      <span class="sv" id="ds-rank">3rd</span>
-      <div class="sl">BEST RANK</div>
-      <div class="sd">Flag Quest · KALAM 2025</div>
+      <span class="sv" id="ds-htb">Lvl 25</span>
+      <div class="sl">HACK THE BOX</div>
+      <div class="sd">25 Challs · 5 Sherlocks</div>
     </div>
     <div class="stat-box">
-      <span class="sv" id="ds-htb">#928</span>
-      <div class="sl">HTB GLOBAL</div>
-      <div class="sd">Starting Point 55%</div>
+      <span class="sv" id="ds-lc">90</span>
+      <div class="sl">LEETCODE SOLVED</div>
+      <div class="sd">Python DSA Problem Solver</div>
+    </div>
+  </div>
+
+  <!-- Interactive Cyber Terminal Emulator -->
+  <div class="terminal-window">
+    <div class="terminal-topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="terminal-dots">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+        </div>
+        <span class="terminal-title"><i class="fas fa-terminal" style="color:var(--acid);margin-right:6px;"></i>tracehanami@kali:~ (zsh)</span>
+      </div>
+      <div class="terminal-chips">
+        <button class="terminal-chip" data-cmd="help"><i class="fas fa-question-circle"></i> help</button>
+        <button class="terminal-chip" data-cmd="whoami"><i class="fas fa-user-secret"></i> whoami</button>
+        <button class="terminal-chip" data-cmd="stats"><i class="fas fa-chart-simple"></i> stats</button>
+        <button class="terminal-chip" data-cmd="ctf"><i class="fas fa-trophy"></i> ctf</button>
+        <button class="terminal-chip" data-cmd="projects"><i class="fas fa-code-branch"></i> projects</button>
+        <button class="terminal-chip" data-cmd="skills"><i class="fas fa-shield-halved"></i> skills</button>
+        <button class="terminal-chip" data-cmd="clear"><i class="fas fa-eraser"></i> clear</button>
+      </div>
+    </div>
+    <div class="terminal-body" id="termBody">
+      <div class="terminal-output" id="termOutput"></div>
+      <div class="terminal-prompt-line">
+        <span class="terminal-prompt">tracehanami@kali:~$</span>
+        <input type="text" class="terminal-input" id="termInput" placeholder="Type a command (e.g. 'help', 'whoami', 'stats', 'ctf', 'projects')..." autocomplete="off" spellcheck="false">
+        <button class="terminal-run-btn" id="termRunBtn"><i class="fas fa-play"></i> Run</button>
+      </div>
     </div>
   </div>
 
@@ -660,169 +801,399 @@ main {
 
 <!-- ═══════════════════════════════ ACADEMICS ═══════════════════════════════ -->
 <section id="academics" class="section">
-  <h2 class="sec-title"><div class="sec-title-bar"></div> Academic Profile <small>// Education & Certs</small></h2>
+  <h2 class="sec-title"><div class="sec-title-bar"></div> Academic Profile <small>// Education, Coursework & Certifications</small></h2>
 
+  <!-- Degree & University Card -->
   <div class="card" style="padding:28px;margin-bottom:22px;">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:22px;">
       <div style="flex:1;min-width:240px;">
         <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:8px;">B.E. Computer Science & Engineering</div>
-        <h3 style="font-size:1.18rem;font-weight:700;color:#fff;margin-bottom:5px;">Sri Shakthi Institute of Engineering & Technology</h3>
-        <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--dim2);">Batch 2024–2028 · Cyber Security Specialization · Coimbatore</div>
-        <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:7px;">
-          <span class="tag"><i class="fas fa-shield-halved"></i> Cyber Security</span>
-          <span class="tag"><i class="fas fa-terminal"></i> Linux Systems</span>
-          <span class="tag"><i class="fas fa-flag"></i> CTF Active</span>
+        <h3 style="font-size:1.22rem;font-weight:700;color:#fff;margin-bottom:5px;">Sri Shakthi Institute of Engineering & Technology</h3>
+        <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--dim2);">Batch 2024–2028 · 2nd Year · Cyber Security Specialization · Coimbatore, TN</div>
+        <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:7px;">
+          <span class="tag"><i class="fas fa-shield-halved"></i> Cyber Security Specialization</span>
+          <span class="tag blue"><i class="fas fa-terminal"></i> Linux Systems & Networks</span>
+          <span class="tag gold"><i class="fas fa-trophy"></i> CTF Competitor (50 Events)</span>
+          <span class="tag"><i class="fas fa-code"></i> Python DSA (90 Solved)</span>
         </div>
       </div>
       <div style="text-align:center;">
-        <div class="ring-chart" style="background:conic-gradient(var(--acid) 0% 85.4%, rgba(0,255,157,0.06) 85.4% 100%);">
+        <div class="ring-chart" style="background:conic-gradient(var(--acid) 0% 81.2%, rgba(0,255,157,0.06) 81.2% 100%);">
           <div class="ring-inner">
-            <div class="rv" id="cgpa-ring-val">8.54</div>
+            <div class="rv" id="cgpa-ring-val">8.12</div>
             <div class="rl">CGPA</div>
           </div>
         </div>
-        <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--dim2);margin-top:8px;">/ 10.0</div>
+        <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--dim2);margin-top:8px;">/ 10.0 Cumulative Grade Point</div>
       </div>
     </div>
   </div>
 
   <div class="g2" style="margin-bottom:22px;">
+    <!-- Core Coursework -->
     <div class="card" style="padding:24px;">
-      <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-book-open" style="color:var(--acid2);margin-right:8px;"></i>Core Coursework</div>
+      <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-book-open" style="color:var(--acid2);margin-right:8px;"></i>Curriculum & Coursework</div>
       <div style="display:flex;flex-direction:column;gap:10px;">
         <div class="edu-block">
           <h4>Semester 1</h4>
-          <div class="es">Foundations</div>
-          <div class="em">C Programming · Maths · Physics</div>
+          <div class="es">Computer Science Foundations</div>
+          <div class="em">C Programming · Discrete Mathematics · Engineering Physics · Problem Solving</div>
         </div>
         <div class="edu-block">
           <h4>Semester 2</h4>
-          <div class="es">Core Languages</div>
-          <div class="em">Advanced C · Python Programming · Engineering Drawing</div>
+          <div class="es">Core Programming & Algorithms</div>
+          <div class="em">Advanced C · Python Programming · Engineering Graphics · Computational Thinking</div>
         </div>
         <div class="edu-block">
           <h4>Semester 3</h4>
-          <div class="es">Systems & OOP</div>
-          <div class="em">Java · Operating Systems · Digital Electronics</div>
+          <div class="es">Systems, Architecture & OOP</div>
+          <div class="em">Java Programming · Operating Systems · Digital Electronics · Object-Oriented Design</div>
         </div>
         <div class="edu-block">
           <h4>Semester 4</h4>
-          <div class="es">Networks & Algorithms</div>
-          <div class="em">Computer Networks · Advanced Java · Data Structures & Algorithms</div>
+          <div class="es">Networks, DSA & Security Fundamentals</div>
+          <div class="em">Computer Networks · Data Structures & Algorithms · Database Management (DBMS)</div>
         </div>
       </div>
     </div>
 
+    <!-- Certifications -->
     <div class="card" style="padding:24px;">
-      <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-award" style="color:var(--gold);margin-right:8px;"></i>Certifications</div>
+      <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-award" style="color:var(--gold);margin-right:8px;"></i>Formal Certifications & Training</div>
       <div style="display:flex;flex-direction:column;gap:9px;">
         <div class="cert-row">
-          <i class="fas fa-certificate ci"></i>
-          <div><div class="ct">C Programming — NSDC</div><div class="cs"><span class="pill-gold pill">First Class</span> · May 2024</div></div>
+          <i class="fas fa-certificate ci" style="color:var(--gold);"></i>
+          <div><div class="ct">C Programming — NSDC Certified</div><div class="cs"><span class="pill-gold pill">First Class</span> · National Skill Development Corporation · May 2024</div></div>
         </div>
         <div class="cert-row">
-          <i class="fas fa-certificate ci"></i>
-          <div><div class="ct">Basic Python & SQL</div><div class="cs">Network Systems, Nagercoil · Aug 2024</div></div>
+          <i class="fas fa-certificate ci" style="color:var(--acid);"></i>
+          <div><div class="ct">C++ with Object-Oriented Programming</div><div class="cs"><span class="pill-green pill">Grade A</span> · Oscar Computer Education · Aug 2024</div></div>
         </div>
         <div class="cert-row">
-          <i class="fas fa-certificate ci"></i>
-          <div><div class="ct">C++ with OOP</div><div class="cs"><span class="pill-green pill">Grade A</span> · Oscar Computer Education · Aug 2024</div></div>
+          <i class="fas fa-certificate ci" style="color:var(--acid2);"></i>
+          <div><div class="ct">Python Programming & Relational SQL</div><div class="cs">Network Systems, Nagercoil · Aug 2024</div></div>
         </div>
         <div class="cert-row">
-          <i class="fas fa-certificate ci"></i>
-          <div><div class="ct">HP LIFE — Cybersecurity, AI, Success</div><div class="cs">HP Foundation · Jul 2025</div></div>
+          <i class="fas fa-certificate ci" style="color:var(--gold);"></i>
+          <div><div class="ct">HP LIFE — Cybersecurity, AI & Success</div><div class="cs">HP Foundation · Jul 2025</div></div>
+        </div>
+        <div class="cert-row">
+          <i class="fas fa-graduation-cap ci" style="color:var(--acid);"></i>
+          <div><div class="ct">CyLab Academy — 214 Practical Labs Completed</div><div class="cs">Carnegie Mellon CyLab Cybersecurity Education · 2025-2026</div></div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="card" style="padding:24px;">
-    <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-rocket" style="color:var(--acid2);margin-right:8px;"></i>Focus & Direction</div>
+    <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-rocket" style="color:var(--acid2);margin-right:8px;"></i>Academic & Research Trajectory</div>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
-      <span class="tag"><i class="fas fa-shield-halved"></i> Cybersecurity & CTFs</span>
-      <span class="tag blue"><i class="fas fa-linux"></i> Linux Systems</span>
-      <span class="tag blue"><i class="fas fa-code-branch"></i> DSA</span>
-      <span class="tag"><i class="fas fa-server"></i> Secure Backend</span>
+      <span class="tag"><i class="fas fa-shield-halved"></i> Cybersecurity & CTF Competitions</span>
+      <span class="tag blue"><i class="fas fa-linux"></i> Linux Operating Systems & DFIR</span>
+      <span class="tag blue"><i class="fas fa-code-branch"></i> Data Structures & Algorithms (DSA)</span>
+      <span class="tag gold"><i class="fas fa-server"></i> Secure Web Development & Backend</span>
     </div>
-    <p style="font-family:var(--font-mono);font-size:0.72rem;color:var(--dim2);line-height:1.7;">Strong early-career profile combining <span class="accent">academic coursework</span>, <span class="accent">formal certifications</span>, <span class="accent">competitive coding</span>, and <span class="accent">hands-on security labs</span> — targeting internships, advanced CTF competitions, and specialized security roles.</p>
+    <p style="font-family:var(--font-mono);font-size:0.72rem;color:var(--dim2);line-height:1.7;">Combines <span class="accent">8.12 CGPA academic excellence</span> at Sri Shakthi Institute with <span class="accent">50 national & international CTF competitions</span>, <span class="accent">90 LeetCode problem solves</span>, <span class="accent">214 CyLab practical security labs</span>, and <span class="accent">21 GitHub open-source repositories</span> — targeting security research, DFIR, and technical security engineering roles.</p>
   </div>
 </section>
 
 <!-- ═══════════════════════════════ SKILLS ═══════════════════════════════ -->
 <section id="skills" class="section">
-  <h2 class="sec-title"><div class="sec-title-bar"></div> Skill Matrix <small>// Technical Arsenal</small></h2>
+  <h2 class="sec-title"><div class="sec-title-bar"></div> Skill Matrix <small>// Technical Arsenal & Domain Expertise</small></h2>
 
   <div class="g3" style="margin-bottom:20px;">
+    <!-- Languages & Development -->
     <div class="card" style="padding:26px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:18px;"><i class="fas fa-code"></i> Programming Languages</div>
-      <div class="skill-row"><div class="skill-hdr"><span>C (NSDC Certified)</span><span class="pct">80%</span></div><div class="skill-track"><div class="skill-fill" data-w="80"></div></div></div>
-      <div class="skill-row"><div class="skill-hdr"><span>Python</span><span class="pct">75%</span></div><div class="skill-track"><div class="skill-fill" data-w="75"></div></div></div>
-      <div class="skill-row"><div class="skill-hdr"><span>C++ OOP</span><span class="pct">75%</span></div><div class="skill-track"><div class="skill-fill" data-w="75"></div></div></div>
-      <div class="skill-row"><div class="skill-hdr"><span>Java</span><span class="pct">70%</span></div><div class="skill-track"><div class="skill-fill" data-w="70"></div></div></div>
-      <div class="skill-row"><div class="skill-hdr"><span>SQL</span><span class="pct">65%</span></div><div class="skill-track"><div class="skill-fill" data-w="65"></div></div></div>
-      <div class="skill-row"><div class="skill-hdr"><span>Bash</span><span class="pct">55%</span></div><div class="skill-track"><div class="skill-fill" data-w="55"></div></div></div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:18px;"><i class="fas fa-code"></i> Programming & Languages</div>
+      <div class="skill-row"><div class="skill-hdr"><span>Python (DSA, CTFs & Scripting)</span><span class="pct">85%</span></div><div class="skill-track"><div class="skill-fill" data-w="85"></div></div></div>
+      <div class="skill-row"><div class="skill-hdr"><span>C (NSDC First Class Certified)</span><span class="pct">85%</span></div><div class="skill-track"><div class="skill-fill" data-w="85"></div></div></div>
+      <div class="skill-row"><div class="skill-hdr"><span>C++ (OOP & DSA · Grade A)</span><span class="pct">80%</span></div><div class="skill-track"><div class="skill-fill" data-w="80"></div></div></div>
+      <div class="skill-row"><div class="skill-hdr"><span>Web & Full Stack (HTML5/CSS/JS)</span><span class="pct">80%</span></div><div class="skill-track"><div class="skill-fill" data-w="80"></div></div></div>
+      <div class="skill-row"><div class="skill-hdr"><span>Java (Systems & Networking)</span><span class="pct">75%</span></div><div class="skill-track"><div class="skill-fill" data-w="75"></div></div></div>
+      <div class="skill-row"><div class="skill-hdr"><span>Bash & Linux Scripting</span><span class="pct">75%</span></div><div class="skill-track"><div class="skill-fill" data-w="75"></div></div></div>
+      <div class="skill-row"><div class="skill-hdr"><span>SQL & Database Design</span><span class="pct">70%</span></div><div class="skill-track"><div class="skill-fill" data-w="70"></div></div></div>
     </div>
 
+    <!-- Cybersecurity Domains -->
     <div class="card" style="padding:26px;">
       <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:18px;"><i class="fas fa-shield-halved"></i> Cybersecurity Domains</div>
       <div style="display:flex;flex-direction:column;gap:9px;">
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Web Exploitation</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Cryptography</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">OSINT</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Digital Forensics</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Reverse Engineering (Basic)</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-half-stroke" style="color:#ffa040;font-size:0.8rem;"></i><span style="font-size:0.82rem;color:var(--dim2);">Binary Exploitation <span class="tag warn" style="padding:1px 6px;font-size:0.55rem;">Learning</span></span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-half-stroke" style="color:#ffa040;font-size:0.8rem;"></i><span style="font-size:0.82rem;color:var(--dim2);">Privilege Escalation <span class="tag warn" style="padding:1px 6px;font-size:0.55rem;">Learning</span></span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Web Security (XSS, SQLi, Auth, IDOR)</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Digital Forensics & DFIR (5 HTB Sherlocks)</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Cryptography (RSA, Classical, Hash Dumps)</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">Network Defense & Packet Inspection</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">OSINT & Reconnaissance</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-check" style="color:var(--acid);font-size:0.8rem;"></i><span style="font-size:0.82rem;">System Hardening (CyLab 214 Completed Labs)</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-half-stroke" style="color:#ffa040;font-size:0.8rem;"></i><span style="font-size:0.82rem;color:var(--dim2);">Reverse Engineering (Ghidra, GDB) <span class="tag warn" style="padding:1px 6px;font-size:0.55rem;">Active</span></span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-circle-half-stroke" style="color:#ffa040;font-size:0.8rem;"></i><span style="font-size:0.82rem;color:var(--dim2);">Binary Exploitation & Buffer Overflows <span class="tag warn" style="padding:1px 6px;font-size:0.55rem;">Active</span></span></div>
       </div>
     </div>
 
+    <!-- Tools & Security Arsenal -->
     <div class="card" style="padding:26px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-wrench"></i> Tools & Environment</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-wrench"></i> Security Tools & Arsenal</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
         <span class="tag">Kali Linux</span><span class="tag">Wireshark</span><span class="tag">Nmap</span>
         <span class="tag">Burp Suite</span><span class="tag">Metasploit</span><span class="tag">Ghidra</span>
-        <span class="tag">VirtualBox</span><span class="tag">Git</span><span class="tag">Bash</span><span class="tag">Volatility</span>
+        <span class="tag">Volatility</span><span class="tag">GDB</span><span class="tag">CyberChef</span>
+        <span class="tag">Autopsy</span><span class="tag">Binwalk</span><span class="tag">VirtualBox</span>
       </div>
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid2);text-transform:uppercase;margin-bottom:10px;">Linux Skills</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid2);text-transform:uppercase;margin-bottom:10px;">Linux Systems & Security Operations</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;">
-        <span class="tag blue">Command Line</span>
+        <span class="tag blue">Bash CLI</span>
+        <span class="tag blue">Privilege Escalation</span>
         <span class="tag blue">System Enumeration</span>
         <span class="tag blue">File Permissions</span>
-        <span class="tag blue">Privilege Escalation</span>
-        <span class="tag blue">Process Management</span>
+        <span class="tag blue">Process & Network Monitoring</span>
       </div>
     </div>
   </div>
 
-  <div class="card" style="padding:26px;">
-    <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:16px;"><i class="fas fa-microchip"></i> Core CS — Problem Solving</div>
-    <div style="display:flex;flex-wrap:wrap;gap:20px;margin-bottom:16px;">
-      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;"></i>Operating Systems</span>
-      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;"></i>Computer Networks</span>
-      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;"></i>Data Structures & Algorithms</span>
-      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;"></i>Object-Oriented Programming</span>
-      <span><i class="fas fa-check" style="color:var(--acid);margin-right:7px;"></i>Cryptography Concepts</span>
+  <!-- Core CS & 90 LeetCode Problems -->
+  <div class="g2" style="margin-bottom:20px;">
+    <div class="card" style="padding:26px;">
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-microchip"></i> Core CS Foundations</div>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
+        <span><i class="fas fa-check" style="color:var(--acid);margin-right:6px;"></i>Data Structures & Algorithms</span>
+        <span><i class="fas fa-check" style="color:var(--acid);margin-right:6px;"></i>Operating Systems & Kernel</span>
+        <span><i class="fas fa-check" style="color:var(--acid);margin-right:6px;"></i>Computer Networks (TCP/IP)</span>
+        <span><i class="fas fa-check" style="color:var(--acid);margin-right:6px;"></i>Object-Oriented Design</span>
+        <span><i class="fas fa-check" style="color:var(--acid);margin-right:6px;"></i>Database Management (DBMS)</span>
+      </div>
+      <p style="font-family:var(--font-mono);font-size:0.7rem;color:var(--dim2);line-height:1.6;">Applying fundamental computer science principles to build secure software, reverse engineer complex systems, and analyze vulnerability attack surfaces.</p>
     </div>
-    <div style="border-top:1px solid rgba(0,255,157,0.06);padding-top:14px;font-family:var(--font-mono);font-size:0.7rem;color:var(--dim2);">
-      <i class="fas fa-code" style="color:var(--acid);margin-right:7px;"></i>LeetCode: Two Sum · Palindrome · Roman to Integer · Running Sum of Prefix · Valid Parentheses · Merge Two Lists · Plus More <span class="pill-green pill">63.64% Acceptance</span>
+
+    <div class="card" style="padding:26px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase;"><i class="fas fa-code"></i> LeetCode & Problem Solving</div>
+        <a href="https://leetcode.com/u/TraceHanami/" target="_blank" class="tag gold" style="text-decoration:none;font-size:0.6rem;"><i class="fas fa-external-link-alt"></i> 90 Solved (63.64% Acc)</a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+        <span class="tag">Two Sum</span>
+        <span class="tag">Palindrome Number</span>
+        <span class="tag">Roman to Integer</span>
+        <span class="tag">Running Sum 1D</span>
+        <span class="tag">Valid Parentheses</span>
+        <span class="tag">Merge Sorted Lists</span>
+        <span class="tag gold">+84 More Problems</span>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--dim2);">
+        Focus areas: Arrays, Hashing, Two Pointers, Prefix Sum, Stack, Binary Search, Linked Lists & Mathematical logic in Python.
+      </div>
     </div>
   </div>
+
+  <!-- ═══════════════════════════════ DEPLOYED LABS & CTF LEADERSHIP ═══════════════════════════════ -->
+  <div class="card" style="padding:26px;margin-bottom:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+      <div style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;">
+        <i class="fas fa-server"></i> Live Security Labs, Deployed Platforms & CTF Leadership
+      </div>
+      <span class="tag gold"><i class="fas fa-satellite-dish"></i> Live Deployed Systems</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:16px;">
+      <!-- System 1: TOM CTF 2026 Organizer -->
+      <div style="padding:16px;border:1px solid rgba(255,210,76,0.2);border-radius:10px;background:rgba(255,210,76,0.03);display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <span class="pill-gold pill" style="font-size:0.58rem;"><i class="fas fa-crown"></i> CTF Organizer</span>
+            <span style="font-family:var(--font-mono);font-size:0.58rem;color:var(--dim2);">KALAM 2026</span>
+          </div>
+          <h4 style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:4px;">TOM CTF @ KALAM 2026</h4>
+          <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--gold);margin-bottom:8px;">Sri Shakthi Institute of Engineering & Technology</div>
+          <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--dim2);line-height:1.5;margin-bottom:12px;">
+            Lead Organizer & Challenge Creator on Unstop. Engineered original competitive challenges across Web Exploitation, Forensics, Reverse Engineering, and Cryptography.
+          </p>
+        </div>
+        <a href="https://unstop.com/hackathons/tom-ctf-sri-shakthi-institute-of-engineering-technology-1635654" target="_blank" class="btn btn-primary" style="padding:6px 12px;font-size:0.62rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;width:fit-content;">
+          <i class="fas fa-external-link-alt"></i> View on Unstop
+        </a>
+      </div>
+
+      <!-- System 2: Blue Team & DFIR Labs -->
+      <div style="padding:16px;border:1px solid rgba(0,255,157,0.2);border-radius:10px;background:rgba(0,255,157,0.03);display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <span class="pill-green pill" style="font-size:0.58rem;"><i class="fas fa-shield-halved"></i> Live Labs Platform</span>
+            <span class="badge-status" style="padding:2px 8px;font-size:0.55rem;"><span class="dot"></span> Online</span>
+          </div>
+          <h4 style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:4px;">Cyber Security Hands-on Labs</h4>
+          <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--acid);margin-bottom:8px;">Blue Team · DFIR · Forensics · Crypto · Misc</div>
+          <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--dim2);line-height:1.5;margin-bottom:12px;">
+            Custom self-hosted interactive cyber labs infrastructure engineered for Blue Team defense, digital forensic investigations, cryptographic analysis, and misc challenges.
+          </p>
+        </div>
+        <a href="http://110.172.151.108/" target="_blank" class="btn" style="padding:6px 12px;font-size:0.62rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;width:fit-content;border-color:rgba(0,255,157,0.3);color:var(--acid);">
+          <i class="fas fa-satellite-dish"></i> Access Live Labs (110.172.151.108)
+        </a>
+      </div>
+
+      <!-- System 3: Steganography & Forensics Classroom -->
+      <div style="padding:16px;border:1px solid rgba(0,207,255,0.2);border-radius:10px;background:rgba(0,207,255,0.03);display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <span class="pill-blue pill" style="font-size:0.58rem;"><i class="fas fa-graduation-cap"></i> Forensic Classroom</span>
+            <span style="font-family:var(--font-mono);font-size:0.58rem;color:var(--acid2);">Port 5173</span>
+          </div>
+          <h4 style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:4px;">Steganography & Forensics Tools Portal</h4>
+          <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--acid2);margin-bottom:8px;">Virtual Classroom & Investigation Suite</div>
+          <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--dim2);line-height:1.5;margin-bottom:12px;">
+            Deployed web classroom environment designed for training and practical utilization of digital forensic analysis, steganographic decoders, file carving, and artifact examination.
+          </p>
+        </div>
+        <a href="http://110.172.151.108:5173/login" target="_blank" class="btn" style="padding:6px 12px;font-size:0.62rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;width:fit-content;border-color:rgba(0,207,255,0.3);color:var(--acid2);">
+          <i class="fas fa-key"></i> Launch Classroom Portal
+        </a>
+      </div>
+
+      <!-- System 4: CTF & Hackathon Tracker -->
+      <div style="padding:16px;border:1px solid rgba(255,60,110,0.2);border-radius:10px;background:rgba(255,60,110,0.03);display:flex;flex-direction:column;justify-content:space-between;">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <span class="pill-red pill" style="font-size:0.58rem;"><i class="fas fa-radar"></i> Live Web App</span>
+            <span style="font-family:var(--font-mono);font-size:0.58rem;color:var(--warn);">Vercel Deployed</span>
+          </div>
+          <h4 style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:4px;">CTF Tracker & Hackathon Scraper</h4>
+          <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--warn);margin-bottom:8px;">Global Tournament Aggregator</div>
+          <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--dim2);line-height:1.5;margin-bottom:12px;">
+            Automated intelligence platform that scrapes, tracks, and catalogs upcoming global CTF tournaments, cybersecurity hackathons, dates, prize pools, and registration deadlines.
+          </p>
+        </div>
+        <a href="https://ctf-tracker.vercel.app/" target="_blank" class="btn" style="padding:6px 12px;font-size:0.62rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;width:fit-content;border-color:rgba(255,60,110,0.3);color:var(--warn);">
+          <i class="fas fa-arrow-up-right-from-square"></i> Open CTF Tracker
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Applied Projects Showcase (20 GitHub Repositories) -->
+  <div class="card" style="padding:26px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+      <div style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;"><i class="fab fa-github"></i> Applied Project Portfolio · 20 Repositories on GitHub</div>
+      <a href="https://github.com/TraceHanami" target="_blank" class="btn" style="padding:4px 10px;font-size:0.6rem;"><i class="fab fa-github"></i> View GitHub Profile</a>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:14px;">
+      <!-- Category 1: Cybersecurity -->
+      <div style="padding:14px;border:1px solid rgba(0,255,157,0.12);border-radius:8px;background:rgba(0,255,157,0.02);">
+        <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--acid);font-weight:700;margin-bottom:6px;"><i class="fas fa-shield-halved"></i> Cybersecurity (6 Repos)</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-bottom:8px;">Honeypots, offensive tooling, triage & CTF platform:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <a href="https://github.com/TraceHanami/Phish-Pot" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-fish"></i> Phish-Pot</a>
+          <a href="https://github.com/TraceHanami/BlackOps" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-terminal"></i> BlackOps</a>
+          <a href="https://github.com/TraceHanami/writeups" target="_blank" class="tag gold" style="text-decoration:none;"><i class="fas fa-book"></i> writeups</a>
+          <a href="https://github.com/TraceHanami/iReport-Your-Cybercrime-Assistant" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-shield"></i> iReport</a>
+          <a href="https://github.com/TraceHanami/SecureAccess" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-key"></i> SecureAccess</a>
+          <a href="https://github.com/TraceHanami/moonlitcipher" target="_blank" class="tag blue" style="text-decoration:none;"><i class="fas fa-users"></i> moonlitcipher</a>
+        </div>
+      </div>
+
+      <!-- Category 2: AI & Computer Vision -->
+      <div style="padding:14px;border:1px solid rgba(0,207,255,0.12);border-radius:8px;background:rgba(0,207,255,0.02);">
+        <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--acid2);font-weight:700;margin-bottom:6px;"><i class="fas fa-brain"></i> AI & Vision (2 Repos)</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-bottom:8px;">Intelligent surveillance & virtual assistants:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <a href="https://github.com/TraceHanami/Smart-CCTV-Survillence" target="_blank" class="tag blue" style="text-decoration:none;"><i class="fas fa-video"></i> Smart-CCTV</a>
+          <a href="https://github.com/TraceHanami/AIVA-Ks" target="_blank" class="tag blue" style="text-decoration:none;"><i class="fas fa-robot"></i> AIVA-Ks</a>
+        </div>
+      </div>
+
+      <!-- Category 3: Full Stack & Web Apps -->
+      <div style="padding:14px;border:1px solid rgba(255,210,76,0.12);border-radius:8px;background:rgba(255,210,76,0.02);">
+        <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--gold);font-weight:700;margin-bottom:6px;"><i class="fas fa-globe"></i> Full Stack & Web (5 Repos)</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-bottom:8px;">Portals, databases & interactive portfolios:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <a href="https://github.com/TraceHanami/CTF-Tracker" target="_blank" class="tag red" style="text-decoration:none;"><i class="fas fa-radar"></i> CTF-Tracker</a>
+          <a href="https://github.com/TraceHanami/Employee-Portal" target="_blank" class="tag gold" style="text-decoration:none;"><i class="fas fa-users-gear"></i> Employee-Portal</a>
+          <a href="https://github.com/TraceHanami/student_database" target="_blank" class="tag gold" style="text-decoration:none;"><i class="fas fa-database"></i> student_database</a>
+          <a href="https://github.com/TraceHanami/portfolio" target="_blank" class="tag gold" style="text-decoration:none;"><i class="fas fa-terminal"></i> portfolio</a>
+          <a href="https://github.com/TraceHanami/Team-Portfolio" target="_blank" class="tag gold" style="text-decoration:none;"><i class="fas fa-id-card"></i> Team-Portfolio</a>
+          <a href="https://github.com/TraceHanami/Appa-Portfolio" target="_blank" class="tag gold" style="text-decoration:none;"><i class="fas fa-user"></i> Appa-Portfolio</a>
+        </div>
+      </div>
+
+      <!-- Category 4: Core Fundamentals & DSA -->
+      <div style="padding:14px;border:1px solid rgba(255,255,255,0.12);border-radius:8px;background:rgba(255,255,255,0.02);">
+        <div style="font-family:var(--font-mono);font-size:0.68rem;color:#fff;font-weight:700;margin-bottom:6px;"><i class="fas fa-terminal"></i> Core CS & DSA (6 Repos)</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-bottom:8px;">Python DSA, mathematics, calculators & utilities:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <a href="https://github.com/TraceHanami/LeetCode-Journey" target="_blank" class="tag gold" style="text-decoration:none;"><i class="fas fa-code"></i> LeetCode-Journey</a>
+          <a href="https://github.com/TraceHanami/Mathmate" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-calculator"></i> Mathmate</a>
+          <a href="https://github.com/TraceHanami/scientific_calculator" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-calculator"></i> sci_calculator</a>
+          <a href="https://github.com/TraceHanami/Simple-Expanse-Tracker" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-wallet"></i> ExpenseTracker</a>
+          <a href="https://github.com/TraceHanami/Smart-birthday-remainder" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-cake-candles"></i> BirthdayReminder</a>
+          <a href="https://github.com/TraceHanami/snake_ladder" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-dice"></i> snake_ladder</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PROJECTS ═══════════════════════════════ -->
+<section id="projects" class="section">
+  <h2 class="sec-title"><div class="sec-title-bar"></div> Project Arsenal <small>// Deployed Systems & Open Source (21 Repositories)</small></h2>
+
+  <!-- Projects Metrics Bar -->
+  <div class="card g4" style="margin-bottom:24px;padding:0;">
+    <div class="stat-box" style="border-right:1px solid rgba(0,255,157,0.06);">
+      <span class="sv" style="color:var(--acid);">20</span>
+      <div class="sl">GITHUB REPOSITORIES</div>
+      <div class="sd">Open Source on @TraceHanami</div>
+    </div>
+    <div class="stat-box" style="border-right:1px solid rgba(0,255,157,0.06);">
+      <span class="sv" style="color:var(--gold);">9</span>
+      <div class="sl">LIVE DEPLOYMENTS</div>
+      <div class="sd">Labs, Portals & Vercel Apps</div>
+    </div>
+    <div class="stat-box" style="border-right:1px solid rgba(0,255,157,0.06);">
+      <span class="sv" style="color:var(--acid2);">6</span>
+      <div class="sl">CYBERSECURITY TOOLS</div>
+      <div class="sd">Offensive, Defense & CTF</div>
+    </div>
+    <div class="stat-box">
+      <span class="sv">13</span>
+      <div class="sl">AI, WEB & CORE CS</div>
+      <div class="sd">Vision, Portals, C/C++ & DSA</div>
+    </div>
+  </div>
+
+  <!-- Filter Bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+    <div class="filter-bar" id="proj-filters" style="margin-bottom:0;">
+      <button class="filter-btn active" data-pfilter="all"><i class="fas fa-layer-group"></i> All Projects (23)</button>
+      <button class="filter-btn" data-pfilter="deployed"><i class="fas fa-server"></i> Live Deployments (9)</button>
+      <button class="filter-btn" data-pfilter="cyber"><i class="fas fa-shield-halved"></i> Cybersecurity (6)</button>
+      <button class="filter-btn" data-pfilter="ai"><i class="fas fa-brain"></i> AI & Vision (2)</button>
+      <button class="filter-btn" data-pfilter="web"><i class="fas fa-globe"></i> Full Stack & Web (5)</button>
+      <button class="filter-btn" data-pfilter="core"><i class="fas fa-terminal"></i> Core CS & DSA (6)</button>
+    </div>
+    <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dim2);" id="proj-count-display"></div>
+  </div>
+
+  <!-- Projects Grid -->
+  <div id="projects-list" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:18px;"></div>
 </section>
 
 <!-- ═══════════════════════════════ CTF ═══════════════════════════════ -->
 <section id="ctf" class="section">
   <h2 class="sec-title"><div class="sec-title-bar"></div> CTF Journey <small>// Competition History</small></h2>
 
-  <div class="card g3" style="margin-bottom:24px;padding:0;">
+  <div class="card g4" style="margin-bottom:24px;padding:0;">
     <div class="stat-box" style="border-right:1px solid rgba(0,255,157,0.06);">
-      <span class="sv" id="ctf-total">14</span>
+      <span class="sv" id="ctf-total">50</span>
       <div class="sl">EVENTS ENTERED</div>
-      <div class="sd">National + International</div>
+      <div class="sd">50 Unique Competitions</div>
     </div>
     <div class="stat-box" style="border-right:1px solid rgba(0,255,157,0.06);">
       <span class="sv">3rd</span>
       <div class="sl">BEST PLACEMENT</div>
       <div class="sd">Flag Quest · KALAM 2025</div>
+    </div>
+    <div class="stat-box" style="border-right:1px solid rgba(0,255,157,0.06);">
+      <span class="sv">#80</span>
+      <div class="sl">TOP TEAM RANK</div>
+      <div class="sd">India CTFtime · Psych-Glitch</div>
     </div>
     <div class="stat-box">
       <span class="sv" id="ctf-flag-total">151</span>
@@ -831,29 +1202,180 @@ main {
     </div>
   </div>
 
-  <div class="g2" style="margin-bottom:24px;">
-    <div class="card" style="padding:24px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-users"></i> Teams</div>
-      <div style="margin-bottom:12px;">
-        <div style="font-size:0.82rem;font-weight:600;color:#fff;margin-bottom:8px;">Moonlitcipher</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;">
-          <span class="tag gold"><i class="fas fa-star"></i> TraceHanami</span>
-          <span class="tag">Zer0_logon</span><span class="tag">BlackFairy</span>
-          <span class="tag">Asta_Black</span><span class="tag">Joker53</span>
-          <span class="tag">WhatEver</span><span class="tag">Nova</span>
-          <span class="tag">NithirX0</span><span class="tag">Dustin05</span>
-        </div>
+  <!-- Major Achievements Banner -->
+  <div class="card" style="padding:22px 26px;margin-bottom:24px;border:1px solid rgba(255,210,76,0.2);background:linear-gradient(135deg, rgba(255,210,76,0.03), rgba(0,255,157,0.02));">
+    <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <span><i class="fas fa-trophy" style="color:var(--gold);margin-right:6px;"></i> Major CTF Achievements & Podiums</span>
+      <span class="pill pill-gold" style="font-size:0.55rem;">8 Top Placements</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:10px;">
+      <div style="padding:12px 14px;border-radius:8px;border:1px solid rgba(255,210,76,0.25);background:rgba(255,210,76,0.05);">
+        <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:900;color:var(--gold);">🥉 3rd Place</div>
+        <div style="font-size:0.78rem;color:#fff;font-weight:600;margin-top:2px;">Flag Quest @ KALAM 2025</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-top:2px;">MoonlitCipher · Podium Finish</div>
       </div>
-      <div style="border-top:1px solid rgba(0,255,157,0.06);padding-top:12px;">
-        <div style="font-size:0.82rem;font-weight:600;color:#fff;margin-bottom:6px;">Sakura Sentinels</div>
-        <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dim2);">Secondary team · International competitions</div>
+      <div style="padding:12px 14px;border-radius:8px;border:1px solid rgba(0,207,255,0.2);background:rgba(0,207,255,0.04);">
+        <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:900;color:var(--acid2);">12th Place</div>
+        <div style="font-size:0.78rem;color:#fff;font-weight:600;margin-top:2px;">OxTi HackTiVate 2026</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-top:2px;">24h Marathon · Titanium 2026</div>
+      </div>
+      <div style="padding:12px 14px;border-radius:8px;border:1px solid rgba(0,255,157,0.15);background:rgba(0,255,157,0.03);">
+        <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:900;color:var(--acid);">14th Place</div>
+        <div style="font-size:0.78rem;color:#fff;font-weight:600;margin-top:2px;">Enigma CTF 2026</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-top:2px;">IIT Hyderabad · 1912 Points</div>
+      </div>
+      <div style="padding:12px 14px;border-radius:8px;border:1px solid rgba(0,255,157,0.15);background:rgba(0,255,157,0.03);">
+        <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:900;color:var(--acid);">17th Place</div>
+        <div style="font-size:0.78rem;color:#fff;font-weight:600;margin-top:2px;">KI CTF @ YUGAM 2026</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-top:2px;">Kumaraguru Institutions</div>
+      </div>
+      <div style="padding:12px 14px;border-radius:8px;border:1px solid rgba(0,255,157,0.15);background:rgba(0,255,157,0.03);">
+        <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:900;color:var(--acid);">23rd Place</div>
+        <div style="font-size:0.78rem;color:#fff;font-weight:600;margin-top:2px;">L3m0n CTF 2025</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-top:2px;">Amrita Vishwa Vidyapeetham</div>
+      </div>
+      <div style="padding:12px 14px;border-radius:8px;border:1px solid rgba(255,210,76,0.25);background:rgba(255,210,76,0.04);">
+        <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:900;color:var(--gold);">24th Place</div>
+        <div style="font-size:0.78rem;color:#fff;font-weight:600;margin-top:2px;">LIT CTF 2026</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-top:2px;">All Challenges Solved · Psych-Glitch</div>
+      </div>
+      <div style="padding:12px 14px;border-radius:8px;border:1px solid rgba(0,255,157,0.15);background:rgba(0,255,157,0.03);">
+        <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:900;color:var(--acid);">29th Place</div>
+        <div style="font-size:0.78rem;color:#fff;font-weight:600;margin-top:2px;">Pentathon 2025</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-top:2px;">Grade A+ · 14 Flags Captured</div>
+      </div>
+      <div style="padding:12px 14px;border-radius:8px;border:1px solid rgba(0,207,255,0.2);background:rgba(0,207,255,0.04);">
+        <div style="font-family:var(--font-head);font-size:1.15rem;font-weight:900;color:var(--acid2);">39th Place</div>
+        <div style="font-size:0.78rem;color:#fff;font-weight:600;margin-top:2px;">YUKTHI CTF 2025</div>
+        <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-top:2px;">National CTF · Top 40</div>
       </div>
     </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:24px;">
     <div class="card" style="padding:24px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-crosshairs"></i> Focus Areas</div>
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+        <span><i class="fas fa-users"></i> CTF Teams & Rosters</span>
+        <span class="tag gold" style="font-size:0.55rem;">Verified on CTFtime</span>
+      </div>
+      
+      <!-- MoonlitCipher -->
+      <div style="margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:4px;">
+          <div style="font-size:0.85rem;font-weight:700;color:#fff;">
+            MoonlitCipher <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--acid);font-weight:normal;">[29 Events]</span>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span class="tag gold" style="font-size:0.55rem;">Primary Team</span>
+            <a href="https://ctftime.org/team/382459" target="_blank" class="tag" style="font-size:0.55rem;text-decoration:none;"><i class="fas fa-external-link-alt"></i> CTFtime</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <span class="tag gold"><i class="fas fa-star"></i> TraceHanami</span>
+          <span class="tag">BlackFairy</span>
+          <span class="tag">NithirX0</span>
+          <span class="tag">JOKER53</span>
+          <span class="tag">DUSTIN05</span>
+          <span class="tag">Asta_black</span>
+          <span class="tag">Nov@_</span>
+          <span class="tag">whatever12207</span>
+          <span class="tag">S@NDY</span>
+        </div>
+      </div>
+
+      <!-- X3N_F0RC3 -->
+      <div style="border-top:1px solid rgba(0,255,157,0.06);padding-top:12px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:4px;">
+          <div style="font-size:0.85rem;font-weight:700;color:#fff;">
+            x3n_F0rc3 <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--acid2);font-weight:normal;">[9 Events]</span>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span class="tag blue" style="font-size:0.55rem;">11 Members</span>
+            <a href="https://ctftime.org/team/439643" target="_blank" class="tag" style="font-size:0.55rem;text-decoration:none;"><i class="fas fa-external-link-alt"></i> CTFtime</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <span class="tag gold"><i class="fas fa-star"></i> TraceHanami</span>
+          <span class="tag">JOKER53</span>
+          <span class="tag">ObscuraX</span>
+          <span class="tag">CyberNova77</span>
+          <span class="tag">S@NDY</span>
+          <span class="tag">zoro_rj</span>
+          <span class="tag">stvrlighttberry</span>
+          <span class="tag">JSZero_Trace</span>
+          <span class="tag">reddragon12207</span>
+          <span class="tag">JEssY</span>
+          <span class="tag">dharshinidhachu32</span>
+        </div>
+      </div>
+
+      <!-- Psych-Glitch (PsyGlitch) -->
+      <div style="border-top:1px solid rgba(0,255,157,0.06);padding-top:12px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:4px;">
+          <div style="font-size:0.85rem;font-weight:700;color:#fff;">
+            Psych-Glitch <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--gold);font-weight:normal;">[2 Events]</span>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span class="tag gold" style="font-size:0.55rem;"><i class="fas fa-trophy"></i> #80 India CTFtime</span>
+            <a href="https://ctftime.org/team/423473" target="_blank" class="tag" style="font-size:0.55rem;text-decoration:none;"><i class="fas fa-external-link-alt"></i> CTFtime</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <span class="tag gold"><i class="fas fa-star"></i> TraceHanami</span>
+          <span class="tag">BlackFairy</span>
+          <span class="tag">NithirX0</span>
+          <span class="tag">JOKER53</span>
+          <span class="tag">DUSTIN05</span>
+          <span class="tag">receptacle_pot</span>
+          <span class="tag">S@NDY</span>
+        </div>
+      </div>
+
+      <!-- Sakura Sentinels -->
+      <div style="border-top:1px solid rgba(0,255,157,0.06);padding-top:12px;margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:4px;">
+          <div style="font-size:0.85rem;font-weight:700;color:#fff;">
+            Sakura Sentinels <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dim2);font-weight:normal;">[4 Events]</span>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span class="tag" style="font-size:0.55rem;">Global CTFs</span>
+            <a href="https://ctftime.org/team/390789" target="_blank" class="tag" style="font-size:0.55rem;text-decoration:none;"><i class="fas fa-external-link-alt"></i> CTFtime</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <span class="tag gold"><i class="fas fa-star"></i> TraceHanami</span>
+          <span class="tag">BlackFairy</span>
+          <span class="tag">JOKER53</span>
+          <span class="tag">DUSTIN05</span>
+          <span class="tag">ObscuraX</span>
+          <span class="tag">QuantumFade</span>
+        </div>
+      </div>
+
+      <!-- s0ul s0c13ty -->
+      <div style="border-top:1px solid rgba(0,255,157,0.06);padding-top:12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:4px;">
+          <div style="font-size:0.85rem;font-weight:700;color:#fff;">
+            s0ul s0c13ty
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;">
+            <span class="tag" style="font-size:0.55rem;">Special Ops</span>
+            <a href="https://ctftime.org/team/434293" target="_blank" class="tag" style="font-size:0.55rem;text-decoration:none;"><i class="fas fa-external-link-alt"></i> CTFtime</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <span class="tag gold"><i class="fas fa-star"></i> TraceHanami</span>
+          <span class="tag">stvrlighttberry</span>
+          <span class="tag">Madara95</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:24px;">
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:14px;"><i class="fas fa-crosshairs"></i> Domains & Focus Areas</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
         <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
-          <i class="fas fa-globe" style="color:var(--acid);"></i><span style="font-size:0.8rem;">Web Exploitation</span></div>
+          <i class="fas fa-globe" style="color:var(--acid);"></i><span style="font-size:0.8rem;">Web Security</span></div>
         <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
           <i class="fas fa-key" style="color:var(--acid);"></i><span style="font-size:0.8rem;">Cryptography</span></div>
         <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
@@ -862,35 +1384,60 @@ main {
           <i class="fas fa-microscope" style="color:var(--acid);"></i><span style="font-size:0.8rem;">Forensics</span></div>
         <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
           <i class="fas fa-rotate-left" style="color:var(--acid);"></i><span style="font-size:0.8rem;">Reverse Engineering</span></div>
-        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid rgba(255,60,110,0.1);border-radius:7px;background:rgba(255,60,110,0.02);">
-          <i class="fas fa-bug" style="color:var(--warn);"></i><span style="font-size:0.8rem;color:var(--dim2);">Binary Exploit <span style="color:var(--warn);font-size:0.6rem;">[L]</span></span></div>
+        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
+          <i class="fas fa-bug" style="color:var(--acid2);"></i><span style="font-size:0.8rem;">Binary Exploitation</span></div>
+        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
+          <i class="fas fa-robot" style="color:var(--gold);"></i><span style="font-size:0.8rem;">AI Security</span></div>
+        <div style="display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--border);border-radius:7px;background:rgba(0,255,157,0.02);">
+          <i class="fas fa-eye-slash" style="color:var(--acid);"></i><span style="font-size:0.8rem;">Steganography</span></div>
+      </div>
+      <div style="border-top:1px solid rgba(0,255,157,0.06);margin-top:12px;padding-top:10px;display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dim2);"><i class="fas fa-shield-virus" style="color:var(--warn);margin-right:6px;"></i>Incident Response & Defense</span>
+        <span class="tag" style="font-size:0.55rem;">Active</span>
       </div>
     </div>
   </div>
 
   <div class="card" style="padding:26px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
       <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;"><i class="fas fa-trophy"></i> Competition History</div>
       <div style="font-family:var(--font-mono);font-size:0.6rem;color:var(--dim2);" id="ctf-count-display"></div>
     </div>
+
+    <div id="ctf-filters" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;">
+      <button class="filter-btn active" data-filter="all">All (50)</button>
+      <button class="filter-btn" data-filter="placed">🏆 Placements (10)</button>
+      <button class="filter-btn" data-filter="moonlit">MoonlitCipher (29)</button>
+      <button class="filter-btn" data-filter="xen">x3n_F0rc3 (9)</button>
+      <button class="filter-btn" data-filter="psy">Psych-Glitch (2)</button>
+      <button class="filter-btn" data-filter="sakura">Sakura Sentinels (4)</button>
+      <button class="filter-btn" data-filter="custom">Solo / Custom (6)</button>
+      <button class="filter-btn" data-filter="2026">2026 Events</button>
+      <button class="filter-btn" data-filter="2025">2025 Events</button>
+    </div>
+
     <div id="ctf-list"></div>
   </div>
 </section>
 
 <!-- ═══════════════════════════════ PLATFORMS ═══════════════════════════════ -->
 <section id="platforms" class="section">
-  <h2 class="sec-title"><div class="sec-title-bar"></div> Platform Progress <small>// Live Stats</small></h2>
+  <h2 class="sec-title"><div class="sec-title-bar"></div> Platform Progress <small>// Live Profiles & Stats</small></h2>
 
   <div class="g2">
+    <!-- PicoCTF -->
     <div class="card" style="padding:26px;">
       <div class="platform-header">
         <div class="platform-icon"><i class="fas fa-flag"></i></div>
-        <div class="platform-meta"><h3>PICOCTF</h3><p>Active Competitor</p></div>
+        <div class="platform-meta">
+          <h3>PICOCTF</h3>
+          <p>Active Competitor · 151 Flags Captured</p>
+        </div>
       </div>
       <div class="skill-row"><div class="skill-hdr"><span>Easy Flags (<span id="p-pico-easy">81</span>/82)</span><span class="pct" id="p-pico-easy-pct">98%</span></div><div class="skill-track"><div class="skill-fill" id="p-pico-easy-bar" data-w="98"></div></div></div>
       <div class="skill-row"><div class="skill-hdr"><span>Medium Flags (<span id="p-pico-med">70</span>/235)</span><span class="pct" id="p-pico-med-pct">30%</span></div><div class="skill-track"><div class="skill-fill" id="p-pico-med-bar" data-w="30"></div></div></div>
       <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:6px;">
-        <span class="tag">Web</span><span class="tag">Crypto</span><span class="tag">Forensics</span><span class="tag">RE</span><span class="tag">Binary</span>
+        <span class="tag">Web Exploitation</span><span class="tag">Cryptography</span><span class="tag">Digital Forensics</span><span class="tag">Reverse Engineering</span><span class="tag">Binary</span>
       </div>
       <div style="margin-top:14px;padding:12px;border:1px solid rgba(0,255,157,0.08);border-radius:8px;background:rgba(0,255,157,0.02);display:flex;align-items:center;justify-content:space-between;">
         <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dim2);">Total Flags Captured</div>
@@ -898,42 +1445,189 @@ main {
       </div>
     </div>
 
-                <div class="card" style="padding:26px;">
-                    <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
-                        <i class="fas fa-cube" style="font-size:2rem; color:var(--c1);"></i>
-                        <div><h3 style="color:#fff;">Hack The Box</h3><p style="color:var(--dim);">Rank: #928 • Noob</p></div>
-                    </div>
-                    <div class="skill-bar-wrap"><div class="skill-bar-header"><span>Starting Point</span><span>39/71 (55%)</span></div><div class="skill-bar-track"><div class="skill-bar-fill" style="width:55%"></div></div></div>
-                    <p style="margin:10px 0; color:var(--c1);">Machines Completed:</p>
-                    <div class="badge-container">
-                        <span class="tag">Cap (Linux)</span><span class="tag">Spookifier (Web)</span><span class="tag">Flag Command (Web)</span>
-                    </div>
-                    <p style="margin-top:10px; color:var(--dim);">Flags Captured: 2</p>
-                </div>
-
+    <!-- Hack The Box -->
     <div class="card" style="padding:26px;">
-      <div class="platform-header">
-        <div class="platform-icon"><i class="fas fa-shield-halved"></i></div>
-        <div class="platform-meta"><h3>TRYHACKME</h3><p>Level: Neophyte</p></div>
+      <div class="platform-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="platform-icon"><i class="fas fa-cube" style="color:var(--acid2);"></i></div>
+          <div class="platform-meta">
+            <h3>HACK THE BOX</h3>
+            <p>Level: 25 · 13 Badges · Cyber Apocalypse CTF</p>
+          </div>
+        </div>
+        <a href="https://profile.hackthebox.com/" target="_blank" class="tag blue" style="text-decoration:none;font-size:0.6rem;"><i class="fas fa-external-link-alt"></i> HTB Profile</a>
       </div>
-      <div class="skill-row"><div class="skill-hdr"><span>Pre-Security Path</span><span class="pct">3%</span></div><div class="skill-track"><div class="skill-fill" data-w="3"></div></div></div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
-        <span class="tag">Offensive Security</span>
-        <span class="tag">Defensive Security</span>
-        <span class="tag warn">In Progress</span>
+      
+      <!-- Mini Stats Grid -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0;">
+        <div style="padding:8px;border:1px solid rgba(0,207,255,0.15);border-radius:6px;background:rgba(0,207,255,0.03);text-align:center;">
+          <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:900;color:var(--acid2);">Lvl 25</div>
+          <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--dim2);">LEVEL</div>
+        </div>
+        <div style="padding:8px;border:1px solid rgba(0,207,255,0.15);border-radius:6px;background:rgba(0,207,255,0.03);text-align:center;">
+          <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:900;color:var(--acid2);">25</div>
+          <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--dim2);">CHALLENGES</div>
+        </div>
+        <div style="padding:8px;border:1px solid rgba(0,207,255,0.15);border-radius:6px;background:rgba(0,207,255,0.03);text-align:center;">
+          <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:900;color:var(--acid2);">5</div>
+          <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--dim2);">SHERLOCKS (DFIR)</div>
+        </div>
+      </div>
+
+      <div class="skill-row"><div class="skill-hdr"><span>Machines Solved (4 Total · 2 in Season 11)</span><span class="pct" style="color:var(--acid2);">Active</span></div><div class="skill-track"><div class="skill-fill" style="width:60%;background:var(--acid2);"></div></div></div>
+      <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
+        <span class="tag blue"><i class="fas fa-certificate"></i> 13 Badges</span>
+        <span class="tag blue"><i class="fas fa-trophy"></i> Cyber Apocalypse CTF</span>
+        <span class="tag">Cap (Linux)</span>
+        <span class="tag">Spookifier (Web)</span>
+        <span class="tag">Flag Command (Web)</span>
+        <span class="tag gold">Season 11 (2 Solved)</span>
       </div>
     </div>
 
+    <!-- TryHackMe -->
     <div class="card" style="padding:26px;">
-      <div class="platform-header">
-        <div class="platform-icon"><i class="fas fa-code"></i></div>
-        <div class="platform-meta"><h3>LEETCODE</h3><p>Python · <span id="p-lc-acc">63.64%</span> Acceptance</p></div>
+      <div class="platform-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="platform-icon"><i class="fas fa-shield-halved" style="color:var(--warn);"></i></div>
+          <div class="platform-meta">
+            <h3>TRYHACKME</h3>
+            <p>Dual Accounts · 27 Rooms Solved · 4 Badges</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <a href="https://tryhackme.com/p/TraceHanami" target="_blank" class="tag warn" style="text-decoration:none;font-size:0.6rem;"><i class="fas fa-external-link-alt"></i> @TraceHanami</a>
+          <a href="https://tryhackme.com/p/tracehanami" target="_blank" class="tag" style="text-decoration:none;font-size:0.6rem;"><i class="fas fa-external-link-alt"></i> @tracehanami</a>
+        </div>
       </div>
-      <div class="skill-row"><div class="skill-hdr"><span>Problems Solved: <span id="p-lc-solved">9</span></span><span class="pct" id="p-lc-acc2">64%</span></div><div class="skill-track"><div class="skill-fill" data-w="64"></div></div></div>
-      <div style="margin-top:12px;font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);margin-bottom:8px;">Solved</div>
+
+      <!-- Dual Profile Showcase -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;">
+        <div style="padding:10px;border:1px solid rgba(255,100,100,0.15);border-radius:6px;background:rgba(255,100,100,0.02);">
+          <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--warn);font-weight:700;margin-bottom:4px;">Primary (@TraceHanami)</div>
+          <div style="font-family:var(--font-mono);font-size:0.68rem;color:#fff;">Top 50% · 2 Badges</div>
+          <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-top:2px;">11 Rooms · <span class="tag gold" style="padding:1px 5px;font-size:0.55rem;">Pathfinder</span></div>
+        </div>
+        <div style="padding:10px;border:1px solid rgba(255,100,100,0.15);border-radius:6px;background:rgba(255,100,100,0.02);">
+          <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--warn);font-weight:700;margin-bottom:4px;">Secondary (@tracehanami)</div>
+          <div style="font-family:var(--font-head);font-size:0.88rem;font-weight:900;color:var(--acid);">Top 20% Rank</div>
+          <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--dim2);margin-top:2px;">16 Rooms · 2 Badges</div>
+        </div>
+      </div>
+
+      <div class="skill-row"><div class="skill-hdr"><span>Pre-Security & Defensive Paths</span><span class="pct" style="color:var(--warn);">Pathfinder</span></div><div class="skill-track"><div class="skill-fill" style="width:45%;background:var(--warn);"></div></div></div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+        <span class="tag">Offensive Security</span>
+        <span class="tag">Defensive Security</span>
+        <span class="tag warn">Top 20% Competitor</span>
+      </div>
+    </div>
+
+    <!-- CyLab Academy -->
+    <div class="card" style="padding:26px;">
+      <div class="platform-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="platform-icon"><i class="fas fa-graduation-cap" style="color:var(--acid);"></i></div>
+          <div class="platform-meta">
+            <h3>CYLAB ACADEMY</h3>
+            <p>Carnegie Mellon CyLab · 214 Completed Labs</p>
+          </div>
+        </div>
+        <a href="https://learn.cylabacademy.org/account" target="_blank" class="tag gold" style="text-decoration:none;font-size:0.6rem;"><i class="fas fa-external-link-alt"></i> CyLab Account</a>
+      </div>
+
+      <!-- Difficulty Breakdown -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0;">
+        <div style="padding:8px;border:1px solid rgba(0,255,157,0.15);border-radius:6px;background:rgba(0,255,157,0.03);text-align:center;">
+          <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:900;color:var(--acid);">98</div>
+          <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--dim2);">EASY LABS</div>
+        </div>
+        <div style="padding:8px;border:1px solid rgba(255,210,76,0.15);border-radius:6px;background:rgba(255,210,76,0.03);text-align:center;">
+          <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:900;color:var(--gold);">111</div>
+          <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--dim2);">MEDIUM LABS</div>
+        </div>
+        <div style="padding:8px;border:1px solid rgba(255,100,100,0.15);border-radius:6px;background:rgba(255,100,100,0.03);text-align:center;">
+          <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:900;color:#ff6090;">5</div>
+          <div style="font-family:var(--font-mono);font-size:0.55rem;color:var(--dim2);">HARD LABS</div>
+        </div>
+      </div>
+
+      <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);margin-bottom:8px;">Covered Journeys (All Except AI)</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span class="tag">Network Defense</span>
+        <span class="tag">Cryptography</span>
+        <span class="tag">Web Security</span>
+        <span class="tag">Digital Forensics</span>
+        <span class="tag">Binary & Systems</span>
+      </div>
+    </div>
+
+    <!-- LeetCode -->
+    <div class="card" style="padding:26px;">
+      <div class="platform-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="platform-icon"><i class="fas fa-code" style="color:var(--gold);"></i></div>
+          <div class="platform-meta">
+            <h3>LEETCODE</h3>
+            <p>Handle: TraceHanami · 90 Problems Solved · Python</p>
+          </div>
+        </div>
+        <a href="https://leetcode.com/u/TraceHanami/" target="_blank" class="tag gold" style="text-decoration:none;font-size:0.6rem;"><i class="fas fa-external-link-alt"></i> LeetCode Profile</a>
+      </div>
+      <div class="skill-row"><div class="skill-hdr"><span>Problems Solved: <strong style="color:#fff;" id="p-lc-solved">90</strong></span><span class="pct" id="p-lc-acc2" style="color:var(--gold);">64% Acc</span></div><div class="skill-track"><div class="skill-fill" data-w="64" style="background:var(--gold);"></div></div></div>
+      <div style="margin-top:12px;font-family:var(--font-mono);font-size:0.62rem;color:var(--gold);margin-bottom:8px;">DSA Solved Highlights (90 Total)</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;" id="lc-problems">
-        <span class="tag">Two Sum</span><span class="tag">Palindrome</span><span class="tag">Roman to Int</span>
-        <span class="tag">Running Sum</span><span class="tag">Valid Parentheses</span><span class="tag">Merge Lists</span>
+        <span class="tag">Two Sum</span>
+        <span class="tag">Palindrome Number</span>
+        <span class="tag">Roman to Int</span>
+        <span class="tag">Running Sum 1D</span>
+        <span class="tag">Valid Parentheses</span>
+        <span class="tag">Merge Sorted Lists</span>
+        <span class="tag gold">+84 More DSA Problems</span>
+      </div>
+    </div>
+
+    <!-- GitHub Repos (21 Projects) -->
+    <div class="card" style="padding:26px;">
+      <div class="platform-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="platform-icon"><i class="fab fa-github" style="color:#fff;"></i></div>
+          <div class="platform-meta">
+            <h3>GITHUB ARSENAL</h3>
+            <p>Handle: TraceHanami · 21 Repositories Created</p>
+          </div>
+        </div>
+        <a href="https://github.com/TraceHanami" target="_blank" class="tag" style="text-decoration:none;font-size:0.6rem;"><i class="fas fa-external-link-alt"></i> GitHub Profile</a>
+      </div>
+
+      <!-- Project Category Breakdown -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0;">
+        <div style="padding:6px;border:1px solid rgba(0,255,157,0.15);border-radius:6px;background:rgba(0,255,157,0.03);text-align:center;">
+          <div style="font-family:var(--font-head);font-size:0.95rem;font-weight:900;color:var(--acid);">4</div>
+          <div style="font-family:var(--font-mono);font-size:0.5rem;color:var(--dim2);">CYBER</div>
+        </div>
+        <div style="padding:6px;border:1px solid rgba(0,207,255,0.15);border-radius:6px;background:rgba(0,207,255,0.03);text-align:center;">
+          <div style="font-family:var(--font-head);font-size:0.95rem;font-weight:900;color:var(--acid2);">3</div>
+          <div style="font-family:var(--font-mono);font-size:0.5rem;color:var(--dim2);">FULL STACK</div>
+        </div>
+        <div style="padding:6px;border:1px solid rgba(255,210,76,0.15);border-radius:6px;background:rgba(255,210,76,0.03);text-align:center;">
+          <div style="font-family:var(--font-head);font-size:0.95rem;font-weight:900;color:var(--gold);">2</div>
+          <div style="font-family:var(--font-mono);font-size:0.5rem;color:var(--dim2);">WEB DEV</div>
+        </div>
+        <div style="padding:6px;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.03);text-align:center;">
+          <div style="font-family:var(--font-head);font-size:0.95rem;font-weight:900;color:#fff;">9</div>
+          <div style="font-family:var(--font-mono);font-size:0.5rem;color:var(--dim2);">C/C++/PY/WEB</div>
+        </div>
+      </div>
+
+      <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);margin-bottom:8px;">Featured Repositories & Writeups</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <a href="https://github.com/TraceHanami/writeups" target="_blank" class="tag gold" style="text-decoration:none;"><i class="fas fa-book"></i> writeups (CTF)</a>
+        <a href="https://github.com/TraceHanami/iReport-Your-Cybercrime-Assistant" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-shield"></i> iReport</a>
+        <a href="https://github.com/TraceHanami/SecureAccess" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-key"></i> SecureAccess</a>
+        <a href="https://github.com/TraceHanami/Simple-Expanse-Tracker" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-wallet"></i> ExpenseTracker</a>
+        <a href="https://github.com/TraceHanami/Mathmate" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-calculator"></i> Mathmate</a>
+        <a href="https://github.com/TraceHanami/Smart-birthday-remainder" target="_blank" class="tag" style="text-decoration:none;"><i class="fas fa-cake-candles"></i> BirthdayReminder</a>
       </div>
     </div>
   </div>
@@ -941,31 +1635,58 @@ main {
 
 <!-- ═══════════════════════════════ CONTACT ═══════════════════════════════ -->
 <section id="contact" class="section">
-  <h2 class="sec-title"><div class="sec-title-bar"></div> Contact & Goals <small>// Connect · Collaborate</small></h2>
+  <h2 class="sec-title"><div class="sec-title-bar"></div> Contact & Profiles <small>// Connect · Collaborate</small></h2>
 
   <div class="g2">
-    <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:13px;">
-      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:4px;"><i class="fas fa-satellite-dish"></i> Connect</div>
+    <div class="card" style="padding:26px;display:flex;flex-direction:column;gap:11px;">
+      <div style="font-family:var(--font-mono);font-size:0.58rem;letter-spacing:2px;color:var(--acid);text-transform:uppercase;margin-bottom:2px;"><i class="fas fa-satellite-dish"></i> Connect & Profiles</div>
 
-      <a href="/cdn-cgi/l/email-protection#e1828d84929594938393948284a1868c80888dcf828e8c" class="contact-link">
+      <a href="mailto:tracehanami@gmail.com" class="contact-link">
         <div class="cicon"><i class="fas fa-envelope"></i></div>
-        <div><h4>Email</h4><p><span class="__cf_email__" data-cfemail="83e0efe6f0f7f6f1e1f1f6e0e6c3e4eee2eaefade0ecee">[email&#160;protected]</span></p></div>
-        <button class="btn" style="margin-left:auto;" data-copy="clesturbruce@gmail.com"><i class="fas fa-copy"></i></button>
+        <div><h4>Email</h4><p>tracehanami@gmail.com</p></div>
+        <button class="btn" style="margin-left:auto;" data-copy="tracehanami@gmail.com"><i class="fas fa-copy"></i></button>
+      </a>
+      <a href="https://github.com/TraceHanami" target="_blank" class="contact-link">
+        <div class="cicon"><i class="fab fa-github"></i></div>
+        <div><h4>GitHub</h4><p>github.com/TraceHanami</p></div>
+        <i class="fas fa-arrow-up-right-from-square" style="margin-left:auto;color:var(--dim2);font-size:0.75rem;"></i>
+      </a>
+      <a href="https://tryhackme.com/p/TraceHanami" target="_blank" class="contact-link">
+        <div class="cicon"><i class="fas fa-shield-halved" style="color:var(--warn);"></i></div>
+        <div><h4>TryHackMe</h4><p>tryhackme.com/p/TraceHanami</p></div>
+        <i class="fas fa-arrow-up-right-from-square" style="margin-left:auto;color:var(--dim2);font-size:0.75rem;"></i>
+      </a>
+      <a href="https://tryhackme.com/p/tracehanami" target="_blank" class="contact-link">
+        <div class="cicon"><i class="fas fa-shield-halved" style="color:var(--warn);"></i></div>
+        <div><h4>TryHackMe (Alt)</h4><p>tryhackme.com/p/tracehanami</p></div>
+        <i class="fas fa-arrow-up-right-from-square" style="margin-left:auto;color:var(--dim2);font-size:0.75rem;"></i>
+      </a>
+      <a href="https://profile.hackthebox.com/" target="_blank" class="contact-link">
+        <div class="cicon"><i class="fas fa-cube" style="color:var(--acid2);"></i></div>
+        <div><h4>Hack The Box</h4><p>profile.hackthebox.com</p></div>
+        <i class="fas fa-arrow-up-right-from-square" style="margin-left:auto;color:var(--dim2);font-size:0.75rem;"></i>
+      </a>
+      <a href="https://leetcode.com/u/TraceHanami/" target="_blank" class="contact-link">
+        <div class="cicon"><i class="fas fa-code" style="color:var(--gold);"></i></div>
+        <div><h4>LeetCode</h4><p>leetcode.com/u/TraceHanami</p></div>
+        <i class="fas fa-arrow-up-right-from-square" style="margin-left:auto;color:var(--dim2);font-size:0.75rem;"></i>
+      </a>
+      <a href="https://learn.cylabacademy.org/account" target="_blank" class="contact-link">
+        <div class="cicon"><i class="fas fa-graduation-cap" style="color:var(--acid);"></i></div>
+        <div><h4>CyLab Academy</h4><p>learn.cylabacademy.org</p></div>
+        <i class="fas fa-arrow-up-right-from-square" style="margin-left:auto;color:var(--dim2);font-size:0.75rem;"></i>
       </a>
       <a href="https://www.linkedin.com/in/jesvin-bruce-j-a2154a319" target="_blank" class="contact-link">
         <div class="cicon"><i class="fab fa-linkedin"></i></div>
         <div><h4>LinkedIn</h4><p>Jesvin Bruce J</p></div>
-      </a>
-      <a href="https://github.com/TraceHanami" target="_blank" class="contact-link">
-        <div class="cicon"><i class="fab fa-github"></i></div>
-        <div><h4>GitHub</h4><p>TraceHanami</p></div>
+        <i class="fas fa-arrow-up-right-from-square" style="margin-left:auto;color:var(--dim2);font-size:0.75rem;"></i>
       </a>
 
       <div class="badge-status" style="margin-top:4px;"><span class="dot"></span> Open to CTF collabs & security projects</div>
 
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
-        <a href="/cdn-cgi/l/email-protection#a8cbc4cddbdcdddacadaddcbcde8cfc5c9c1c486cbc7c5" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Email</a>
-        <button class="btn" data-copy="clesturbruce@gmail.com"><i class="fas fa-copy"></i> Copy Email</button>
+        <a href="mailto:tracehanami@gmail.com" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Email</a>
+        <button class="btn" data-copy="tracehanami@gmail.com"><i class="fas fa-copy"></i> Copy Email</button>
         <a href="jesvin-profile.vcf" download class="btn"><i class="fas fa-id-card"></i> vCard</a>
       </div>
 
@@ -1001,12 +1722,16 @@ main {
 
 <footer style="position:relative;z-index:1;text-align:center;padding:36px 24px;border-top:1px solid var(--border);background:rgba(2,10,15,0.8);">
   <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--dim);letter-spacing:1px;margin-bottom:16px;">"TraceHanami — Building deep roots in cybersecurity through CTFs, persistence, and relentless learning."</div>
-  <div style="display:flex;justify-content:center;gap:12px;margin-bottom:16px;">
-    <a href="/cdn-cgi/l/email-protection#9efdf2fbedeaebecfcecebfdfbdef9f3fff7f2b0fdf1f3" style="width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fas fa-envelope"></i></a>
-    <a href="https://www.linkedin.com/in/jesvin-bruce-j-a2154a319" target="_blank" style="width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fab fa-linkedin"></i></a>
-    <a href="https://github.com/TraceHanami" target="_blank" style="width:34px;height:34px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fab fa-github"></i></a>
+  <div style="display:flex;justify-content:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+    <a href="mailto:tracehanami@gmail.com" title="Email" style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fas fa-envelope"></i></a>
+    <a href="https://github.com/TraceHanami" target="_blank" title="GitHub" style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fab fa-github"></i></a>
+    <a href="https://tryhackme.com/p/tracehanami" target="_blank" title="TryHackMe" style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--warn)';this.style.borderColor='rgba(255,100,100,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fas fa-shield-halved"></i></a>
+    <a href="https://profile.hackthebox.com/" target="_blank" title="Hack The Box" style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid2)';this.style.borderColor='rgba(0,207,255,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fas fa-cube"></i></a>
+    <a href="https://leetcode.com/u/TraceHanami/" target="_blank" title="LeetCode" style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--gold)';this.style.borderColor='rgba(255,210,76,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fas fa-code"></i></a>
+    <a href="https://learn.cylabacademy.org/account" target="_blank" title="CyLab Academy" style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fas fa-graduation-cap"></i></a>
+    <a href="https://www.linkedin.com/in/jesvin-bruce-j-a2154a319" target="_blank" title="LinkedIn" style="width:36px;height:36px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--dim2);text-decoration:none;transition:color .2s,border-color .2s;" onmouseover="this.style.color='var(--acid)';this.style.borderColor='rgba(0,255,157,0.3)'" onmouseout="this.style.color='var(--dim2)';this.style.borderColor='var(--border)'"><i class="fab fa-linkedin"></i></a>
   </div>
-  <div style="font-family:var(--font-mono);font-size:0.58rem;color:var(--dim);letter-spacing:1px;">© 2025 Jesvin Bruce J (TraceHanami) · 2nd Year CSE (Cyber Security) · Sri Shakthi Institute · Team Moonlitcipher</div>
+  <div style="font-family:var(--font-mono);font-size:0.58rem;color:var(--dim);letter-spacing:1px;">© 2026 Jesvin Bruce J (TraceHanami) · 2nd Year CSE (Cyber Security) · Sri Shakthi Institute · MoonlitCipher // x3n_F0rc3 // Psych-Glitch // Sakura Sentinels // s0ul s0c13ty</div>
 </footer>
 
 <!-- ══════════════════ ADMIN OVERLAY ══════════════════ -->
@@ -1045,19 +1770,38 @@ main {
       <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-top:20px;margin-bottom:14px;">Hack The Box</div>
       <div class="flag-edit-grid">
         <div class="admin-field">
+          <label class="admin-label">Level</label>
+          <input class="input" id="f-htb-level" type="number" min="0">
+        </div>
+        <div class="admin-field">
           <label class="admin-label">Global Rank</label>
           <input class="input" id="f-htb-rank" type="number" min="0">
         </div>
         <div class="admin-field">
-          <label class="admin-label">Starting Point Completed</label>
-          <input class="input" id="f-htb-sp" type="number" min="0" max="71">
+          <label class="admin-label">Challenges Solved</label>
+          <input class="input" id="f-htb-challenges" type="number" min="0">
         </div>
         <div class="admin-field">
-          <label class="admin-label">HTB Flags Captured</label>
-          <input class="input" id="f-htb-flags" type="number" min="0">
+          <label class="admin-label">Sherlocks Solved</label>
+          <input class="input" id="f-htb-sherlocks" type="number" min="0">
         </div>
       </div>
-      <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-top:20px;margin-bottom:14px;">LeetCode</div>
+      <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-top:20px;margin-bottom:14px;">CyLab Academy</div>
+      <div class="flag-edit-grid">
+        <div class="admin-field">
+          <label class="admin-label">Easy Labs</label>
+          <input class="input" id="f-cylab-easy" type="number" min="0">
+        </div>
+        <div class="admin-field">
+          <label class="admin-label">Medium Labs</label>
+          <input class="input" id="f-cylab-med" type="number" min="0">
+        </div>
+        <div class="admin-field">
+          <label class="admin-label">Hard Labs</label>
+          <input class="input" id="f-cylab-hard" type="number" min="0">
+        </div>
+      </div>
+      <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-top:20px;margin-bottom:14px;">LeetCode & Projects</div>
       <div class="flag-edit-grid">
         <div class="admin-field">
           <label class="admin-label">Problems Solved</label>
@@ -1066,6 +1810,10 @@ main {
         <div class="admin-field">
           <label class="admin-label">Acceptance Rate (%)</label>
           <input class="input" id="f-lc-acc" type="number" min="0" max="100" step="0.01">
+        </div>
+        <div class="admin-field">
+          <label class="admin-label">GitHub Projects</label>
+          <input class="input" id="f-gh-projects" type="number" min="0">
         </div>
       </div>
       <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--acid);letter-spacing:2px;text-transform:uppercase;margin-top:20px;margin-bottom:14px;">Academic</div>
@@ -1196,43 +1944,106 @@ async function hashString(str) {
 // ─── DATA ───────────────────────────────────────────────
 const DEFAULT_DATA = {
   pico_easy: 81, pico_med: 70,
-  htb_rank: 928, htb_sp: 39, htb_flags: 2,
-  lc_solved: 9, lc_acc: 63.64,
-  cgpa: 8.54,
-  htb_machines: ['Cap (Linux · Easy)', 'Spookifier (Web · Easy)', 'Flag Command (Web · Easy)'],
+  htb_level: 25, htb_rank: 928, htb_sp: 39, htb_flags: 2, htb_badges: 13, htb_challenges: 25, htb_machines: 4, htb_sherlocks: 5, htb_season: 2,
+  thm_p_rank: 'Top 50%', thm_p_badges: 2, thm_p_rooms: 11, thm_p_path: 'Pathfinder',
+  thm_s_rank: 'Top 20%', thm_s_badges: 2, thm_s_rooms: 16,
+  cylab_easy: 98, cylab_med: 111, cylab_hard: 5, cylab_total: 214,
+  lc_solved: 90, lc_acc: 63.64,
+  gh_projects: 21,
+  cgpa: 8.12,
+  htb_machines: ['Cap (Linux · Easy)', 'Spookifier (Web · Easy)', 'Flag Command (Web · Easy)', 'Season 11 Machines (2 Solved)'],
   year_status: '2nd Year · CSE (Cyber Security) · SSIET',
   best_result: '3rd Place · Flag Quest KALAM 2025',
   goal_ticker: 'Targeting CompTIA Security+',
   ctf_events: [
-    { name:'Flag Quest @ KALAM 2025', place:'3rd', org:'Sri Shakthi Institute · Moonlitcipher', type:'national', team:'TraceHanami, Zer0_logon, BlackFairy, Asta_Black…', date:'Mar 21-22, 2025', notes:'Best placement! Team event.' },
-    { name:'OxTi HackTiVate @ Titanium 2026', place:'12th', org:'Rajalakshmi Engineering College', type:'national', team:'TraceHanami, Sandy, Asta_Black', date:'Jan 2026', notes:'24-hour marathon CTF' },
-    { name:'Enigma CTF 2026 @ IIT Hyderabad', place:'14th', org:'Elan & nVision · IIT Hyderabad', type:'national', team:'Moonlitcipher', date:'Jan 2026', notes:'1912 points' },
-    { name:'L3m0n CTF 2025', place:'23rd', org:'Amrita Vishwa Vidyapeetham', type:'national', team:'TraceHanami, Zer0logon, Adharsha, Devi K', date:'2025', notes:'' },
-    { name:'Pentathon 2025', place:'29th', org:'Online', type:'online', team:'ZeroKira, Zerologon, J2006, Whitedevil, DEVI.K', date:'2025', notes:'Grade A+ · 14 Flags' },
-    { name:'BSidesSF 2025 CTF', place:'199th', org:'International', type:'international', team:'ZeroKira, CyberGhost05, Santhosh, DEVI.K', date:'2025', notes:'600 points' },
-    { name:'CTF@CIT', place:'261st', org:'Online', type:'online', team:'ZeroKira, Zerologon, J2006, Whitedevil, DEVI.K', date:'2025', notes:'7379 points' },
-    { name:'Binary×Forge @ KRIYA 2025', place:'—', org:'PSG College of Technology', type:'college', team:'Moonlitcipher', date:'Mar 14-16, 2025', notes:'First ever CTF!' },
-    { name:'EXPLOIT-X KPR CTF', place:'—', org:'KPR Institute', type:'international', team:'Moonlitcipher', date:'Apr 5, 2025', notes:'International' },
-    { name:'H7CTF 2025', place:'—', org:'Online', type:'international', team:'TraceHanami, Devi K', date:'Oct 18-19, 2025', notes:'' },
-    { name:'YUKTHI CTF', place:'—', org:'Online', type:'online', team:'TraceHanami, Santhosh, Kadhiravan, Devi K', date:'Dec 14, 2025', notes:'' },
-    { name:'ISEA ISAP CTF 2026', place:'—', org:'IIT Madras', type:'national', team:'TraceHanami', date:'2026', notes:'' },
-    { name:'NexHUNT CTF 2025', place:'—', org:'Online', type:'online', team:'TraceHanami', date:'2025', notes:'' },
-    { name:'Hack The Shield @ KALAM 2025', place:'—', org:'Sri Shakthi Institute', type:'college', team:'Moonlitcipher', date:'2025', notes:'Phishing Detection Project' }
+    // ─── Major Placements & Achievements ───
+    { name:'Flag Quest @ KALAM 2025', place:'3rd', org:'Sri Shakthi Institute · MoonlitCipher', type:'national', team:'TraceHanami, Zer0_logon, BlackFairy, Asta_Black…', date:'Mar 21-22, 2025', notes:'🥉 3rd Place · Best Placement' },
+    { name:'OxTi HackTiVate @ Titanium 2026', place:'12th', org:'Rajalakshmi Engineering College', type:'national', team:'TraceHanami, Sandy, Asta_Black', date:'Jan 2026', notes:'12th Place · 24-hour marathon CTF' },
+    { name:'Enigma CTF 2026 @ IIT Hyderabad', place:'14th', org:'Elan & nVision · IIT Hyderabad', type:'national', team:'MoonlitCipher', date:'Jan 2026', notes:'14th Place · 1912 points' },
+    { name:'KI CTF @ YUGAM 2026', place:'17th', org:'Kumaraguru Institutions · YUGAM', type:'national', team:'MoonlitCipher', date:'Feb 2026', notes:'17th Place' },
+    { name:'L3m0n CTF 2025', place:'23rd', org:'Amrita Vishwa Vidyapeetham', type:'national', team:'TraceHanami, Zer0Logon, Adharsha, Devi K', date:'2025', notes:'23rd Place' },
+    { name:'Lexington Informatics Tournament (LIT) CTF 2026', place:'24th', org:'Lexington Informatics Tournament', type:'international', team:'Psych-Glitch', date:'2026', notes:'24th (College) · 142nd (CTFtime) · Solved All Challenges' },
+    { name:'Pentathon 2025', place:'29th', org:'Online', type:'online', team:'ZeroKira, Zer0Logon, J2006, WhiteDevil, Others', date:'2025', notes:'29th Place · Grade A+ · 14 Flags' },
+    { name:'YUKTHI CTF 2025', place:'39th', org:'Online', type:'online', team:'TraceHanami, Santhosh, Kadhiravan, Devi K', date:'Dec 14, 2025', notes:'39th Place' },
+    { name:'BSidesSF 2025 CTF', place:'199th', org:'BSides San Francisco', type:'international', team:'MoonlitCipher', date:'2025', notes:'600 points' },
+    { name:'CTF@CIT 2025', place:'261st', org:'Coimbatore Institute of Technology', type:'online', team:'MoonlitCipher', date:'2025', notes:'7379 points' },
+
+    // ─── 2026 Competitions — MoonlitCipher ───
+    { name:'Anti-Slop CTF 2026', place:'—', org:'International', type:'international', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:'boroCTF 2026', place:'—', org:'International', type:'international', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:'DiceCTF 2026 Quals', place:'—', org:'DiceGang', type:'international', team:'MoonlitCipher', date:'2026', notes:'Global Qualifier' },
+    { name:'CodeVinci CTF 2026', place:'—', org:'Online', type:'online', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:'upCTF 2026', place:'—', org:'Online', type:'online', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:'CryptoNite CTF 2026', place:'—', org:'Online', type:'online', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:'EHAX CTF 2026', place:'—', org:'Online', type:'online', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:"Batman's Kitchen CTF 2026", place:'—', org:'Online', type:'international', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:'BITSCTF 2026', place:'—', org:'BITS Pilani Goa', type:'national', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:"TaipanByte's Chart CTF", place:'—', org:'Online', type:'online', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:'0xFUN CTF 2026', place:'—', org:'Online', type:'online', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:'Nullcon Goa HackIM 2026 CTF', place:'—', org:'Nullcon Goa', type:'international', team:'MoonlitCipher', date:'2026', notes:'Flagship International CTF' },
+    { name:'New Year CTF 2026', place:'—', org:'Online', type:'online', team:'MoonlitCipher', date:'Jan 2026', notes:'' },
+    { name:'UofTCTF 2026', place:'—', org:'University of Toronto', type:'international', team:'MoonlitCipher', date:'2026', notes:'' },
+    { name:'Scarlet CTF 2026', place:'—', org:'Rutgers University', type:'international', team:'MoonlitCipher', date:'2026', notes:'' },
+
+    // ─── 2026 Competitions — x3n_F0rc3 ───
+    { name:'Cyber Apocalypse CTF 2026 (Hack The Box)', place:'—', org:'Hack The Box', type:'international', team:'x3n_F0rc3', date:'2026', notes:'HTB Annual Flagship CTF' },
+    { name:'scriptCTF 2026', place:'—', org:'Online', type:'online', team:'x3n_F0rc3', date:'2026', notes:'' },
+    { name:'UIUCTF 2026', place:'—', org:'University of Illinois Urbana-Champaign', type:'international', team:'x3n_F0rc3', date:'2026', notes:'' },
+    { name:'Kali Team CTF 26', place:'—', org:'Online', type:'online', team:'x3n_F0rc3', date:'2026', notes:'' },
+    { name:'Junior.Crypt.2026 CTF', place:'—', org:'Online', type:'international', team:'x3n_F0rc3', date:'2026', notes:'' },
+    { name:'R3CTF 2026', place:'—', org:'Online', type:'international', team:'x3n_F0rc3', date:'2026', notes:'' },
+    { name:'No Hack No CTF 2026', place:'—', org:'Online', type:'online', team:'x3n_F0rc3', date:'2026', notes:'' },
+    { name:'SekaiCTF 2026', place:'—', org:'Project SEKAI', type:'international', team:'x3n_F0rc3', date:'2026', notes:'' },
+    { name:'TraceBash CTF 2026', place:'—', org:'Online', type:'online', team:'x3n_F0rc3', date:'2026', notes:'' },
+
+    // ─── 2026 Competitions — Psych-Glitch & Solo ───
+    { name:'TAMUctf 2026', place:'—', org:'Texas A&M University', type:'international', team:'Psych-Glitch', date:'2026', notes:'' },
+    { name:'ISEA ISAP CTF 2026', place:'—', org:'IIT Madras · ISEA', type:'national', team:'TraceHanami (Solo)', date:'2026', notes:'' },
+
+    // ─── 2025 Competitions — MoonlitCipher ───
+    { name:'Binary×Forge @ KRIYA 2025', place:'—', org:'PSG College of Technology', type:'college', team:'MoonlitCipher', date:'Mar 14-16, 2025', notes:'First ever CTF!' },
+    { name:'Hack The Shield @ KALAM 2025', place:'—', org:'Sri Shakthi Institute', type:'college', team:'MoonlitCipher', date:'2025', notes:'Phishing Detection Project' },
+    { name:'EXPLOIT-X KPR CTF', place:'—', org:'KPR Institute', type:'international', team:'MoonlitCipher', date:'Apr 5, 2025', notes:'International' },
+    { name:'BDSec CTF 2025', place:'—', org:'BDSec', type:'international', team:'MoonlitCipher', date:'2025', notes:'' },
+    { name:'scriptCTF 2025', place:'—', org:'Online', type:'online', team:'MoonlitCipher', date:'2025', notes:'' },
+    { name:'CSAW CTF Qualification Round 2025', place:'—', org:'NYU Tandon · CSAW', type:'international', team:'MoonlitCipher', date:'2025', notes:'' },
+    { name:'K17 CTF 2025', place:'—', org:'Online', type:'online', team:'MoonlitCipher', date:'2025', notes:'' },
+    { name:'niteCTF 2025', place:'—', org:'Nitte Meenakshi Institute of Tech', type:'national', team:'MoonlitCipher', date:'2025', notes:'' },
+    { name:'NexHUNT CTF 2025', place:'—', org:'Online', type:'online', team:'MoonlitCipher', date:'2025', notes:'' },
+
+    // ─── 2025 Competitions — Sakura Sentinels ───
+    { name:'sknbCTF 2025', place:'—', org:'Online', type:'international', team:'Sakura Sentinels', date:'2025', notes:'' },
+    { name:'DeadSec CTF 2025', place:'—', org:'DeadSec', type:'international', team:'Sakura Sentinels', date:'2025', notes:'' },
+    { name:'Junior.Crypt.2025 CTF', place:'—', org:'Online', type:'international', team:'Sakura Sentinels', date:'2025', notes:'' },
+    { name:'MaltaCTF 2025 Quals', place:'—', org:'Malta Cyber Security', type:'international', team:'Sakura Sentinels', date:'2025', notes:'' },
+
+    // ─── 2025 Competitions — Solo / Custom Teams ───
+    { name:'H7CTF 2025', place:'—', org:'Online', type:'international', team:'TraceHanami, Devi K', date:'Oct 18-19, 2025', notes:'' }
   ]
 };
 
 function loadData() {
   try {
-    const stored = localStorage.getItem('th_portfolio_v2');
-    return stored ? Object.assign({}, DEFAULT_DATA, JSON.parse(stored)) : Object.assign({}, DEFAULT_DATA);
+    const stored = localStorage.getItem('th_portfolio_v6');
+    if(!stored) return Object.assign({}, DEFAULT_DATA);
+    const parsed = JSON.parse(stored);
+    if(!parsed.ctf_events || parsed.ctf_events.length < DEFAULT_DATA.ctf_events.length || parsed.lc_solved < 90 || parsed.cgpa > 8.5) {
+      parsed.ctf_events = DEFAULT_DATA.ctf_events;
+      parsed.lc_solved = DEFAULT_DATA.lc_solved;
+      parsed.htb_level = DEFAULT_DATA.htb_level;
+      parsed.cylab_total = DEFAULT_DATA.cylab_total;
+      parsed.cgpa = DEFAULT_DATA.cgpa;
+    }
+    return Object.assign({}, DEFAULT_DATA, parsed);
   } catch(e) { return Object.assign({}, DEFAULT_DATA); }
 }
 
 function saveData(data) {
-  try { localStorage.setItem('th_portfolio_v2', JSON.stringify(data)); } catch(e) {}
+  try { localStorage.setItem('th_portfolio_v6', JSON.stringify(data)); } catch(e) {}
 }
 
 let D = loadData();
+let currentCtfFilter = 'all';
 
 // ─── RENDER ─────────────────────────────────────────────
 function renderAll() {
@@ -1242,15 +2053,16 @@ function renderAll() {
   setText('stat-pico-total', picoTotal);
   setText('stat-pico-easy', D.pico_easy);
   setText('stat-pico-med', D.pico_med);
-  setText('stat-htb-rank', D.htb_rank);
-  setText('stat-htb-sp', D.htb_sp);
-  setText('stat-lc-solved', D.lc_solved);
+  setText('stat-htb-level', D.htb_level || 25);
+  setText('stat-mylab-total', D.cylab_total || 214);
+  setText('stat-lc-solved', D.lc_solved || 90);
   setText('stat-lc-acc', D.lc_acc.toFixed(2) + '%');
   setText('stat-cgpa', D.cgpa.toFixed(2));
-  setText('stat-ctf-count', D.ctf_events.length + '+');
+  setText('stat-ctf-count', D.ctf_events.length);
   setText('ds-flags', picoTotal);
-  setText('ds-ctfs', D.ctf_events.length + '+');
-  setText('ds-htb', '#' + D.htb_rank);
+  setText('ds-ctfs', D.ctf_events.length);
+  setText('ds-htb', 'Lvl ' + (D.htb_level || 25));
+  setText('ds-lc', D.lc_solved || 90);
   setText('stat-best-rank', getBestRank());
 
   // CGPA ring
@@ -1273,10 +2085,7 @@ function renderAll() {
   setText('p-pico-med-pct', pMedPct + '%');
   setBarW('p-pico-easy-bar', pEasyPct);
   setBarW('p-pico-med-bar', pMedPct);
-  setText('p-htb-rank', D.htb_rank);
-  setText('p-htb-sp', D.htb_sp);
-  setText('p-htb-flags', D.htb_flags);
-  setText('p-lc-solved', D.lc_solved);
+  setText('p-lc-solved', D.lc_solved || 90);
   setText('p-lc-acc', D.lc_acc.toFixed(2) + '%');
   setText('p-lc-acc2', Math.round(D.lc_acc) + '%');
   setBarW(null, Math.round(D.lc_acc));
@@ -1288,11 +2097,12 @@ function renderAll() {
   const ot = document.getElementById('overall-tags');
   if(ot) ot.innerHTML = `
     <span class="tag"><i class="fas fa-flag"></i> ${escapeHTML(picoTotal)} PicoFlags</span>
-    <span class="tag blue"><i class="fas fa-cube"></i> HTB #${escapeHTML(D.htb_rank)}</span>
-    <span class="tag gold"><i class="fas fa-graduation-cap"></i> CGPA ${escapeHTML(D.cgpa.toFixed(2))}</span>
+    <span class="tag blue"><i class="fas fa-cube"></i> HTB Lvl ${escapeHTML(D.htb_level || 25)}</span>
+    <span class="tag gold"><i class="fas fa-graduation-cap"></i> ${escapeHTML(D.cylab_total || 214)} CyLab Labs</span>
   `;
 
   renderCTF();
+  renderProjects();
   renderTicker();
   renderMachines();
 }
@@ -1334,20 +2144,370 @@ function typeTag(type) {
 function renderCTF() {
   const list = document.getElementById('ctf-list');
   if(!list) return;
-  setText('ctf-count-display', D.ctf_events.length + ' events recorded');
-  list.innerHTML = D.ctf_events.map((e,i) => `
-    <div class="rank-card">
-      <div class="rank-num ${rankClass(e.place)}">
-        <div class="rn">${escapeHTML(e.place)}</div>
-        <div class="rl">PLACE</div>
+
+  let events = D.ctf_events || [];
+  if(currentCtfFilter === 'placed') {
+    events = events.filter(e => e.place && e.place !== '—' && e.place !== '');
+  } else if(currentCtfFilter === 'moonlit') {
+    events = events.filter(e => (e.team && e.team.toLowerCase().includes('moonlit')) || (e.org && e.org.toLowerCase().includes('moonlit')));
+  } else if(currentCtfFilter === 'xen') {
+    events = events.filter(e => e.team && e.team.toLowerCase().includes('x3n'));
+  } else if(currentCtfFilter === 'psy') {
+    events = events.filter(e => e.team && e.team.toLowerCase().includes('psy'));
+  } else if(currentCtfFilter === 'sakura') {
+    events = events.filter(e => e.team && e.team.toLowerCase().includes('sakura'));
+  } else if(currentCtfFilter === 'custom') {
+    events = events.filter(e => {
+      const t = (e.team || '').toLowerCase();
+      return !t.includes('moonlit') && !t.includes('x3n') && !t.includes('psy') && !t.includes('sakura');
+    });
+  } else if(currentCtfFilter === '2026') {
+    events = events.filter(e => (e.date && e.date.includes('2026')) || (e.name && e.name.includes('2026')));
+  } else if(currentCtfFilter === '2025') {
+    events = events.filter(e => (e.date && e.date.includes('2025')) || (e.name && e.name.includes('2025')));
+  }
+
+  setText('ctf-count-display', `${events.length} of ${D.ctf_events.length} events displayed`);
+
+  list.innerHTML = events.map((e,i) => {
+    const isWinner = e.place === '1st' || parseInt(e.place) === 1;
+    const isPodium = parseInt(e.place) === 2 || parseInt(e.place) === 3;
+    const badgeExtra = isWinner ? '<span class="ctf-type-badge ctb-first">🏆 WINNER</span>' : (isPodium ? '<span class="ctf-type-badge ctb-podium">🥉 PODIUM</span>' : '');
+    return `
+      <div class="rank-card">
+        <div class="rank-num ${rankClass(e.place)}">
+          <div class="rn">${escapeHTML(e.place)}</div>
+          <div class="rl">PLACE</div>
+        </div>
+        <div class="rank-info">
+          <h5>${escapeHTML(e.name)}</h5>
+          <div class="ri-sub">${escapeHTML(e.org)}${e.team ? ' · ' + escapeHTML(e.team) : ''}${e.date ? ' · ' + escapeHTML(e.date) : ''}${e.notes ? ' · ' + escapeHTML(e.notes) : ''}</div>
+        </div>
+        <div class="rank-badges">${typeTag(e.type)}${badgeExtra}</div>
       </div>
-      <div class="rank-info">
-        <h5>${escapeHTML(e.name)}</h5>
-        <div class="ri-sub">${escapeHTML(e.org)}${e.team ? ' · ' + escapeHTML(e.team.substring(0,40)) + (e.team.length > 40 ? '…' : '') : ''}${e.date ? ' · ' + escapeHTML(e.date) : ''}${e.notes ? ' · ' + escapeHTML(e.notes) : ''}</div>
+    `;
+  }).join('');
+}
+
+// ─── PROJECTS DATA & RENDER ─────────────────────────────
+let currentProjFilter = 'all';
+
+const PROJECTS_DATA = [
+  // ─── Live Deployments & Infrastructure ───
+  {
+    title: 'TOM CTF @ KALAM 2026',
+    category: 'deployed',
+    categoryLabel: 'CTF Organizer & Author',
+    badge: '🏆 CTF ORGANIZER',
+    badgeClass: 'pill-gold',
+    desc: 'Lead Organizer & Author for national collegiate CTF on Unstop at Sri Shakthi Institute of Engineering and Technology. Authored original competitive challenges spanning Web Exploitation, Forensics, Reverse Engineering, and Cryptography.',
+    tags: ['CTF Author', 'Unstop', 'Web Exploitation', 'Forensics', 'Crypto', 'Reverse Eng'],
+    liveUrl: 'https://unstop.com/hackathons/tom-ctf-sri-shakthi-institute-of-engineering-technology-1635654',
+    liveLabel: 'View on Unstop'
+  },
+  {
+    title: 'Self-Hosted Cyber Security Labs',
+    category: 'deployed',
+    categoryLabel: 'Live Lab Environment',
+    badge: '🛡️ LIVE LABS',
+    badgeClass: 'pill-green',
+    desc: 'Custom self-hosted interactive cyber lab infrastructure engineered for hands-on practice across Blue Team defense, DFIR, Forensics, Cryptography, and Miscellaneous CTF categories.',
+    tags: ['Blue Team', 'DFIR', 'Forensics', 'Cryptography', 'Misc CTF', 'Linux'],
+    liveUrl: 'http://110.172.151.108/',
+    liveLabel: 'Access Live Labs (110.172.151.108)'
+  },
+  {
+    title: 'Steganography & Forensics Virtual Classroom',
+    category: 'deployed',
+    categoryLabel: 'Forensic Tools Portal',
+    badge: '🔍 FORENSIC PORTAL',
+    badgeClass: 'pill-blue',
+    desc: 'Deployed web classroom portal tailored for digital forensics training, artifact examination, file carving, steganographic decoders, and metadata extraction tools.',
+    tags: ['Steganography', 'Digital Forensics', 'File Carving', 'Metadata', 'Virtual Classroom'],
+    liveUrl: 'http://110.172.151.108:5173/login',
+    liveLabel: 'Launch Classroom (:5173)'
+  },
+  {
+    title: 'CTF Tracker & Hackathon Scraper',
+    category: 'deployed',
+    categoryLabel: 'Live Web App',
+    badge: '🌐 DEPLOYED VERCEL',
+    badgeClass: 'pill-red',
+    desc: 'Automated cybersecurity intelligence platform that scrapes, aggregates, and catalogs upcoming global CTF tournaments and hackathons with real-time countdowns, prize pools, and registration deadlines.',
+    tags: ['Web Scraping', 'CTF Tracker', 'Automation', 'Vercel', 'Python / JS'],
+    repoUrl: 'https://github.com/TraceHanami/CTF-Tracker',
+    liveUrl: 'https://ctf-tracker.vercel.app/',
+    liveLabel: 'Open CTF Tracker'
+  },
+
+  // ─── Cybersecurity Repositories ───
+  {
+    title: 'Phish-Pot — Phishing Honeypot & Threat Analyzer',
+    category: 'cyber',
+    categoryLabel: 'Cybersecurity & Defense',
+    badge: '🛡️ THREAT INTEL',
+    badgeClass: 'pill-green',
+    desc: 'Defensive cybersecurity honeypot and URL threat analysis tool designed to lure, capture, analyze, and catalog phishing vectors, malicious redirects, and deceptive domain indicators.',
+    tags: ['Phishing Detection', 'Honeypot', 'Threat Intel', 'Blue Team', 'Python / Web'],
+    repoUrl: 'https://github.com/TraceHanami/Phish-Pot',
+    repoLabel: 'GitHub Repo',
+    liveUrl: 'https://phish-pot.vercel.app/',
+    liveLabel: 'Live App'
+  },
+  {
+    title: 'BlackOps — Offensive Security & CTF Toolkit',
+    category: 'cyber',
+    categoryLabel: 'Cybersecurity',
+    badge: '🛡️ OFFENSIVE TOOLKIT',
+    badgeClass: 'pill-green',
+    desc: 'Dedicated security operations suite and CTF toolkit featuring custom reconnaissance scripts, network scanners, payload generators, and automated target enumeration modules.',
+    tags: ['Offensive Security', 'Reconnaissance', 'Penetration Testing', 'CTF Tools', 'Python'],
+    repoUrl: 'https://github.com/TraceHanami/BlackOps',
+    repoLabel: 'GitHub Repo'
+  },
+  {
+    title: 'iReport — Your Cybercrime Assistant',
+    category: 'cyber',
+    categoryLabel: 'Cyber Defense & Triage',
+    badge: '🛡️ CYBER DEFENSE',
+    badgeClass: 'pill-green',
+    desc: 'Interactive guided cybercrime assistant helping victims navigate incident triage, digital evidence preservation, relevant legal provisions under IPC/IT Act, and automated complaint drafting.',
+    tags: ['Incident Response', 'Cyber Defense', 'Legal Guidance', 'Python', 'Web Security'],
+    repoUrl: 'https://github.com/TraceHanami/iReport-Your-Cybercrime-Assistant',
+    repoLabel: 'GitHub Repo',
+    liveUrl: 'https://i-report-your-cybercrime-assistant.vercel.app/',
+    liveLabel: 'Live App'
+  },
+  {
+    title: 'SecureAccess — Authentication & RBAC Engine',
+    category: 'cyber',
+    categoryLabel: 'Cybersecurity',
+    badge: '🛡️ AUTH & CRYPTO',
+    badgeClass: 'pill-green',
+    desc: 'Modular authentication and security engine implementing cryptographic password hashing, JWT token lifecycle management, role-based access control (RBAC), and brute-force mitigation.',
+    tags: ['Cryptography', 'RBAC', 'Authentication', 'Security Middleware', 'API Security'],
+    repoUrl: 'https://github.com/TraceHanami/SecureAccess',
+    repoLabel: 'GitHub Repo'
+  },
+  {
+    title: 'CTF Writeups & Security Walkthroughs',
+    category: 'cyber',
+    categoryLabel: 'Cybersecurity',
+    badge: '🛡️ WRITEUPS',
+    badgeClass: 'pill-green',
+    desc: 'Comprehensive repository containing in-depth challenge walkthroughs, exploit scripts, payload explanations, and forensic artifact notes from 50+ national and international CTF tournaments.',
+    tags: ['CTF Writeups', 'PicoCTF', 'HTB', 'Exploitation', 'DFIR', 'Cryptography'],
+    repoUrl: 'https://github.com/TraceHanami/writeups',
+    repoLabel: 'GitHub Repo'
+  },
+  {
+    title: 'MoonlitCipher — Official CTF Team Portal',
+    category: 'cyber',
+    categoryLabel: 'Cybersecurity',
+    badge: '🛡️ CTF PLATFORM',
+    badgeClass: 'pill-green',
+    desc: 'Official platform and repository for MoonlitCipher CTF Team, archiving competition challenge solutions, squad statistics, team rosters, and internal security training resources.',
+    tags: ['CTF Team', 'MoonlitCipher', 'Team Portal', 'Challenge Archive', 'Web'],
+    repoUrl: 'https://github.com/TraceHanami/moonlitcipher',
+    repoLabel: 'GitHub Repo'
+  },
+
+  // ─── AI, Computer Vision & Smart Systems ───
+  {
+    title: 'Smart CCTV Surveillance System',
+    category: 'ai',
+    categoryLabel: 'Computer Vision & AI',
+    badge: '👁️ COMPUTER VISION',
+    badgeClass: 'pill-blue',
+    desc: 'Intelligent video surveillance application utilizing computer vision for real-time motion detection, intruder tracking, automated alerting, and secure video stream logging.',
+    tags: ['Computer Vision', 'OpenCV', 'Surveillance', 'Smart Alerting', 'Python'],
+    repoUrl: 'https://github.com/TraceHanami/Smart-CCTV-Survillence',
+    repoLabel: 'GitHub Repo'
+  },
+  {
+    title: 'AIVA-Ks — AI Virtual Assistant',
+    category: 'ai',
+    categoryLabel: 'AI & Automation',
+    badge: '🤖 SMART AI',
+    badgeClass: 'pill-blue',
+    desc: 'Voice and text-driven AI virtual assistant capable of handling system task automation, speech recognition, knowledge queries, and scheduled desktop workflow orchestration.',
+    tags: ['Virtual Assistant', 'Speech Recognition', 'AI Automation', 'Python', 'Workflows'],
+    repoUrl: 'https://github.com/TraceHanami/AIVA-Ks',
+    repoLabel: 'GitHub Repo'
+  },
+
+  // ─── Full Stack & Web Applications ───
+  {
+    title: 'Employee Portal — Full Stack Management System',
+    category: 'web',
+    categoryLabel: 'Full Stack Web App',
+    badge: '⚡ FULL STACK',
+    badgeClass: 'pill-blue',
+    desc: 'Full stack employee management web application featuring role-based dashboards, employee records, attendance tracking, department workflows, and persistent database storage.',
+    tags: ['Full Stack', 'Employee Management', 'Dashboard', 'APIs', 'Database'],
+    repoUrl: 'https://github.com/TraceHanami/Employee-Portal',
+    repoLabel: 'GitHub Repo'
+  },
+  {
+    title: 'Student Database Management System',
+    category: 'web',
+    categoryLabel: 'Database Application',
+    badge: '⚡ DATABASE SYSTEM',
+    badgeClass: 'pill-blue',
+    desc: 'Structured database management system engineered for managing student academic records, course enrollments, grades, and relational querying with data validation.',
+    tags: ['Database', 'SQL / C', 'DBMS', 'CRUD Operations', 'Record Management'],
+    repoUrl: 'https://github.com/TraceHanami/student_database',
+    repoLabel: 'GitHub Repo'
+  },
+  {
+    title: 'TraceHanami Cybersecurity Portfolio & Console',
+    category: 'web',
+    categoryLabel: 'Web Development',
+    badge: '🌐 WEB DEV',
+    badgeClass: 'pill-gold',
+    desc: 'High-performance cyberpunk single page portfolio featuring animated CRT telemetry canvas, live interactive Kali Linux terminal emulator, and local storage data synchronization.',
+    tags: ['HTML5', 'CSS3 / Cyberpunk', 'Vanilla JS', 'Canvas', 'Terminal Emulator'],
+    repoUrl: 'https://github.com/TraceHanami/portfolio',
+    repoLabel: 'GitHub Repo',
+    liveUrl: 'https://portfolio-kohl-tau-r5s163xsh9.vercel.app/',
+    liveLabel: 'Live Portfolio'
+  },
+  {
+    title: 'Team Portfolio Platform',
+    category: 'web',
+    categoryLabel: 'Web Development',
+    badge: '🌐 WEB DEV',
+    badgeClass: 'pill-gold',
+    desc: 'Collaborative team portfolio platform built to showcase collective team achievements, individual member skill profiles, and joint project deliverables.',
+    tags: ['Team Showcase', 'Web Design', 'Responsive UI', 'Frontend', 'Collaboration'],
+    repoUrl: 'https://github.com/TraceHanami/Team-Portfolio',
+    repoLabel: 'GitHub Repo',
+    liveUrl: 'https://team-portfolio-lime.vercel.app/',
+    liveLabel: 'Live Platform'
+  },
+  {
+    title: 'Appa Portfolio Website',
+    category: 'web',
+    categoryLabel: 'Web Development',
+    badge: '🌐 WEB DEV',
+    badgeClass: 'pill-gold',
+    desc: 'Clean, modern, and responsive customized personal portfolio website designed with structured section navigation and responsive layouts.',
+    tags: ['Personal Portfolio', 'Responsive Layout', 'HTML5', 'CSS3', 'Web Design'],
+    repoUrl: 'https://github.com/TraceHanami/Appa-Portfolio',
+    repoLabel: 'GitHub Repo',
+    liveUrl: 'https://appa-portfolio.vercel.app/',
+    liveLabel: 'Live Website'
+  },
+
+  // ─── Core Coding, Mathematics & DSA ───
+  {
+    title: 'LeetCode Python DSA Journey (90 Problems Solved)',
+    category: 'core',
+    categoryLabel: 'Core CS & DSA',
+    badge: '💻 PYTHON DSA',
+    badgeClass: 'pill-gold',
+    desc: 'Structured repository tracking 90 solved LeetCode algorithmic problems with optimal time/space complexity solutions in Python across Arrays, Two Pointers, Sliding Window, Prefix Sum, Stack, Binary Search, and Linked Lists.',
+    tags: ['Python DSA', 'LeetCode (90 Solved)', 'Algorithms', 'Data Structures', '63.64% Acc'],
+    repoUrl: 'https://github.com/TraceHanami/LeetCode-Journey',
+    repoLabel: 'GitHub Repo',
+    liveUrl: 'https://leetcode.com/u/TraceHanami/',
+    liveLabel: 'LeetCode Profile'
+  },
+  {
+    title: 'Mathmate — Numerical & Mathematical Engine',
+    category: 'core',
+    categoryLabel: 'Core CS',
+    badge: '💻 CORE CODING',
+    badgeClass: 'pill-green',
+    desc: 'Algorithmic mathematical calculation and formula analysis engine built in C and Python, featuring matrix operations, numerical calculus approximations, and algebraic solvers.',
+    tags: ['C Programming', 'Python', 'Algorithms', 'Mathematics', 'Open Source'],
+    repoUrl: 'https://github.com/TraceHanami/Mathmate',
+    repoLabel: 'GitHub Repo'
+  },
+  {
+    title: 'Scientific Calculator Engine',
+    category: 'core',
+    categoryLabel: 'Core CS',
+    badge: '💻 CORE CODING',
+    badgeClass: 'pill-green',
+    desc: 'Full-featured scientific calculator program supporting advanced trigonometric, logarithmic, power, exponential, and algebraic calculations with order of operations parsing.',
+    tags: ['C / Python', 'Scientific Computing', 'Expression Parsing', 'Math Logic'],
+    repoUrl: 'https://github.com/TraceHanami/scientific_calculator',
+    repoLabel: 'GitHub Repo'
+  },
+  {
+    title: 'Simple Expense Tracker',
+    category: 'core',
+    categoryLabel: 'Core CS',
+    badge: '💻 CORE CODING',
+    badgeClass: 'pill-green',
+    desc: 'Lightweight budgeting and expense management tool with file-based persistent storage, category aggregation, and financial analytics.',
+    tags: ['Python', 'Data Persistence', 'CLI / GUI', 'Analytics'],
+    repoUrl: 'https://github.com/TraceHanami/Simple-Expanse-Tracker',
+    repoLabel: 'GitHub Repo'
+  },
+  {
+    title: 'Smart Birthday Reminder & Notification Utility',
+    category: 'core',
+    categoryLabel: 'Core CS',
+    badge: '💻 CORE CODING',
+    badgeClass: 'pill-green',
+    desc: 'Date parsing, reminder scheduling, and notification dispatch utility providing calendar tracking and automated event alerting.',
+    tags: ['Python', 'Date Engine', 'Scheduling', 'Automation'],
+    repoUrl: 'https://github.com/TraceHanami/Smart-birthday-remainder',
+    repoLabel: 'GitHub Repo'
+  },
+  {
+    title: 'Snake & Ladder Board Game Engine',
+    category: 'core',
+    categoryLabel: 'Core CS',
+    badge: '💻 GAME LOGIC',
+    badgeClass: 'pill-green',
+    desc: 'Interactive multi-player implementation of the classic Snake & Ladder board game featuring randomized dice simulation, collision detection, and win condition logic.',
+    tags: ['C / Python', 'Game Logic', 'Algorithm', 'Interactive Program'],
+    repoUrl: 'https://github.com/TraceHanami/snake_ladder',
+    repoLabel: 'GitHub Repo'
+  }
+];
+
+function renderProjects() {
+  const list = document.getElementById('projects-list');
+  if(!list) return;
+
+  let projs = PROJECTS_DATA || [];
+  if(currentProjFilter === 'deployed') {
+    projs = projs.filter(p => p.category === 'deployed' || !!p.liveUrl);
+  } else if(currentProjFilter !== 'all') {
+    projs = projs.filter(p => p.category === currentProjFilter);
+  }
+
+  setText('proj-count-display', `Displaying ${projs.length} of ${PROJECTS_DATA.length} projects`);
+
+  list.innerHTML = projs.map(p => {
+    const tagsHtml = (p.tags || []).map(t => `<span class="tag" style="font-size:0.58rem;">${escapeHTML(t)}</span>`).join('');
+    const liveBtn = p.liveUrl ? `<a href="${escapeHTML(p.liveUrl)}" target="_blank" class="btn btn-primary" style="padding:6px 12px;font-size:0.62rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;"><i class="fas fa-arrow-up-right-from-square"></i> ${escapeHTML(p.liveLabel || 'Live Demo')}</a>` : '';
+    const repoBtn = p.repoUrl ? `<a href="${escapeHTML(p.repoUrl)}" target="_blank" class="btn" style="padding:6px 12px;font-size:0.62rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;"><i class="fab fa-github"></i> ${escapeHTML(p.repoLabel || 'GitHub')}</a>` : '';
+
+    return `
+      <div class="card" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(0,255,157,0.12);background:rgba(2,12,18,0.7);">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+            <span class="pill ${p.badgeClass || 'pill-green'}">${escapeHTML(p.badge || 'PROJECT')}</span>
+            <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--dim2);">${escapeHTML(p.categoryLabel || '')}</span>
+          </div>
+          <h3 style="font-size:1.02rem;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3;">${escapeHTML(p.title)}</h3>
+          <p style="font-family:var(--font-mono);font-size:0.7rem;color:var(--dim2);line-height:1.6;margin-bottom:14px;">${escapeHTML(p.desc)}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;">
+            ${tagsHtml}
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:1px solid rgba(0,255,157,0.06);">
+          ${liveBtn}
+          ${repoBtn}
+        </div>
       </div>
-      <div class="rank-badges">${typeTag(e.type)}${e.place === '1st' || parseInt(e.place) === 1 ? '<span class="ctf-type-badge ctb-first">🏆 WINNER</span>' : ''}</div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function renderTicker() {
@@ -1356,12 +2516,16 @@ function renderTicker() {
   const picoTotal = D.pico_easy + D.pico_med;
   const items = [
     `<span class="ti-label">PicoCTF</span><span class="ti-sep">//</span>${escapeHTML(picoTotal)} flags captured`,
-    `<span class="ti-label">HTB Global</span><span class="ti-sep">//</span>Rank #${escapeHTML(D.htb_rank)}`,
-    `<span class="ti-label">CGPA</span><span class="ti-sep">//</span>${escapeHTML(D.cgpa.toFixed(2))} / 10.0`,
-    `<span class="ti-label">CTF Events</span><span class="ti-sep">//</span>${escapeHTML(D.ctf_events.length)}+ competitions entered`,
-    `<span class="ti-label">Best Rank</span><span class="ti-sep">//</span>${escapeHTML(getBestRank())} place`,
-    `<span class="ti-label">LeetCode</span><span class="ti-sep">//</span>${escapeHTML(D.lc_solved)} solved · ${escapeHTML(D.lc_acc.toFixed(2))}% acceptance`,
-    `<span class="ti-label">Team</span><span class="ti-sep">//</span>Moonlitcipher · Sakura Sentinels`,
+    `<span class="ti-label">HTB</span><span class="ti-sep">//</span>Level ${escapeHTML(D.htb_level || 25)} · 25 challenges · 5 sherlocks · 13 badges`,
+    `<span class="ti-label">TryHackMe</span><span class="ti-sep">//</span>Top 20% (@tracehanami) & Top 50% (@TraceHanami · Pathfinder)`,
+    `<span class="ti-label">CyLab Academy</span><span class="ti-sep">//</span>${escapeHTML(D.cylab_total || 214)} labs completed (98E · 111M · 5H)`,
+    `<span class="ti-label">LeetCode</span><span class="ti-sep">//</span>${escapeHTML(D.lc_solved || 90)} problems solved (Python DSA)`,
+    `<span class="ti-label">GitHub</span><span class="ti-sep">//</span>${escapeHTML(D.gh_projects || 21)} repositories created (4 Cyber · 3 Full Stack · 2 Web · 9 Core)`,
+    `<span class="ti-label">CTF Events</span><span class="ti-sep">//</span>${escapeHTML(D.ctf_events.length)} competitions entered`,
+    `<span class="ti-label">Best Rank</span><span class="ti-sep">//</span>${escapeHTML(getBestRank())} place (Flag Quest @ KALAM 2025)`,
+    `<span class="ti-label">CTFtime</span><span class="ti-sep">//</span>#80 in India (Psych-Glitch)`,
+    `<span class="ti-label">Teams</span><span class="ti-sep">//</span>MoonlitCipher · x3n_F0rc3 · Psych-Glitch · Sakura Sentinels · s0ul s0c13ty`,
+    `<span class="ti-label">CGPA</span><span class="ti-sep">//</span>${escapeHTML(D.cgpa.toFixed(2))} / 10.0 · SSIET`,
     `<span class="ti-label">Goal</span><span class="ti-sep">//</span>${escapeHTML(D.goal_ticker)}`,
   ];
   const html = [...items, ...items].map(s => `<div class="ticker-item">${s}</div>`).join('');
@@ -1568,11 +2732,16 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
 function loadAdminFields() {
   setValue('f-pico-easy', D.pico_easy);
   setValue('f-pico-med', D.pico_med);
+  setValue('f-htb-level', D.htb_level || 25);
   setValue('f-htb-rank', D.htb_rank);
-  setValue('f-htb-sp', D.htb_sp);
-  setValue('f-htb-flags', D.htb_flags);
-  setValue('f-lc-solved', D.lc_solved);
+  setValue('f-htb-challenges', D.htb_challenges || 25);
+  setValue('f-htb-sherlocks', D.htb_sherlocks || 5);
+  setValue('f-cylab-easy', D.cylab_easy || 98);
+  setValue('f-cylab-med', D.cylab_med || 111);
+  setValue('f-cylab-hard', D.cylab_hard || 5);
+  setValue('f-lc-solved', D.lc_solved || 90);
   setValue('f-lc-acc', D.lc_acc);
+  setValue('f-gh-projects', D.gh_projects || 21);
   setValue('f-cgpa', D.cgpa);
   setValue('p-year', D.year_status);
   setValue('p-best', D.best_result);
@@ -1588,11 +2757,17 @@ function setValue(id, val) {
 document.getElementById('saveFlags')?.addEventListener('click', () => {
   D.pico_easy = parseInt(document.getElementById('f-pico-easy').value)||0;
   D.pico_med = parseInt(document.getElementById('f-pico-med').value)||0;
+  D.htb_level = parseInt(document.getElementById('f-htb-level').value)||25;
   D.htb_rank = parseInt(document.getElementById('f-htb-rank').value)||0;
-  D.htb_sp = parseInt(document.getElementById('f-htb-sp').value)||0;
-  D.htb_flags = parseInt(document.getElementById('f-htb-flags').value)||0;
+  D.htb_challenges = parseInt(document.getElementById('f-htb-challenges').value)||0;
+  D.htb_sherlocks = parseInt(document.getElementById('f-htb-sherlocks').value)||0;
+  D.cylab_easy = parseInt(document.getElementById('f-cylab-easy').value)||0;
+  D.cylab_med = parseInt(document.getElementById('f-cylab-med').value)||0;
+  D.cylab_hard = parseInt(document.getElementById('f-cylab-hard').value)||0;
+  D.cylab_total = D.cylab_easy + D.cylab_med + D.cylab_hard;
   D.lc_solved = parseInt(document.getElementById('f-lc-solved').value)||0;
   D.lc_acc = parseFloat(document.getElementById('f-lc-acc').value)||0;
+  D.gh_projects = parseInt(document.getElementById('f-gh-projects').value)||21;
   D.cgpa = parseFloat(document.getElementById('f-cgpa').value)||0;
   saveData(D); renderAll(); showSaved('flags-saved'); showToast('Stats updated!');
 });
@@ -1631,6 +2806,26 @@ document.getElementById('addMachineBtn')?.addEventListener('click', () => {
   saveData(D); renderMachines(); showToast('Machine added!');
 });
 
+// ─── CTF FILTERS ─────────────────────────────────────────
+document.getElementById('ctf-filters')?.addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('#ctf-filters .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCtfFilter = btn.dataset.filter || 'all';
+  renderCTF();
+});
+
+// ─── PROJECTS FILTERS ────────────────────────────────────
+document.getElementById('proj-filters')?.addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('#proj-filters .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentProjFilter = btn.dataset.pfilter || 'all';
+  renderProjects();
+});
+
 // ─── COPY BUTTON ─────────────────────────────────────────
 document.addEventListener('click', e => {
   const btn = e.target.closest('[data-copy]');
@@ -1655,7 +2850,7 @@ document.getElementById('contactForm')?.addEventListener('submit', function(e) {
   if(!ok) return;
   const sub = encodeURIComponent('Portfolio message from '+name);
   const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${msg}`);
-  window.location.href = `mailto:clesturbruce@gmail.com?subject=${sub}&body=${body}`;
+  window.location.href = `mailto:tracehanami@gmail.com?subject=${sub}&body=${body}`;
   document.getElementById('cf-success').style.display = 'block';
   this.reset();
   setTimeout(() => document.getElementById('cf-success').style.display='none', 4000);
@@ -1741,6 +2936,295 @@ function showErr(id, msg) {
       }, 300);
     }
   });
+})();
+
+// ─── CYBER TERMINAL INTERPRETER ──────────────────────────
+(function() {
+  const output = document.getElementById('termOutput');
+  const input = document.getElementById('termInput');
+  const runBtn = document.getElementById('termRunBtn');
+  const body = document.getElementById('termBody');
+  if(!output || !input) return;
+
+  let cmdHistory = [];
+  let historyIdx = -1;
+
+  const BANNER = `  ████████╗██████╗  █████╗  ██████╗███████╗██╗  ██╗ █████╗ ███╗   ██╗ █████╗ ███╗   ███╗██╗
+  ╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██╔════╝██║  ██║██╔══██╗████╗  ██║██╔══██╗████╗ ████║██║
+     ██║   ██████╔╝███████║██║     █████╗  ███████║███████║██╔██╗ ██║███████║██╔████╔██║██║
+     ██║   ██╔══██╗██╔══██║██║     ██╔══╝  ██╔══██║██╔══██║██║╚██╗██║██╔══██║██║╚██╔╝██║██║
+     ██║   ██║  ██║██║  ██║╚██████╗███████╗██║  ██║██║  ██║██║ ╚████║██║  ██║██║ ╚═╝ ██║██║
+     ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝
+=============================================================================================
+TRACEHANAMI CYBER TELEMETRY CONSOLE · Kali Linux x86_64 · Interactive System Interface
+Type 'help' to inspect available system commands, or click any chip above to execute.
+=============================================================================================`;
+
+  function initTerminal() {
+    output.innerHTML = `<pre class="terminal-banner">${escapeHTML(BANNER)}</pre>`;
+  }
+
+  function printLine(text, cls = 'res') {
+    const div = document.createElement('div');
+    div.className = `terminal-line ${cls}`;
+    div.textContent = text;
+    output.appendChild(div);
+    if(body) body.scrollTop = body.scrollHeight;
+  }
+
+  function printHtml(html, cls = 'res') {
+    const div = document.createElement('div');
+    div.className = `terminal-line ${cls}`;
+    div.innerHTML = html;
+    output.appendChild(div);
+    if(body) body.scrollTop = body.scrollHeight;
+  }
+
+  const COMMANDS = {
+    help: () => {
+      printHtml(`
+<strong style="color:var(--acid);">AVAILABLE COMMANDS:</strong>
+  <span style="color:var(--acid2);">whoami</span>      - Display operative identity & background
+  <span style="color:var(--acid2);">stats</span>       - Full platform metrics summary
+  <span style="color:var(--acid2);">tomctf</span>      - TOM CTF @ KALAM 2026 organizer details
+  <span style="color:var(--acid2);">labs</span>        - Live Blue Team, DFIR, Forensics & Crypto labs
+  <span style="color:var(--acid2);">classroom</span>   - Steganography & Forensics Virtual Portal
+  <span style="color:var(--acid2);">tracker</span>     - CTF Tracker & Hackathon Scraper web app
+  <span style="color:var(--acid2);">ctf</span>         - Top competition rankings & event list
+  <span style="color:var(--acid2);">skills</span>      - Languages, cybersecurity domains & tools
+  <span style="color:var(--acid2);">projects</span>    - 21 GitHub repositories & deployed systems
+  <span style="color:var(--acid2);">htb</span>         - Hack The Box stats, machines & sherlocks
+  <span style="color:var(--acid2);">thm</span>         - TryHackMe dual accounts & ranks
+  <span style="color:var(--acid2);">cylab</span>       - CyLab Academy 214 completed labs
+  <span style="color:var(--acid2);">leetcode</span>    - 90 solved problems in Python DSA
+  <span style="color:var(--acid2);">teams</span>       - Active CTF squads & alliances
+  <span style="color:var(--acid2);">contact</span>     - Contact channels & email
+  <span style="color:var(--acid2);">banner</span>      - Display cyber ASCII banner
+  <span style="color:var(--acid2);">date</span>        - Display current UTC/Local timestamp
+  <span style="color:var(--acid2);">clear</span>       - Clear the terminal screen
+  <span style="color:var(--acid2);">matrix</span>      - Trigger digital rain sequence`);
+    },
+
+    whoami: () => {
+      printHtml(`
+<strong>OPERATIVE IDENTITY:</strong>
+  Name:        Jesvin Bruce J
+  Aliases:     TraceHanami // ZeroKira
+  Education:   2nd Year B.E. Computer Science & Engineering (Cyber Security)
+  College:     Sri Shakthi Institute of Engineering & Technology (SSIET)
+  CGPA:        ${D.cgpa.toFixed(2)} / 10.0
+  Focus:       Offensive Security, CTFs, DFIR, Python DSA, Secure Full Stack
+  Status:      Open to security internships, collaborations & CTF tournaments`);
+    },
+
+    tomctf: () => {
+      printHtml(`
+<strong style="color:var(--gold);">TOM CTF @ KALAM 2026 (LEAD ORGANIZER & AUTHOR):</strong>
+  • Event:         TOM CTF @ KALAM 2026
+  • Host Org:      Sri Shakthi Institute of Engineering and Technology (SSIET)
+  • Role:          Lead Organizer & Challenge Creator
+  • Domains:       Web Exploitation, Forensics, Reverse Engineering, Cryptography
+  • Platform:      https://unstop.com/hackathons/tom-ctf-sri-shakthi-institute-of-engineering-technology-1635654`);
+    },
+
+    labs: () => {
+      printHtml(`
+<strong style="color:var(--acid);">LIVE CYBER LAB INFRASTRUCTURE:</strong>
+  • Scope:         Blue Team Defense, DFIR, Forensics, Cryptography, Misc CTF challenges
+  • Architecture:  Custom self-hosted interactive attack/defense practice environment
+  • Live Host:     http://110.172.151.108/`);
+    },
+
+    classroom: () => {
+      printHtml(`
+<strong style="color:var(--acid2);">STEGANOGRAPHY & FORENSICS VIRTUAL CLASSROOM:</strong>
+  • Suite:         Forensic Analysis, Steganographic Decoders, Metadata, File Carving
+  • Architecture:  Interactive Web Classroom and Artifact Investigation Portal
+  • Portal URL:    http://110.172.151.108:5173/login`);
+    },
+
+    tracker: () => {
+      printHtml(`
+<strong style="color:var(--warn);">CTF TRACKER & HACKATHON SCRAPER:</strong>
+  • App:           Automated CTF & Hackathon Intelligence Aggregator
+  • Features:      Real-time tournament scraping, deadlines, prizes, and registrations
+  • Live Web App:  https://ctf-tracker.vercel.app/`);
+    },
+
+    stats: () => {
+      const picoTotal = D.pico_easy + D.pico_med;
+      printHtml(`
+<strong style="color:var(--acid);">SYSTEM TELEMETRY SUMMARY:</strong>
+  ┌ PicoCTF:       ${picoTotal} Flags Captured (${D.pico_easy} Easy · ${D.pico_med} Medium)
+  ├ Hack The Box:  Level ${D.htb_level || 25} · 25 Challenges · 4 Machines · 5 Sherlocks · 13 Badges
+  ├ TryHackMe:     Top 20% (@tracehanami) & Top 50% (@TraceHanami · Pathfinder) · 27 Rooms
+  ├ CyLab Academy: ${D.cylab_total || 214} Completed Labs (98 Easy · 111 Medium · 5 Hard)
+  ├ LeetCode:      ${D.lc_solved || 90} Problems Solved · ${D.lc_acc.toFixed(2)}% Acceptance Rate (Python DSA)
+  ├ GitHub:        ${D.gh_projects || 21} Created Repositories (4 Cyber · 3 Full Stack · 2 Web · 9 Core)
+  ├ Live Labs:     http://110.172.151.108/ & Classroom http://110.172.151.108:5173/login
+  ├ CTF Organizer: TOM CTF @ KALAM 2026 (Unstop)
+  ├ CTF Tracker:   https://ctf-tracker.vercel.app/
+  ├ CTF Events:    ${D.ctf_events.length} Competitions Entered (Best: ${getBestRank()} Place)
+  └ Academic CGPA: ${D.cgpa.toFixed(2)} / 10.0 · SSIET`);
+    },
+
+    ctf: () => {
+      const top = D.ctf_events.slice(0, 8);
+      let list = top.map(e => `  • [${e.place || 'Participated'}] ${e.name} (${e.org || e.team})`).join('\n');
+      printHtml(`
+<strong style="color:var(--gold);">CTF COMPETITION HIGHLIGHTS (${D.ctf_events.length} Total Events):</strong>
+${list}
+  ... + ${D.ctf_events.length - top.length} more tournaments in database.
+  🏆 Organizer of TOM CTF @ KALAM 2026 (SSIET · Unstop)`);
+    },
+
+    skills: () => {
+      printHtml(`
+<strong style="color:var(--acid);">TECHNICAL SKILL MATRIX:</strong>
+  • Languages:     Python (85%), C (85% · NSDC Certified), C++ (80%), Java (75%), SQL (70%), Bash (75%)
+  • Security:      Web Security, DFIR (5 HTB Sherlocks), Cryptography, Network Defense, Reverse Engineering, OSINT
+  • Tooling:       Kali Linux, Wireshark, Burp Suite, Nmap, Metasploit, Ghidra, Volatility, GDB, CyberChef
+  • Core CS:       Data Structures & Algorithms, Operating Systems, Computer Networks (TCP/IP), DBMS
+  • Deployed:      Blue Team/DFIR Labs (110.172.151.108), Forensic Classroom (:5173), CTF Tracker (Vercel)`);
+    },
+
+    projects: () => {
+      printHtml(`
+<strong style="color:var(--acid2);">DEPLOYED PLATFORMS & GITHUB ARSENAL:</strong>
+  🚀 Live Platforms:
+     • Live Cyber Labs (Blue Team/DFIR):  http://110.172.151.108/
+     • Forensic Classroom Portal:         http://110.172.151.108:5173/login
+     • CTF Tracker & Hackathon Scraper:   https://ctf-tracker.vercel.app/
+     • TOM CTF @ KALAM 2026 (Organizer):  https://unstop.com/hackathons/tom-ctf-sri-shakthi-institute-of-engineering-technology-1635654
+  🛡️ Cybersecurity (4):  writeups, iReport-Your-Cybercrime-Assistant, SecureAccess, Hack The Shield
+  ⚡ Full Stack (3):     End-to-end architectures, APIs, relational DB systems
+  🌐 Web Dev (2):        Interactive cybersecurity portfolios, tools & interfaces
+  💻 Core Coding (9):    C/C++/Python DSA & modular programs (Mathmate, ExpenseTracker, BirthdayReminder)`);
+    },
+
+    htb: () => {
+      printHtml(`
+<strong style="color:var(--acid2);">HACK THE BOX DOSSIER:</strong>
+  • Level:         Level 25
+  • Badges:        13 Badges
+  • Challenges:    25 Solved
+  • Machines:      4 Solved (Cap, Spookifier, Flag Command, Season 11)
+  • Sherlocks:     5 DFIR / Forensics Sherlocks Completed
+  • Tournament:    Cyber Apocalypse CTF 2026 (with x3n_F0rc3)
+  • Profile:       https://profile.hackthebox.com/`);
+    },
+
+    thm: () => {
+      printHtml(`
+<strong style="color:var(--warn);">TRYHACKME DUAL DOSSIER:</strong>
+  • Primary:       @TraceHanami (Top 50% · 2 Badges · 11 Rooms · Pathfinder)
+  • Secondary:     @tracehanami (Top 20% · 2 Badges · 16 Rooms)
+  • Total Solved:  27 Practical Security Rooms across Offensive & Defensive pathways`);
+    },
+
+    cylab: () => {
+      printHtml(`
+<strong style="color:var(--acid);">CYLAB ACADEMY (Carnegie Mellon):</strong>
+  • Total Labs:    214 Labs Completed
+  • Breakdown:     98 Easy · 111 Medium · 5 Hard
+  • Scope:         Completed all cybersecurity journeys except AI`);
+    },
+
+    leetcode: () => {
+      printHtml(`
+<strong style="color:var(--gold);">LEETCODE DSA DOSSIER:</strong>
+  • Problems:      90 Solved in Python
+  • Acceptance:    63.64% Acceptance Rate
+  • Key Topics:    Arrays, Hashing, Two Pointers, Sliding Window, Prefix Sum, Stack, Binary Search, Linked Lists
+  • Profile:       https://leetcode.com/u/TraceHanami/`);
+    },
+
+    teams: () => {
+      printHtml(`
+<strong style="color:var(--acid);">CTF TEAMS & ALLIANCES:</strong>
+  1. MoonlitCipher    - Primary Collegiate & National CTF Team (29+ Events)
+  2. x3n_F0rc3         - International CTF Squad (HTB Cyber Apocalypse, UIUCTF, SekaiCTF)
+  3. Psych-Glitch      - #80 India CTFtime · LIT CTF 2026 (Solved All Challenges)
+  4. Sakura Sentinels  - Global Online CTF Competitions
+  5. s0ul s0c13ty      - Security Research & Practice`);
+    },
+
+    contact: () => {
+      printHtml(`
+<strong style="color:var(--acid);">CONTACT & SOCIALS:</strong>
+  • Email:         tracehanami@gmail.com
+  • GitHub:        https://github.com/TraceHanami
+  • LinkedIn:      https://www.linkedin.com/in/jesvin-bruce-j-a2154a319
+  • TryHackMe:     https://tryhackme.com/p/TraceHanami
+  • Hack The Box:  https://profile.hackthebox.com/
+  • LeetCode:      https://leetcode.com/u/TraceHanami/
+  • CyLab:         https://learn.cylabacademy.org/account`);
+    },
+
+    clear: () => {
+      output.innerHTML = '';
+    },
+
+    banner: () => {
+      printHtml(`<pre class="terminal-banner">${escapeHTML(BANNER)}</pre>`);
+    },
+
+    date: () => {
+      printLine(new Date().toString(), 'info');
+    },
+
+    matrix: () => {
+      printHtml(`<span style="color:var(--acid);">[+] Initializing neural interface... Connected to the Matrix. Wake up, Neo.</span>`);
+    }
+  };
+
+  function executeCommand(raw) {
+    const cmd = raw.trim().toLowerCase();
+    if(!cmd) return;
+
+    printHtml(`<span class="terminal-prompt">tracehanami@kali:~$</span> ${escapeHTML(raw)}`, 'cmd');
+
+    cmdHistory.push(raw);
+    historyIdx = cmdHistory.length;
+
+    if(COMMANDS[cmd]) {
+      COMMANDS[cmd]();
+    } else {
+      printHtml(`Command not found: <span style="color:#ff6090;">${escapeHTML(cmd)}</span>. Type <strong style="color:var(--acid);">'help'</strong> for available commands.`, 'err');
+    }
+
+    input.value = '';
+  }
+
+  input.addEventListener('keydown', e => {
+    if(e.key === 'Enter') {
+      executeCommand(input.value);
+    } else if(e.key === 'ArrowUp') {
+      if(historyIdx > 0) {
+        historyIdx--;
+        input.value = cmdHistory[historyIdx] || '';
+      }
+    } else if(e.key === 'ArrowDown') {
+      if(historyIdx < cmdHistory.length - 1) {
+        historyIdx++;
+        input.value = cmdHistory[historyIdx] || '';
+      } else {
+        historyIdx = cmdHistory.length;
+        input.value = '';
+      }
+    }
+  });
+
+  runBtn?.addEventListener('click', () => executeCommand(input.value));
+
+  document.querySelectorAll('.terminal-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const cmd = chip.dataset.cmd;
+      if(cmd) executeCommand(cmd);
+    });
+  });
+
+  initTerminal();
 })();
 
 // Initial render

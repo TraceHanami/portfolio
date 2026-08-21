@@ -6,7 +6,7 @@ As a Cybersecurity Student & CTF Competitor portfolio repository, security is ta
 
 ### Preferred Contact
 
-- **Email**: [clesturbruce@gmail.com](mailto:clesturbruce@gmail.com)
+- **Email**: [tracehanami@gmail.com](mailto:tracehanami@gmail.com)
 - **GitHub Security Advisory**: Open a private draft security advisory on this repository.
 
 Please include:
